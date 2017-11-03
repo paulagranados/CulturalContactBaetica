@@ -1,0 +1,66 @@
+#On the SPARQL endpoint at http://edh-www.adw.uni-heidelberg.de/data/queryassuming the following prefixes (note the "epi" one is different from the one suggested by the SPARQL interface!):
+
+#===========================
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX nmo: <http://nomisma.org/ontology#>
+PREFIX epi: <http://edh-www.adw.uni-heidelberg.de/edh/ontology#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX lawd: <http://lawd.info/ontology/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+#===========================
+you can try the following:
+
+
+#===========================
+# List the first 100 inscriptions found either directly in Baetica or somewhere in Baetica
+# It looks like if you don't put the LIMIT, Heidelberg will still give you the first 100 anyway
+SELECT DISTINCT ?inscr ?lab
+WHERE { 
+  ?inscr a epi:inscription 
+     ; skos:prefLabel ?lab
+     ; lawd:foundAt/skos:broader* <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+} LIMIT 100
+#===========================
+
+#===========================
+# List the *next* 100 inscriptions found either directly in Baetica or somewhere in Baetica
+SELECT DISTINCT ?inscr ?lab
+WHERE { 
+  ?inscr a epi:inscription 
+     ; skos:prefLabel ?lab
+     ; lawd:foundAt/skos:broader* <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+} LIMIT 100 OFFSET 100
+# For the next 100 again you will put OFFSET 200 and so on
+#===========================
+
+#===========================
+# Also show me the dating of the incriptions *where available* (OPTIONAL)
+SELECT DISTINCT ?inscr ?lab ?sd ?ed
+WHERE { 
+  ?inscr a epi:inscription 
+     ; skos:prefLabel ?lab
+     ; lawd:foundAt/skos:broader* <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+     . OPTIONAL { ?inscr nmo:hasStartDate ?sd }
+     . OPTIONAL { ?inscr nmo:hasEndDate ?ed }
+} LIMIT 100
+#===========================
+
+#===========================
+# Give me the oldest inscriptions in Baetica dated from any year B.C. up to 50 AD
+SELECT DISTINCT ?inscr ?lab ?sd ?ed
+WHERE { 
+  ?inscr a epi:inscription 
+     ; skos:prefLabel ?lab
+     ; lawd:foundAt/skos:broader* <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+     ; nmo:hasStartDate ?sd FILTER ( ?sd < "0000" )
+     ; nmo:hasEndDate ?ed FILTER ( ?ed < "0050" )
+} ORDER BY DESC(?sd)
+#===========================
+
+Time line ontologies and periodO XML schema for dates
+XML datetime
+
