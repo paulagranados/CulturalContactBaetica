@@ -1,0 +1,111 @@
+#count all triples
+
+SELECT (COUNT(*) as ?c)
+WHERE {
+  ?subject ?predicate ?object
+  }
+
+#give me all the places containing Osuna with all the matching links
+
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX lawd: <http://lawd.info/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ple: <http://pleiades.stoa.org/places/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?loc ?l ?link
+WHERE {
+VALUES(?tloc){
+    ( lawd:Place ) ( ple:Place ) (geo:SpatialThing) (skos:Concept)
+}
+ ?loc a ?tloc ; skos:altLabel|skos:prefLabel|rdfs:label ?l FILTER(CONTAINS(str(?l),"Osuna")) 
+  . OPTIONAL { ?loc owl:sameAs|^owl:sameAs|skos:closeMatch|^skos:closeMatch ?link }
+}
+
+#If you want a list of all the artefacts from Osuna, you will need to use this triple pattern in order to find all the things linked with Osuna through the pleaides uri, wikipedia uri…..
+#If you want to use pleaides as a reference, if you want to refer to Osuna only using pleiades URI. 
+
+#give me ll the matches for all the places
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX lawd: <http://lawd.info/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ple: <http://pleiades.stoa.org/places/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?loc ?l ?link
+WHERE {
+VALUES(?tloc){
+    ( lawd:Place ) ( ple:Place ) (geo:SpatialThing) (skos:Concept)
+}
+ ?loc a ?tloc ; skos:altLabel|skos:prefLabel|rdfs:label ?l FILTER ( langMatches( lang(?l), "en" ) || langMatches( lang(?l), "es" ) || langMatches( lang(?l), "de" ) )
+  . OPTIONAL { ?loc owl:sameAs|^owl:sameAs|skos:closeMatch|^skos:closeMatch ?link }
+}
+
+#give me all the matches between places within Baetica 
+
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX lawd: <http://lawd.info/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ple: <http://pleiades.stoa.org/places/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+
+SELECT DISTINCT ?loc ?l ?link
+WHERE {
+VALUES(?tloc){
+    ( lawd:Place ) ( ple:Place ) (geo:SpatialThing) (skos:Concept)
+}
+ ?loc a ?tloc ; skos:altLabel|skos:prefLabel|rdfs:label ?l FILTER ( langMatches( lang(?l), "en" ) || langMatches( lang(?l), "es" ) || langMatches( lang(?l), "de" ) )
+  . ?loc skos:broader* <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+  . OPTIONAL { ?loc owl:sameAs|^owl:sameAs|skos:closeMatch|^skos:closeMatch ?link }
+}
+
+
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX lawd: <http://lawd.info/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ple: <http://pleiades.stoa.org/places/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+SELECT DISTINCT ?loc ?l ?link
+WHERE {
+  
+  { ?loc rdf:type lawd:Place } UNION { ?loc rdf:type ple:Place } UNION { ?loc rdf:type geo:SpatialThing } UNION { ?loc rdf:type skos:Concept } .
+  
+  { ?loc skos:altLabel ?l } UNION { ?loc skos:prefLabel ?l } UNION { ?loc rdfs:label ?l }
+  FILTER ( langMatches( lang(?l), "en" ) || langMatches( lang(?l), "es" ) || langMatches( lang(?l), "de" ) )
+  
+  .  { ?loc skos:broader <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030> } UNION { ?loc skos:broader ?loc1 . ?loc1 skos:broader <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030> } 
+  
+  . OPTIONAL { { ?loc owl:sameAs ?link } UNION { ?link owl:sameAs ?loc } UNION { ?loc skos:closeMatch ?link } UNION { ?link skos:closeMatch ?loc }  }
+}
+
+#give me all the matches between places within Baetica 
+
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+PREFIX lawd: <http://lawd.info/ontology/>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ple: <http://pleiades.stoa.org/places/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+
+
+SELECT DISTINCT ?artef ?loc ?l
+WHERE {
+  ?artef geo:location ?loc ; a crm:E24
+   #. ?link skos:broader* <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+  . ?loc owl:sameAs/^skos:closeMatch/skos:broader <http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030>
+     ; skos:altLabel ?l
+}
+
+#We are using EDH to provide an identifier for baetica. Then, we are also using it to provide the links between places in baetica and pleaides. And also getting the sculptures in Baetica. 
+#If we didnt have EDH we couldnt do this.
+
+#In order to get better results from this query, we need to complete RDF. 
+
