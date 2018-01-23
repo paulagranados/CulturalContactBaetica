@@ -8,6 +8,7 @@
 ######################
 # Development env.
 ######################
+*.egg-info
 
 # Protege #
 catalog-v001.xml
