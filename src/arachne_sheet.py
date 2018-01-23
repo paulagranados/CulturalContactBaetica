@@ -2,8 +2,38 @@
 
 import csv
 import rdflib
+import sys
 
 from rdflib import Graph, Namespace, URIRef
+
+vocabs = {
+    'material': 'https://www.eagle-network.eu/voc/material.rdf', 
+    'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf'
+}
+
+g_material = Graph()
+g_material.parse(vocabs['material'], format="xml")
+map_material = {}
+g_object_type = Graph()
+g_object_type.parse(vocabs['object_type'], format="xml")
+map_object_type = {}
+
+def lookup(label, gr, type):
+	# map = globals()['map_'+gr]
+	#if label in map:
+	#	return map[label]
+	graph = globals()['g_'+gr]
+	q = """PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT ?x
+WHERE {
+   ?x skos:inScheme <"""+type+""">
+    ; skos:altLabel ?l FILTER( lcase(str(?l)) = '"""+label+"""' )
+}"""
+	qres = graph.query(q)
+	for row in qres:
+	#	map[label] = row[0]
+		return row[0]
+	return None
 
 # Define Utility RDF prefixes
 crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
@@ -38,8 +68,20 @@ for item in list:
 			subj = base_uri + id
 			g.add( ( URIRef(subj), rdf.type, crm.E24 ) )
 	# Create the "location" predicate when there is a Pleiades URI
-	if subj and item['Pleiades URI']:
+	if subj and 'Pleiades URI' in item and item['Pleiades URI']:
 		g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
+	# Look for an exact match on the material (using the Eagle vocabulary)
+	if subj and item['Material ']:
+		match = lookup(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
+		if match:
+			g.add( ( URIRef(subj), crm.P45, URIRef(match) ) )
+	# Look for an exact match on the object type (using the Eagle vocabulary)
+	if subj and item['Type']:
+		match = lookup(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
+		if match:
+			g.add( ( URIRef(subj), crm.P2, URIRef(match) ) )
 			
 # Print the graph in Turtle format to screen
+g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
+
 print(g.serialize(format='turtle').decode('utf8'))

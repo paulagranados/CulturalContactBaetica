@@ -5,10 +5,19 @@
 # OS X #
 .DS_Store
 
+
+######################
+# Build files
+######################
+
+# setuptools #
+dist
+*.egg-info
+
+
 ######################
 # Development env.
 ######################
-*.egg-info
 
 # Protege #
 catalog-v001.xml
