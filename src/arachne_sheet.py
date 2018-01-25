@@ -4,6 +4,15 @@ import google # Local file
 
 import rdflib
 from rdflib import Graph, Namespace, URIRef
+import re
+from urllib.parse import urlparse, parse_qs
+
+# Define Utility RDF prefixes
+crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
+geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
+ple_place = Namespace('https://pleiades.stoa.org/places/')
+rdf = Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#')
+rdfs = Namespace('http://www.w3.org/2000/01/rdf-schema#')
 
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
@@ -31,8 +40,8 @@ def lookup_eagle(label, gr, type):
 	q = """PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 SELECT DISTINCT ?x
 WHERE {
-   ?x skos:inScheme <"""+type+""">
-    ; skos:altLabel ?l FILTER( lcase(str(?l)) = '"""+label+"""' )
+   ?x skos:inScheme <""" + type + """>
+    ; skos:altLabel ?l FILTER( lcase(str(?l)) = '""" + label.lower() + """' )
 }"""
 	qres = graph.query(q)
 	# Update the cache accordingly
@@ -42,11 +51,43 @@ WHERE {
 	map['_miss_'].append(label)
 	return None
 
-# Define Utility RDF prefixes
-crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
-geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
-ple_place = Namespace('https://pleiades.stoa.org/places/')
-rdf = Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#')
+def make_uuid(item, graph):
+	base_uri = "http://data.open.ac.uk/baetica/physical_object/"
+	uuid = None
+	# prefer Europeana over Arachne, and Arachne over museums
+	if 'URI 3' in item and item['URI 3']:
+		parsed = urlparse(item['URI 3'])		
+		rexp = re.compile('/record/(\d+)/')
+		matches = re.findall(rexp, parsed.path)
+		if matches : uuid = base_uri + 'ext-europeana/' + matches[0]
+	if 'URI' in item and item['URI']:
+		# Extract the Arachne ID from the URI and reuse it
+		# TODO: not the best way to do it, we should get the JSON data for that
+		# object and get the IR attribute of that
+		idd = item['URI'].rsplit('/', 1)[-1]
+		if idd and idd.isdigit():
+			uri = base_uri + 'ext-arachne/' + idd
+			if uuid : graph.add( ( URIRef(uuid), rdfs.seeAlso, URIRef(uri) ) )
+			else : uuid = uri
+	if 'URI 2' in item and item['URI 2']:
+		idd = None
+		ext = None
+		parsed = urlparse(item['URI 2'])
+		if 'www.juntadeandalucia.es' == parsed.netloc :
+			pqs = parse_qs(parsed.query)
+			if 'ninv' in pqs: 
+				idd = pqs['ninv'][0]
+				ext = 'ext-museosdeandalucia'
+		elif 'ceres.mcu.es' == parsed.netloc :
+			pqs = parse_qs(parsed.query)
+			if 'inventary' in pqs :
+				idd = pqs['inventary'][0]
+				ext = 'ext-ceres'
+		if idd and ext:
+			uri = base_uri + ext + '/' + idd
+			if uuid : graph.add( ( URIRef(uuid), rdfs.seeAlso, URIRef(uri) ) )
+			else : uuid = uri
+	return uuid
 
 g = Graph() # The final RDF graph
 
@@ -59,28 +100,20 @@ list = google.get_data('arachne', 'A:AF')
 base_uri = "http://data.open.ac.uk/baetica/physical_object/ext-arachne/"
 
 for item in list:
-	subj = ''
-	if 'URI' in item and item['URI']:
-		# Extract the Arachne ID from the URI and reuse it
-		# TODO: not the best way to do it, we should get the JSON data for that
-		# object and get the IR attribute of that
-		id = item['URI'].rsplit('/', 1)[-1]
-		if id.isdigit():
-			subj = base_uri + id
-			g.add( ( URIRef(subj), rdf.type, crm.E24 ) )
-	# Create the "location" predicate when there is a Pleiades URI
-	if subj and 'Pleiades URI' in item and item['Pleiades URI']:
-		g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
-	# Look for an exact match on the material (using the Eagle vocabulary)
-	if subj and 'Material ' in item and item['Material ']:
-		match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
-		if match:
-			g.add( ( URIRef(subj), crm.P45, URIRef(match) ) )
-	# Look for an exact match on the object type (using the Eagle vocabulary)
-	if subj and 'Type' in item and item['Type']:
-		match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-		if match:
-			g.add( ( URIRef(subj), crm.P2, URIRef(match) ) )
+	subj = make_uuid(item, g)
+	if subj : 
+		g.add( ( URIRef(subj), rdf.type, crm.E24 ) )
+		# Create the "location" predicate when there is a Pleiades URI
+		if 'Pleiades URI' in item and item['Pleiades URI']:
+			g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
+		# Look for an exact match on the material (using the Eagle vocabulary)
+		if 'Material ' in item and item['Material ']:
+			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
+			if match: g.add( ( URIRef(subj), crm.P45, URIRef(match) ) )
+		# Look for an exact match on the object type (using the Eagle vocabulary)
+		if 'Type' in item and item['Type']:
+			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
+			if match: g.add( ( URIRef(subj), crm.P2, URIRef(match) ) )
 			
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
