@@ -11,6 +11,7 @@
 ######################
 
 # setuptools #
+__pycache__
 dist
 *.egg-info
 
@@ -21,3 +22,11 @@ dist
 
 # Protege #
 catalog-v001.xml
+
+
+######################
+# Untracked sources
+######################
+
+# config #
+config.py

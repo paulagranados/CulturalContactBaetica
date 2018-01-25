@@ -9,6 +9,7 @@ setup(name='Cultural Contact Baetica',
       author_email='',
       url='https://github.com/paulagranados/CulturalContactBaetica',
       install_requires=[
+         'google-api-python-client',
          'rdflib'
       ],
 )
