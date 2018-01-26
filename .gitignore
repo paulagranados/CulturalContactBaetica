@@ -12,9 +12,10 @@
 
 # setuptools #
 __pycache__
+build
 dist
 *.egg-info
-
+*.pyc
 
 ######################
 # Development env.
