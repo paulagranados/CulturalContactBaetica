@@ -22,21 +22,19 @@ un = Namespace ('http://www.owl-ontologies.com/Ontology1181490123.owl#')
 
 vocabs = {
     'type': 'http://nomisma.org/ontology#ObjectType'
-    'mint': 
+    'mint': 'http://nomisma.org/ontology#Mint' 
     'material': 'http://nomisma.org/ontology#Material' 
-    'authority': 
-    'date': 
-    'endDate': 'http://nomisma.org/ontology#EndDate' 
-    'anverse': 
-    'reverse': 
+    'date': 'https://www.eagle-network.eu/voc/dates/">' 
+    'endDate': 'http://nomisma.org/ontology#EndDate'  
     'legend': 'http://nomisma.org/ontology#Legend' 
     'language': 
+    'legend': 
     'iconography': 'http://nomisma.org/ontology#Iconography'
     'weight': 
     'diametre': 
     'findspot': 'http://nomisma.org/ontology#Findspot'
     'issuer': 'http://nomisma.org/ontology#Issuer' 
-    'ethnic': http://nomisma.org/ontology#Ethnic'
+    'ethnic': 'http://nomisma.org/ontology#Ethnic'
     'culture': 
     
 }
