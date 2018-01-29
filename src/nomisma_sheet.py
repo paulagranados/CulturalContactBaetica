@@ -43,16 +43,41 @@ g_mint = Graph ()
 g_mint.parse(vocabs['mint'], format="xml")
 g_date = Graph()
 g_date.parse(vocabs['date'], format="xml")
+g_end_date = Graph()
+g_end_date.parse(vocabs['end_date'], format="xml")
+g_legend = Graph()
+g_legend.parse(vocabs['legend'], format="xml")
+g_iconography = Graph()
+g_iconography.parse(vocabs['iconography'], format="xml")
+g_findspot = Graph()
+g_fndspot.parse(vocabs['findspot'], format="xml")
+g_issuer = Graph()
+g_issuer.parse(vocabs['issuer'], format="xml")
+g_ethnic = Graph()
+g_ethnic.parse(vocabs['ethnic'], format="xml")
 
-
-# Data structures to cache successful and failed matches
-map_material = { '_miss_' : [] }
-map_object_type = { '_miss_' : [] }
-
-
-    
-    
-    
+def lookup_nomisma(label, gr, type):
+	"""Tries to find a string match for a given label in a selected
+	Nomisma controlled vocabulary."""
+	# First check if a cached result exists
+	map = globals()['map_' + gr]
+	if label in map: return map[label]
+	if label in map['_miss_']: return None
+	# If not, do a local SPARQL query on the SKOS vocabulary 
+	graph = globals()['g_' + gr]
+	q = """PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+SELECT DISTINCT ?x
+WHERE {
+   ?x skos:inScheme <""" + type + """>
+    ; skos:altLabel ?l FILTER( lcase(str(?l)) = '""" + label.lower() + """' )
+}"""
+	qres = graph.query(q)
+	# Update the cache accordingly
+	for row in qres:
+		map[label] = row[0]
+		return row[0]
+	map['_miss_'].append(label)
+	return None
     
     
    
