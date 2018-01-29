@@ -56,16 +56,16 @@ g_issuer.parse(vocabs['issuer'], format="xml")
 g_ethnic = Graph()
 g_ethnic.parse(vocabs['ethnic'], format="xml")
 
-def lookup_nomisma(label, gr, type):
+def lookup_nomisma(label, gr, material, object_type, mint, date, end_date, legend, iconography, findspot, issue, ethnic):
 	"""Tries to find a string match for a given label in a selected
 	Nomisma controlled vocabulary."""
 	# First check if a cached result exists
 	map = globals()['map_' + gr]
 	if label in map: return map[label]
 	if label in map['_miss_']: return None
-	# If not, do a local SPARQL query on the SKOS vocabulary 
+	# If not, do a local SPARQL query on the Nomisma vocabulary 
 	graph = globals()['g_' + gr]
-	q = """PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+	q = """PREFIX nmo: <http://nomisma.org/ontology#>
 SELECT DISTINCT ?x
 WHERE {
    ?x skos:inScheme <""" + type + """>
@@ -78,6 +78,66 @@ WHERE {
 		return row[0]
 	map['_miss_'].append(label)
 	return None
+
+def make_uuid(item, graph):
+	base_uri = "http://data.open.ac.uk/baetica/coin/"
+	uuid = None
+	# prefer Nomisma over museums 
+	if 'URI 1' in item and item['URI 1']:
+		parsed = urlparse(item['URI 1'])		
+		rexp = re.compile('/record/(\d+)/')
+		matches = re.findall(rexp, parsed.path)
+		if matches : uuid = base_uri + 'ext-/' + matches[0]
+	if 'URI 2' in item and item['URI 2']:
+		idd = item['ID']
+		ext = None
+		parsed = urlparse(item['URI 2'])
+		if 'www.juntadeandalucia.es' == parsed.netloc :
+			pqs = parse_qs(parsed.query)
+			if 'ninv' in pqs: 
+				idd = pqs['ninv'][0]
+				ext = 'ext-museosdeandalucia'
+		elif 'ceres.mcu.es' == parsed.netloc :
+			pqs = parse_qs(parsed.query)
+			if 'inventary' in pqs :
+				idd = pqs['inventary'][0]
+				ext = 'ext-ceres'
+		if idd and ext:
+			uri = base_uri + ext + '/' + idd
+			if uuid : graph.add( ( URIRef(uuid), rdfs.seeAlso, URIRef(uri) ) )
+			else : uuid = uri
+	return uuid
+
+g = Graph() # The final RDF graph
+
+# Get the Arachne data from the online Google Sheet.
+# To use the local CSV file instead, change google.get_data to localcsv.get_data
+# and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
+list = google.get_data('NomismaMintsNew', 'A:L')
+
+# All the URIs we create for sculptures etc. will start like this
+base_uri = "http://data.open.ac.uk/baetica/coin/ext-nomisma/"
+
+for item in list:
+	subj = make_uuid(item, g)
+	if subj : 
+		g.add( ( URIRef(subj), rdf.type, crm.E24 ) )
+		# Create the "location" predicate when there is a Pleiades URI
+		if 'Pleiades URI' in item and item['Pleiades URI']:
+			g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
+		# Look for an exact match on the material (using the Eagle vocabulary)
+		if 'Material ' in item and item['Material ']:
+			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
+			if match: g.add( ( URIRef(subj), crm.P45, URIRef(match) ) )
+		# Look for an exact match on the object type (using the Eagle vocabulary)
+		if 'Type' in item and item['Type']:
+			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
+			if match: g.add( ( URIRef(subj), crm.P2, URIRef(match) ) )
+			
+# Print the graph in Turtle format to screen (with nice prefixes)
+g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
+g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
+print(g.serialize(format='turtle').decode('utf8'))
     
     
    
