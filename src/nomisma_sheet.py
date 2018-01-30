@@ -110,7 +110,7 @@ def make_uuid(item, graph):
 
 g = Graph() # The final RDF graph
 
-# Get the Arachne data from the online Google Sheet.
+# Get the Nomisma data from the online Google Sheet.
 # To use the local CSV file instead, change google.get_data to localcsv.get_data
 # and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
 list = google.get_data('NomismaMintsNew', 'A:L')
