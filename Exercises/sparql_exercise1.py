@@ -3,7 +3,7 @@ from rdfLib import Graph, Namespace, UriRef
 pip install SPARQLWrapper
 from SPARQLWrapper import SPARQLWrapper
 sparql = SPARQLWrapper ("https://collection.britishmuseum.org/sparql")
-sparql.setQuery("""
+sparql.setQuery
 #Finds all the coins from the province of Andalucia
      PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
      PREFIX thes: <http://collection.britishmuseum.org/id/thesauri/>
