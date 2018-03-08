@@ -14,4 +14,4 @@ sparql.setQuery(
 )
 Sparql.setReturnFormat(RDF)
 results = sparql.query().convert()
-for results in results: print (result). 
+for results in results: print (result).  
