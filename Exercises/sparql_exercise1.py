@@ -17,3 +17,5 @@ sparql.setReturnFormat(TURTLE)
 results = sparql.query().convert()
 for result in results:   
     print(results.serialize)
+    
+    LIMIT 10
