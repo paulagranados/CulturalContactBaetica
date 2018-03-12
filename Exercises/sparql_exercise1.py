@@ -1,7 +1,7 @@
 #pip install SPARQLWrapper
 #python
 
-from SPARQLWrapper import SPARQLWrapper, RDF, TURTLE
+from SPARQLWrapper import SPARQLWrapper, JSON
 
 sparql = SPARQLWrapper("https://collection.britishmuseum.org/sparql") 
 sparql.setQuery("""
@@ -13,7 +13,7 @@ sparql.setQuery("""
   ; rso:Thing_from_Place/(<http://www.cidoc-crm.org/cidoc-crm/P88i_forms_part_of>|^rso:Place_has_part_Place|skos:broader)* <http://collection.britishmuseum.org/id/place/x22782>
 }  LIMIT 10
 """)
-sparql.setReturnFormat(TURTLE)
+sparql.setReturnFormat(JSON)
 results = sparql.query().convert()
 for result in results:   
     print(results.serialize)
