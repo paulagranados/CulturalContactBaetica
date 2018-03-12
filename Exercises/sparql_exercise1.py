@@ -11,11 +11,11 @@ sparql.setQuery("""
      SELECT DISTINCT ?y WHERE {
   ?y rso:PX_object_type/skos:broader* thes:x6089
   ; rso:Thing_from_Place/(<http://www.cidoc-crm.org/cidoc-crm/P88i_forms_part_of>|^rso:Place_has_part_Place|skos:broader)* <http://collection.britishmuseum.org/id/place/x22782>
-}
+}  LIMIT 10
 """)
 sparql.setReturnFormat(TURTLE)
 results = sparql.query().convert()
 for result in results:   
     print(results.serialize)
     
-    LIMIT 10
+   
