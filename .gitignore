@@ -31,3 +31,11 @@ catalog-v001.xml
 
 # config #
 config.py
+
+
+######################
+# Sensitive data
+######################
+
+# API keys #
+client_secret.json
