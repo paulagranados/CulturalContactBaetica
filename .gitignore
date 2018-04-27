@@ -39,3 +39,9 @@ config.py
 
 # API keys #
 client_secret.json
+
+
+######################
+# Program output
+######################
+out/

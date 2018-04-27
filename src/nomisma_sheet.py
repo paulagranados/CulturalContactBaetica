@@ -1,26 +1,24 @@
+# This is not a Google library, it's our own wrapper for the Google Web API
 import google
-
+import os, re
 import rdflib
-from rdflib import Graph, Namespace, URIRef
-import re
+from rdflib import Graph, Namespace, URIRef, Literal
 from urllib.parse import urlparse, parse_qs
 
 # Define Utility RDF prefixes
 crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
-skos = Namespace ('http://www.w3.org/2004/02/skos/core#') 
-prov = Namespace ('http://www.w3.org/ns/prov#') 
-foaf = Namespace ('http://xmlns.com/foaf/0.1/') 
+dct = Namespace ('http://purl.org/dc/terms/') 
 geo = Namespace ('http://www.w3.org/2003/01/geo/wgs84_pos#') 
 osgeo = Namespace ('http://data.ordnancesurvey.co.uk/ontology/geometry/') 
 nmo = Namespace ('http://nomisma.org/ontology#') 
-dcterms= Namespace ('http://purl.org/dc/terms/') 
-rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') 
-xsd = Namespace ('http://www.w3.org/2001/XMLSchema#') 
 nm = Namespace ('http://nomisma.org/id/') 
-org = Namespace ('http://www.w3.org/ns/org#') 
-rdfs = Namespace ('http://www.w3.org/2000/01/rdf-schema#') 
-un = Namespace ('http://www.owl-ontologies.com/Ontology1181490123.owl#') 
+rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') 
+rdfs = Namespace ('http://www.w3.org/2000/01/rdf-schema#')
+rs = Namespace ('http://www.researchspace.org/ontology/')
+skos = Namespace ('http://www.w3.org/2004/02/skos/core#') 
+xsd = Namespace ('http://www.w3.org/2001/XMLSchema#') 
 
+# These are the URIs of the RDF vocabularies that we can load
 vocabs = {
     'dates': 'http://www.eagle-network.eu/voc/dates.rdf', 
     'nomisma': 'http://nomisma.org/ontology.rdf'
@@ -55,52 +53,41 @@ WHERE {
 	map['_miss_'].append(label)
 	return None
 
-def lookup_researchspace(coins from Spain): 
-from SPARQLWrapper import SPARQLWrapper, JSON
-
-sparql = SPARQLWrapper("https://collection.britishmuseum.org/sparql") 
-sparql.setQuery("""
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core>
-    PREFIX thes: <http://collection.britishmuseum.org/id/thesauri/>
-    PREFIX rso: <http://www.researchspace.org/ontology/>
-     SELECT DISTINCT ?y WHERE {
-  ?y rso:PX_object_type/skos:broader* thes:x6089
-  ; rso:Thing_from_Place/(<http://www.cidoc-crm.org/cidoc-crm/P88i_forms_part_of>|^rso:Place_has_part_Place|skos:broader)* <http://collection.britishmuseum.org/id/place/x22782>
+def lookup_researchspace(): 
+	from SPARQLWrapper import SPARQLWrapper, JSON
+	sparql = SPARQLWrapper("https://collection.britishmuseum.org/sparql") 
+	sparql.setQuery("""
+PREFIX skos: <http://www.w3.org/2004/02/skos/core>
+PREFIX thes: <http://collection.britishmuseum.org/id/thesauri/>
+PREFIX rso: <http://www.researchspace.org/ontology/>
+SELECT DISTINCT ?y WHERE {
+	?y rso:PX_object_type/skos:broader* thes:x6089
+	; rso:Thing_from_Place/(<http://www.cidoc-crm.org/cidoc-crm/P88i_forms_part_of>|^rso:Place_has_part_Place|skos:broader)* <http://collection.britishmuseum.org/id/place/x22782>
 } LIMIT 10  
 """)
-sparql.setReturnFormat(JSON)
-results = sparql.query().convert()
-for result in results:   
-    print(results.serialize)
+	sparql.setReturnFormat(JSON)
+	results = sparql.query().convert()
+	for result in results:
+		print(results.serialize)
     
-
-def make_uuid(item, graph):
+uricache = {}
+def make_uuid(item, graph, index = -1):
+	# All the URIs we create for Nomisma coins will start like this
 	base_uri = "http://data.open.ac.uk/baetica/coin/"
 	uuid = None
-	# prefer Nomisma over museums 
-	if 'URI 1' in item and item['URI 1']:
-		parsed = urlparse(item['URI 1'])		
-		rexp = re.compile('/record/(\d+)/')
-		matches = re.findall(rexp, parsed.path)
-		if matches : uuid = base_uri + 'ext-/' + matches[0]
-	if 'URI 2' in item and item['URI 2']:
-		idd = item['ID']
-		ext = None
-		parsed = urlparse(item['URI 2'])
-		if 'www.juntadeandalucia.es' == parsed.netloc :
-			pqs = parse_qs(parsed.query)
-			if 'ninv' in pqs: 
-				idd = pqs['ninv'][0]
-				ext = 'ext-museosdeandalucia'
-		elif 'ceres.mcu.es' == parsed.netloc :
-			pqs = parse_qs(parsed.query)
-			if 'inventary' in pqs :
-				idd = pqs['inventary'][0]
-				ext = 'ext-ceres'
-		if idd and ext:
-			uri = base_uri + ext + '/' + idd
-			if uuid : graph.add( ( URIRef(uuid), rdfs.seeAlso, URIRef(uri) ) )
-			else : uuid = uri
+	if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
+		locn = item['ID'].strip()
+		series = item['Series '].strip()
+		if locn in uricache and series in uricache[locn] : 
+			print('[WARN] there is already an item for {0} series {1} : {2}'.format(locn, series, uricache[locn][series]))
+		else:
+			p = re.compile('\s*\(.+\)')
+			hasz = abs(hash(locn + '/' + series)) % (10 ** 8)
+			locn_sane = p.sub('', locn.lower().replace('/','--')).strip().replace(' ','_')
+			uuid = base_uri + locn_sane + '/' + str(hasz)
+			if not locn in uricache : uricache[locn] = {}
+			uricache[locn][series] = uuid
+	else: print('[WARN] Could not find suitable UUID to make an URI from.')
 	return uuid
 
 g = Graph() # The final RDF graph
@@ -108,31 +95,63 @@ g = Graph() # The final RDF graph
 # Get the Nomisma data from the online Google Sheet.
 # To use the local CSV file instead, change google.get_data to localcsv.get_data
 # and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
-list = google.get_data('NomismaMintsNew', 'A:L')
+print('Slicing Google sheet NomismaMintsNew to range A:AZ ...')
+list = google.get_data('NomismaMintsNew', 'A:AZ')
+print('Done. Got {:d} elements'.format(len(list)))
 
-# All the URIs we create for sculptures etc. will start like this
-base_uri = "http://data.open.ac.uk/baetica/coin/ext-nomisma/"
 
-for item in list:
-	subj = make_uuid(item, g)
-	if subj : 
-		g.add( ( URIRef(subj), rdf.type, crm.E24 ) )
+
+for i, item in enumerate(list):
+	subj = make_uuid(item, g, i)
+	if subj :
+		subj = URIRef(subj)
+		
+		# Add some types (for rdf:type and other taxonomical properties)
+		g.add( ( subj, rdf.type, crm.E22 ) )
+		g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
+		g.add( ( subj, rs.PX_object_type, URIRef('http://collection.britishmuseum.org/id/thesauri/x6089') ) )
+		
+		# Make labels
+		if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
+			locn = item['ID'].strip()
+			series = item['Series '].strip()
+			g.add( ( subj, rdfs.label, Literal(locn + ' series ' +series, lang='en') ) )
+		
+		if 'Mint' in item and item['Mint'] :
+			mint = item['Mint'].strip()
+			p = rs.Thing_created_at_Place if mint.endswith('#this') else nmo.hasMint
+			g.add( ( subj, URIRef(p), URIRef(mint) ) )
+			
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
-			g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
+			g.add( ( subj, geo.location, URIRef(item['Pleiades URI']) ) )
+			
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
-			if match: g.add( ( URIRef(subj), crm.P45, URIRef(match) ) )
+			if match: g.add( ( subj, crm.P45, URIRef(match) ) )
+			
 		# Look for an exact match on the object type (using the Eagle vocabulary)
 		if 'Type' in item and item['Type']:
 			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-			if match: g.add( ( URIRef(subj), crm.P2, URIRef(match) ) )
+			if match: g.add( ( subj, crm.P2, URIRef(match) ) )
 			
-# Print the graph in Turtle format to screen (with nice prefixes)
+# Print the graph in Turtle format
+g.namespace_manager.bind('bm', URIRef('http://collection.britishmuseum.org/id/thesauri/'))
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
-g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
-print(g.serialize(format='turtle').decode('utf8'))
+g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
+g.namespace_manager.bind('rs', URIRef('http://www.researchspace.org/ontology/'))
+
+# ... to a file 'out/nomisma.ttl' (will create the 'out' directory if missing)
+dir = 'out'
+if not os.path.exists(dir):
+    os.makedirs(dir)
+# Note: it will overwrite the existing Turtle file!
+path = os.path.join(dir, 'nomisma.ttl')
+g.serialize(destination=path, format='turtle')
+print('DONE. Output graph written to ' + path)
+# Uncomment the following to print to screen instead of file
+# print(g.serialize(format='turtle').decode('utf8'))
     
     
    
