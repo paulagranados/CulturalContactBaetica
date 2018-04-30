@@ -53,23 +53,32 @@ WHERE {
 	map['_miss_'].append(label)
 	return None
 
-def lookup_researchspace(): 
-	from SPARQLWrapper import SPARQLWrapper, JSON
+def find_matches_researchspace( mappings ):
+	"""Does a bulk lookup of the supplied mappings to ResearchSpace IDs 
+	in order to generate owl:sameAs links."""
+	from SPARQLWrapper import SPARQLWrapper, JSON, N3
+	values = 'VALUES( ?x ?id ) {'
+	for x, id in mappings.items():
+		values += '( <' + str(x) + '> "' + str(id) + '" )'
+	values += '}'
 	sparql = SPARQLWrapper("https://collection.britishmuseum.org/sparql") 
-	sparql.setQuery("""
-PREFIX skos: <http://www.w3.org/2004/02/skos/core>
-PREFIX thes: <http://collection.britishmuseum.org/id/thesauri/>
-PREFIX rso: <http://www.researchspace.org/ontology/>
-SELECT DISTINCT ?y WHERE {
-	?y rso:PX_object_type/skos:broader* thes:x6089
-	; rso:Thing_from_Place/(<http://www.cidoc-crm.org/cidoc-crm/P88i_forms_part_of>|^rso:Place_has_part_Place|skos:broader)* <http://collection.britishmuseum.org/id/place/x22782>
-} LIMIT 10  
-""")
-	sparql.setReturnFormat(JSON)
+	query = ("""
+PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
+CONSTRUCT { ?x <http://www.w3.org/2002/07/owl#sameAs> ?same } 
+WHERE { """ 
++ values + """
+  ?same crm:P48_has_preferred_identifier [
+  	  crm:P2_has_type <http://collection.britishmuseum.org/id/thesauri/identifier/prn>
+  	; <http://www.w3.org/2000/01/rdf-schema#label> ?id
+  ]
+}
+	""")
+	print(query)
+	sparql.setQuery(query)
+	sparql.setReturnFormat(N3)
 	results = sparql.query().convert()
-	for result in results:
-		print(results.serialize)
-    
+	return Graph().parse(data=results,format="n3")
+
 uricache = {}
 def make_uuid(item, graph, index = -1):
 	# All the URIs we create for Nomisma coins will start like this
@@ -100,7 +109,7 @@ list = google.get_data('NomismaMintsNew', 'A:AZ')
 print('Done. Got {:d} elements'.format(len(list)))
 
 
-
+mappings_rs = {}
 for i, item in enumerate(list):
 	subj = make_uuid(item, g, i)
 	if subj :
@@ -117,6 +126,7 @@ for i, item in enumerate(list):
 			series = item['Series '].strip()
 			g.add( ( subj, rdfs.label, Literal(locn + ' series ' +series, lang='en') ) )
 		
+		# Deal with mints. Note: the URIs ending with #this are NOT mints!
 		if 'Mint' in item and item['Mint'] :
 			mint = item['Mint'].strip()
 			p = rs.Thing_created_at_Place if mint.endswith('#this') else nmo.hasMint
@@ -126,6 +136,10 @@ for i, item in enumerate(list):
 		if 'Pleiades URI' in item and item['Pleiades URI']:
 			g.add( ( subj, geo.location, URIRef(item['Pleiades URI']) ) )
 			
+		# Check for British Museum ResearchSpace mappings and save them for later
+		if 'BM' in item and item['BM']:
+			mappings_rs[subj] = item['BM'].strip()
+
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
@@ -135,11 +149,15 @@ for i, item in enumerate(list):
 		if 'Type' in item and item['Type']:
 			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
 			if match: g.add( ( subj, crm.P2, URIRef(match) ) )
-			
+
+for t in find_matches_researchspace( mappings_rs ):
+	g.add(t)
+
 # Print the graph in Turtle format
 g.namespace_manager.bind('bm', URIRef('http://collection.britishmuseum.org/id/thesauri/'))
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
 g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
+g.namespace_manager.bind('owl', URIRef('http://www.w3.org/2002/07/owl#'))
 g.namespace_manager.bind('rs', URIRef('http://www.researchspace.org/ontology/'))
 
 # ... to a file 'out/nomisma.ttl' (will create the 'out' directory if missing)
