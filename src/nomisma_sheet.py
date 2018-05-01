@@ -2,8 +2,10 @@
 import google
 import os, re
 import rdflib
-from rdflib import Graph, Namespace, URIRef, Literal
+from rdflib import Graph, Namespace, URIRef, Literal, XSD
 from urllib.parse import urlparse, parse_qs
+
+print()
 
 # Define Utility RDF prefixes
 crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
@@ -11,7 +13,8 @@ dct = Namespace ('http://purl.org/dc/terms/')
 geo = Namespace ('http://www.w3.org/2003/01/geo/wgs84_pos#') 
 osgeo = Namespace ('http://data.ordnancesurvey.co.uk/ontology/geometry/') 
 nmo = Namespace ('http://nomisma.org/ontology#') 
-nm = Namespace ('http://nomisma.org/id/') 
+nm = Namespace ('http://nomisma.org/id/')
+owl = Namespace ('http://www.w3.org/2002/07/owl#')
 rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') 
 rdfs = Namespace ('http://www.w3.org/2000/01/rdf-schema#')
 rs = Namespace ('http://www.researchspace.org/ontology/')
@@ -55,7 +58,7 @@ WHERE {
 
 def find_matches_researchspace( mappings ):
 	"""Does a bulk lookup of the supplied mappings to ResearchSpace IDs 
-	in order to generate owl:sameAs links."""
+	in order to generate links using hasInstance."""
 	from SPARQLWrapper import SPARQLWrapper, JSON, N3
 	values = 'VALUES( ?x ?id ) {'
 	for x, id in mappings.items():
@@ -64,7 +67,7 @@ def find_matches_researchspace( mappings ):
 	sparql = SPARQLWrapper("https://collection.britishmuseum.org/sparql") 
 	query = ("""
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
-CONSTRUCT { ?x <http://www.w3.org/2002/07/owl#sameAs> ?same } 
+CONSTRUCT { ?x <http://data.open.ac.uk/ontology/culturalcontact/hasInstance> ?same } 
 WHERE { """ 
 + values + """
   ?same crm:P48_has_preferred_identifier [
@@ -72,8 +75,8 @@ WHERE { """
   	; <http://www.w3.org/2000/01/rdf-schema#label> ?id
   ]
 }
-	""")
-	print(query)
+""")
+	# print(query)
 	sparql.setQuery(query)
 	sparql.setReturnFormat(N3)
 	results = sparql.query().convert()
@@ -82,13 +85,13 @@ WHERE { """
 uricache = {}
 def make_uuid(item, graph, index = -1):
 	# All the URIs we create for Nomisma coins will start like this
-	base_uri = "http://data.open.ac.uk/baetica/coin/"
+	base_uri = "http://data.open.ac.uk/baetica/coin_type/"
 	uuid = None
 	if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
 		locn = item['ID'].strip()
 		series = item['Series '].strip()
 		if locn in uricache and series in uricache[locn] : 
-			print('[WARN] there is already an item for {0} series {1} : {2}'.format(locn, series, uricache[locn][series]))
+			print('[WARN] there is already an item for {0} series {1} : <{2}>'.format(locn, series, uricache[locn][series]))
 		else:
 			p = re.compile('\s*\(.+\)')
 			hasz = abs(hash(locn + '/' + series)) % (10 ** 8)
@@ -96,7 +99,7 @@ def make_uuid(item, graph, index = -1):
 			uuid = base_uri + locn_sane + '/' + str(hasz)
 			if not locn in uricache : uricache[locn] = {}
 			uricache[locn][series] = uuid
-	else: print('[WARN] Could not find suitable UUID to make an URI from.')
+	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
 
 g = Graph() # The final RDF graph
@@ -116,8 +119,9 @@ for i, item in enumerate(list):
 		subj = URIRef(subj)
 		
 		# Add some types (for rdf:type and other taxonomical properties)
-		g.add( ( subj, rdf.type, crm.E22 ) )
-		g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
+		g.add( ( subj, rdf.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinCategory") ) )
+		g.add( ( subj, rdf.type, owl.Class ) )
+		# g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
 		g.add( ( subj, rs.PX_object_type, URIRef('http://collection.britishmuseum.org/id/thesauri/x6089') ) )
 		
 		# Make labels
@@ -140,6 +144,64 @@ for i, item in enumerate(list):
 		if 'BM' in item and item['BM']:
 			mappings_rs[subj] = item['BM'].strip()
 
+		# Look for inscriptions, their languages etc.
+		# TODO characterise obverse and reverse semantically
+		pref_rs_thes = 'http://collection.britishmuseum.org/id/thesauri/'
+		# Obverse
+		has_o_inscr = 'ObverseLegend1' in item and item['ObverseLegend1'] \
+			or 'ObverseLanguage1' in item and item['ObverseLanguage1'] \
+			or 'ObverseScript1' in item and item['ObverseScript1']
+		has_o = 'ObverseDescription' in item and item['ObverseDescription']
+		if has_o or has_o_inscr:
+			obv = URIRef(subj + '/obverse')
+			g.add( ( subj, crm.P65_shows_visual_item, obv ) ) # P65_shows_visual_item
+			if has_o : g.add( ( obv, dct.description, Literal(item['ObverseDescription'].strip(), lang='en') ) )
+			if has_o_inscr :
+				obvinscr = URIRef(subj + '/obverse/inscription')
+				g.add( ( obv, crm.P128_carries, obvinscr ) ) # P128_carries
+				obvinscr1 = URIRef(subj + '/obverse/inscription/1')
+				g.add( ( obvinscr, rdf._1, obvinscr1 ) )
+				if 'ObverseLegend1' in item and item['ObverseLegend1'] :
+					g.add( ( obvinscr1, rs.PX_has_transliteration, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
+				if 'ObverseLanguage1' in item and item['ObverseLanguage1'] :
+					g.add( ( obvinscr1, crm.P72_has_language, URIRef(pref_rs_thes+'language/' + item['ObverseLanguage1'].lower().strip().replace(' ','_')) ) )
+				if 'ObverseScript1' in item and item['ObverseScript1'] :
+					g.add( ( obvinscr1, rs.PX_inscription_script, URIRef(pref_rs_thes+'script/' + item['ObverseScript1'].lower().strip().replace(' ','_')) ) )
+					
+		# Reverse
+		has_r_inscr_1 = 'ReverseLegend1' in item and item['ReverseLegend1'] \
+			or 'ReverseLanguage1' in item and item['ReverseLanguage1'] \
+			or 'ReverseScript1' in item and item['ReverseScript1']
+		has_r_inscr_2 = 'ReverseLegend2' in item and item['ReverseLegend2'] \
+			or 'ReverseLanguage2' in item and item['ReverseLanguage2'] \
+			or 'ReverseScript2' in item and item['ReverseScript2']
+		has_r = 'ReverseDescription' in item and item['ReverseDescription']
+		if has_r or has_r_inscr_1 or has_r_inscr_2:
+			rev = URIRef(subj + '/reverse')
+			g.add( ( subj, crm.P65_shows_visual_item, rev ) ) # P65_shows_visual_item
+			if has_r : g.add( ( rev, dct.description, Literal(item['ReverseDescription'].strip(), lang='en') ) )
+			if has_r_inscr_1 or has_r_inscr_2:
+				revinscr = URIRef(subj + '/reverse/inscription')
+				g.add( ( rev, crm.P128_carries, revinscr ) ) # P128_carries
+				if has_r_inscr_1 :
+					revinscr1 = URIRef(subj + '/reverse/inscription/1')
+					g.add( ( revinscr, rdf._1, revinscr1 ) )
+					if 'ReverseLegend1' in item and item['ReverseLegend1'] :
+						g.add( ( revinscr1, rs.PX_has_transliteration, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
+					if 'ReverseLanguage1' in item and item['ReverseLanguage1'] :
+						g.add( ( revinscr1, crm.P72_has_language, URIRef(pref_rs_thes+'language/' + item['ReverseLanguage1'].lower().strip().replace(' ','_')) ) )
+					if 'ReverseScript1' in item and item['ReverseScript1'] :
+						g.add( ( revinscr1, rs.PX_inscription_script, URIRef(pref_rs_thes+'script/' + item['ReverseScript1'].lower().strip().replace(' ','_')) ) )
+				if has_r_inscr_2 :
+					revinscr2 = URIRef(subj + '/reverse/inscription/2')
+					g.add( ( revinscr, rdf._2, revinscr2 ) )
+					if 'ReverseLegend2' in item and item['ReverseLegend2'] :
+						g.add( ( revinscr2, rs.PX_has_transliteration, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
+					if 'ReverseLanguage2' in item and item['ReverseLanguage2'] :
+						g.add( ( revinscr2, crm.P72_has_language, URIRef(pref_rs_thes+'language/' + item['ReverseLanguage2'].lower().strip().replace(' ','_')) ) )
+					if 'ReverseScript2' in item and item['ReverseScript2'] :
+						g.add( ( revinscr2, rs.PX_inscription_script, URIRef(pref_rs_thes+'script/' + item['ReverseScript2'].lower().strip().replace(' ','_')) ) )
+
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
@@ -155,7 +217,9 @@ for t in find_matches_researchspace( mappings_rs ):
 
 # Print the graph in Turtle format
 g.namespace_manager.bind('bm', URIRef('http://collection.britishmuseum.org/id/thesauri/'))
+g.namespace_manager.bind('cc', URIRef('http://data.open.ac.uk/ontology/culturalcontact/'))
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
+g.namespace_manager.bind('dct', URIRef('http://purl.org/dc/terms/'))
 g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
 g.namespace_manager.bind('owl', URIRef('http://www.w3.org/2002/07/owl#'))
 g.namespace_manager.bind('rs', URIRef('http://www.researchspace.org/ontology/'))
@@ -167,8 +231,10 @@ if not os.path.exists(dir):
 # Note: it will overwrite the existing Turtle file!
 path = os.path.join(dir, 'nomisma.ttl')
 g.serialize(destination=path, format='turtle')
-print('DONE. Output graph written to ' + path)
-# Uncomment the following to print to screen instead of file
+print('DONE. ' + str(len(g)) + ' triples written to ' + path)
+
+# Uncomment the last line to print to screen instead of file
+# ... but don't forget the other messages that were printed earlier!
 # print(g.serialize(format='turtle').decode('utf8'))
     
     
