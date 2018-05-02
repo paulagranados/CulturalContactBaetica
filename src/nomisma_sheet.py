@@ -117,6 +117,7 @@ for i, item in enumerate(list):
 	subj = make_uuid(item, g, i)
 	if subj :
 		subj = URIRef(subj)
+		label = ''
 		
 		# Add some types (for rdf:type and other taxonomical properties)
 		g.add( ( subj, rdf.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinCategory") ) )
@@ -128,7 +129,8 @@ for i, item in enumerate(list):
 		if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
 			locn = item['ID'].strip()
 			series = item['Series '].strip()
-			g.add( ( subj, rdfs.label, Literal(locn + ' series ' +series, lang='en') ) )
+			label = locn + ' series ' + series
+			g.add( ( subj, rdfs.label, Literal(label, lang='en') ) )
 		
 		# Deal with mints. Note: the URIs ending with #this are NOT mints!
 		if 'Mint' in item and item['Mint'] :
@@ -156,6 +158,7 @@ for i, item in enumerate(list):
 			obv = URIRef(subj + '/obverse')
 			g.add( ( subj, crm.P65_shows_visual_item, obv ) ) # P65_shows_visual_item
 			g.add( ( obv, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
+			if label: g.add( ( obv, rdfs.label, Literal('obverse of ' + label, lang='en') ) )
 			if has_o : g.add( ( obv, dct.description, Literal(item['ObverseDescription'].strip(), lang='en') ) )
 			if has_o_inscr :
 				obvinscr = URIRef(subj + '/obverse/inscription')
@@ -185,6 +188,7 @@ for i, item in enumerate(list):
 			rev = URIRef(subj + '/reverse')
 			g.add( ( subj, crm.P65_shows_visual_item, rev ) ) # P65_shows_visual_item
 			g.add( ( rev, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
+			if label: g.add( ( rev, rdfs.label, Literal('reverse of ' + label, lang='en') ) )
 			if has_r : g.add( ( rev, dct.description, Literal(item['ReverseDescription'].strip(), lang='en') ) )
 			if has_r_inscr_1 or has_r_inscr_2:
 				revinscr = URIRef(subj + '/reverse/inscription')
