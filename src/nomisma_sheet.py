@@ -147,7 +147,6 @@ for i, item in enumerate(list):
 			mappings_rs[subj] = item['BM'].strip()
 
 		# Look for inscriptions, their languages etc.
-		# TODO characterise obverse and reverse semantically
 		pref_rs_thes = 'http://collection.britishmuseum.org/id/thesauri/'
 		# Obverse
 		has_o_inscr = 'ObverseLegend1' in item and item['ObverseLegend1'] \
@@ -236,7 +235,7 @@ for i, item in enumerate(list):
 						scr = item['ReverseScript2'].strip()
 						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
 						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
-						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) ) )
+						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
