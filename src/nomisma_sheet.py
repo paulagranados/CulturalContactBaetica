@@ -157,6 +157,7 @@ for i, item in enumerate(list):
 		if has_o or has_o_inscr:
 			obv = URIRef(subj + '/obverse')
 			g.add( ( subj, crm.P65_shows_visual_item, obv ) ) # P65_shows_visual_item
+			g.add( ( subj, nmo.hasObverse, obv ) )
 			g.add( ( obv, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
 			if label: g.add( ( obv, rdfs.label, Literal('obverse of ' + label, lang='en') ) )
 			if has_o : g.add( ( obv, dct.description, Literal(item['ObverseDescription'].strip(), lang='en') ) )
@@ -193,6 +194,7 @@ for i, item in enumerate(list):
 		if has_r or has_r_inscr_1 or has_r_inscr_2:
 			rev = URIRef(subj + '/reverse')
 			g.add( ( subj, crm.P65_shows_visual_item, rev ) ) # P65_shows_visual_item
+			g.add( ( subj, nmo.hasReverse, rev ) )
 			g.add( ( rev, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
 			if label: g.add( ( rev, rdfs.label, Literal('reverse of ' + label, lang='en') ) )
 			if has_r : g.add( ( rev, dct.description, Literal(item['ReverseDescription'].strip(), lang='en') ) )
