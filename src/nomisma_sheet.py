@@ -234,7 +234,7 @@ for i, item in enumerate(list):
 						scr = item['ReverseScript2'].strip()
 						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
 						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
-						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
+						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) ) )
 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
@@ -264,7 +264,7 @@ if not os.path.exists(dir):
     os.makedirs(dir)
 # Note: it will overwrite the existing Turtle file!
 path = os.path.join(dir, 'nomisma.ttl')
-g.serialize(destination=path, format='ntriples')
+g.serialize(destination=path, format='turtle')
 print('DONE. ' + str(len(g)) + ' triples written to ' + path)
 
 # Uncomment the last line to print to screen instead of file
