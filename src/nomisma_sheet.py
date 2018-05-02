@@ -120,7 +120,7 @@ for i, item in enumerate(list):
 		label = ''
 		
 		# Add some types (for rdf:type and other taxonomical properties)
-		g.add( ( subj, rdf.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinCategory") ) )
+		g.add( ( subj, rdf.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinSeries") ) )
 		g.add( ( subj, rdf.type, owl.Class ) )
 		# g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
 		g.add( ( subj, rs.PX_object_type, URIRef('http://collection.britishmuseum.org/id/thesauri/x6089') ) )
@@ -129,7 +129,7 @@ for i, item in enumerate(list):
 		if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
 			locn = item['ID'].strip()
 			series = item['Series '].strip()
-			label = locn + ' series ' + series
+			label = locn + ' coin series ' + series
 			g.add( ( subj, rdfs.label, Literal(label, lang='en') ) )
 		
 		# Deal with mints. Note: the URIs ending with #this are NOT mints!
