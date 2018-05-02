@@ -172,9 +172,15 @@ for i, item in enumerate(list):
 				if 'ObverseLegend1' in item and item['ObverseLegend1'] :
 					g.add( ( obvinscr1, rs.PX_has_transliteration, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
 				if 'ObverseLanguage1' in item and item['ObverseLanguage1'] :
-					g.add( ( obvinscr1, crm.P72_has_language, URIRef(pref_rs_thes+'language/' + item['ObverseLanguage1'].lower().strip().replace(' ','_')) ) )
+					lang = item['ObverseLanguage1'].strip()
+					ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
+					g.add( ( obvinscr1, crm.P72_has_language, ulang ) )
+					g.add( ( ulang, rdfs.label, Literal(lang, lang='en') ) )
 				if 'ObverseScript1' in item and item['ObverseScript1'] :
-					g.add( ( obvinscr1, rs.PX_inscription_script, URIRef(pref_rs_thes+'script/' + item['ObverseScript1'].lower().strip().replace(' ','_')) ) )
+					scr = item['ObverseScript1'].strip()
+					uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
+					g.add( ( obvinscr1, rs.PX_inscription_script, uscr ) )
+					g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
 					
 		# Reverse
 		has_r_inscr_1 = 'ReverseLegend1' in item and item['ReverseLegend1'] \
@@ -203,9 +209,15 @@ for i, item in enumerate(list):
 					if 'ReverseLegend1' in item and item['ReverseLegend1'] :
 						g.add( ( revinscr1, rs.PX_has_transliteration, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage1' in item and item['ReverseLanguage1'] :
-						g.add( ( revinscr1, crm.P72_has_language, URIRef(pref_rs_thes+'language/' + item['ReverseLanguage1'].lower().strip().replace(' ','_')) ) )
+						lang = item['ReverseLanguage1'].strip()
+						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
+						g.add( ( revinscr1, crm.P72_has_language, ulang ) )
+						g.add( ( ulang, rdfs.label, Literal(lang, lang='en') ) )
 					if 'ReverseScript1' in item and item['ReverseScript1'] :
-						g.add( ( revinscr1, rs.PX_inscription_script, URIRef(pref_rs_thes+'script/' + item['ReverseScript1'].lower().strip().replace(' ','_')) ) )
+						scr = item['ReverseScript1'].strip()
+						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
+						g.add( ( revinscr1, rs.PX_inscription_script, uscr ) )
+						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
 				if has_r_inscr_2 :
 					revinscr2 = URIRef(subj + '/reverse/inscription/2')
 					g.add( ( revinscr, rdf._2, revinscr2 ) )
@@ -214,9 +226,15 @@ for i, item in enumerate(list):
 					if 'ReverseLegend2' in item and item['ReverseLegend2'] :
 						g.add( ( revinscr2, rs.PX_has_transliteration, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage2' in item and item['ReverseLanguage2'] :
-						g.add( ( revinscr2, crm.P72_has_language, URIRef(pref_rs_thes+'language/' + item['ReverseLanguage2'].lower().strip().replace(' ','_')) ) )
+						lang = item['ReverseLanguage2'].strip()
+						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
+						g.add( ( revinscr2, crm.P72_has_language, ulang ) )
+						g.add( ( ulang, rdfs.label, Literal(lang, lang='en') ) )
 					if 'ReverseScript2' in item and item['ReverseScript2'] :
-						g.add( ( revinscr2, rs.PX_inscription_script, URIRef(pref_rs_thes+'script/' + item['ReverseScript2'].lower().strip().replace(' ','_')) ) )
+						scr = item['ReverseScript2'].strip()
+						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
+						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
+						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
@@ -246,7 +264,7 @@ if not os.path.exists(dir):
     os.makedirs(dir)
 # Note: it will overwrite the existing Turtle file!
 path = os.path.join(dir, 'nomisma.ttl')
-g.serialize(destination=path, format='turtle')
+g.serialize(destination=path, format='ntriples')
 print('DONE. ' + str(len(g)) + ' triples written to ' + path)
 
 # Uncomment the last line to print to screen instead of file
