@@ -155,12 +155,17 @@ for i, item in enumerate(list):
 		if has_o or has_o_inscr:
 			obv = URIRef(subj + '/obverse')
 			g.add( ( subj, crm.P65_shows_visual_item, obv ) ) # P65_shows_visual_item
+			g.add( ( obv, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
 			if has_o : g.add( ( obv, dct.description, Literal(item['ObverseDescription'].strip(), lang='en') ) )
 			if has_o_inscr :
 				obvinscr = URIRef(subj + '/obverse/inscription')
 				g.add( ( obv, crm.P128_carries, obvinscr ) ) # P128_carries
+				g.add( ( obvinscr, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
+				g.add( ( obvinscr, rdf.type, rdf.Bag ) )
 				obvinscr1 = URIRef(subj + '/obverse/inscription/1')
 				g.add( ( obvinscr, rdf._1, obvinscr1 ) )
+				g.add( ( obvinscr, rdfs.member, obvinscr1 ) )
+				g.add( ( obvinscr1, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
 				if 'ObverseLegend1' in item and item['ObverseLegend1'] :
 					g.add( ( obvinscr1, rs.PX_has_transliteration, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
 				if 'ObverseLanguage1' in item and item['ObverseLanguage1'] :
@@ -179,13 +184,18 @@ for i, item in enumerate(list):
 		if has_r or has_r_inscr_1 or has_r_inscr_2:
 			rev = URIRef(subj + '/reverse')
 			g.add( ( subj, crm.P65_shows_visual_item, rev ) ) # P65_shows_visual_item
+			g.add( ( rev, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
 			if has_r : g.add( ( rev, dct.description, Literal(item['ReverseDescription'].strip(), lang='en') ) )
 			if has_r_inscr_1 or has_r_inscr_2:
 				revinscr = URIRef(subj + '/reverse/inscription')
 				g.add( ( rev, crm.P128_carries, revinscr ) ) # P128_carries
+				g.add( ( revinscr, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
+				g.add( ( revinscr, rdf.type, rdf.Bag ) )
 				if has_r_inscr_1 :
 					revinscr1 = URIRef(subj + '/reverse/inscription/1')
 					g.add( ( revinscr, rdf._1, revinscr1 ) )
+					g.add( ( revinscr, rdfs.member, revinscr1 ) )
+					g.add( ( revinscr1, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
 					if 'ReverseLegend1' in item and item['ReverseLegend1'] :
 						g.add( ( revinscr1, rs.PX_has_transliteration, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage1' in item and item['ReverseLanguage1'] :
@@ -195,6 +205,8 @@ for i, item in enumerate(list):
 				if has_r_inscr_2 :
 					revinscr2 = URIRef(subj + '/reverse/inscription/2')
 					g.add( ( revinscr, rdf._2, revinscr2 ) )
+					g.add( ( revinscr, rdfs.member, revinscr2 ) )
+					g.add( ( revinscr2, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
 					if 'ReverseLegend2' in item and item['ReverseLegend2'] :
 						g.add( ( revinscr2, rs.PX_has_transliteration, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage2' in item and item['ReverseLanguage2'] :
