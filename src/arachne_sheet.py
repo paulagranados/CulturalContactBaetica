@@ -3,7 +3,7 @@
 import google # Local file
 import os, re
 import rdflib
-from rdflib import Graph, Namespace, RDF, RDFS, URIRef
+from rdflib import Graph, Literal, Namespace, OWL, RDF, RDFS, URIRef
 from urllib.parse import urlparse, parse_qs
 
 # Define Utility RDF prefixes
@@ -48,24 +48,42 @@ WHERE {
 	map['_miss_'].append(label)
 	return None
 
+def make_label(item, graph):
+	l = ''
+	if 'Culture Museum Atribution' in item and item['Culture Museum Atribution']:
+		l += item['Culture Museum Atribution'].strip()
+	if 'Material ' in item and item['Material ']:
+		l += ' ' + item['Material '].strip()
+	if 'Type' in item and item['Type']:
+		l += ' ' + item['Type'].strip()
+	if 'Settlement ' in item and item['Settlement ']:
+		l += ' from ' + item['Settlement '].strip()
+	l = l.strip()
+	return l
+
 def make_uuid(item, graph):
 	base_uri = "http://data.open.ac.uk/baetica/physical_object/"
 	uuid = None
+	if 'UUID' in item and item['UUID']:
+		uuid = base_uri + item['UUID'];
 	# prefer Europeana over Arachne, and Arachne over museums
 	if 'URI 3' in item and item['URI 3']:
 		parsed = urlparse(item['URI 3'])		
 		rexp = re.compile('/record/(\d+)/')
 		matches = re.findall(rexp, parsed.path)
-		if matches : uuid = base_uri + 'ext-europeana/' + matches[0]
+		if matches:
+			ux = base_uri + 'ext-europeana/' + matches[0]
+			if uuid : graph.add( ( URIRef(ux), OWL.sameAs, URIRef(uuid) ) )
+			else : uuid = ux
 	if 'URI' in item and item['URI']:
 		# Extract the Arachne ID from the URI and reuse it
 		# TODO: not the best way to do it, we should get the JSON data for that
 		# object and get the IR attribute of that
 		idd = item['URI'].rsplit('/', 1)[-1]
 		if idd and idd.isdigit():
-			uri = base_uri + 'ext-arachne/' + idd
-			if uuid : graph.add( ( URIRef(uuid), RDFS.seeAlso, URIRef(uri) ) )
-			else : uuid = uri
+			ux = base_uri + 'ext-arachne/' + idd
+			if uuid : graph.add( ( URIRef(ux), OWL.sameAs, URIRef(uuid) ) )
+			else : uuid = ux
 	if 'URI 2' in item and item['URI 2']:
 		idd = None
 		ext = None
@@ -81,9 +99,9 @@ def make_uuid(item, graph):
 				idd = pqs['inventary'][0]
 				ext = 'ext-ceres'
 		if idd and ext:
-			uri = base_uri + ext + '/' + idd
-			if uuid : graph.add( ( URIRef(uuid), RDFS.seeAlso, URIRef(uri) ) )
-			else : uuid = uri
+			ux = base_uri + ext + '/' + idd
+			if uuid : graph.add( ( URIRef(ux), OWL.sameAs, URIRef(uuid) ) )
+			else : uuid = ux
 	return uuid
 
 g = Graph() # The final RDF graph
@@ -91,26 +109,34 @@ g = Graph() # The final RDF graph
 # Get the Arachne data from the online Google Sheet.
 # To use the local CSV file instead, change google.get_data to localcsv.get_data
 # and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
-list = google.get_data('arachne', 'A:AF')
+list = google.get_data('arachne', 'A:AZ')
 
 # All the URIs we create for sculptures etc. will start like this
 base_uri = "http://data.open.ac.uk/baetica/physical_object/ext-arachne/"
 
-for item in list:
+for index, item in enumerate(list):
 	subj = make_uuid(item, g)
-	if subj : 
-		g.add( ( URIRef(subj), RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
+	if subj :
+		us = URIRef(subj)
+		g.add( ( us, RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
-			g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
+			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) )
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
-			if match: g.add( ( URIRef(subj), crm.P45_consists_of, URIRef(match) ) )
+			if match: g.add( ( us, crm.P45_consists_of, URIRef(match) ) )
 		# Look for an exact match on the object type (using the Eagle vocabulary)
 		if 'Type' in item and item['Type']:
 			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-			if match: g.add( ( URIRef(subj), crm.P2_has_type, URIRef(match) ) )
+			if match: g.add( ( us, crm.P2_has_type, URIRef(match) ) )
+		l = make_label(item, g)
+		if l:
+			g.add( ( us, RDFS.label, Literal(l,lang='en') ) )
+		else:
+			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
+	else:
+		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
 			
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
