@@ -42,6 +42,15 @@ client_secret.json
 
 
 ######################
+# Generated data
+######################
+
+# Derby #
+derby.log
+metastore_db
+
+
+######################
 # Program output
 ######################
 out/

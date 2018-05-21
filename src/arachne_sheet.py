@@ -1,18 +1,15 @@
 # coding: utf-8
 
 import google # Local file
-
+import os, re
 import rdflib
-from rdflib import Graph, Namespace, URIRef
-import re
+from rdflib import Graph, Namespace, RDF, RDFS, URIRef
 from urllib.parse import urlparse, parse_qs
 
 # Define Utility RDF prefixes
 crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
-rdf = Namespace('http://www.w3.org/1999/02/22-rdf-syntax-ns#')
-rdfs = Namespace('http://www.w3.org/2000/01/rdf-schema#')
 
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
@@ -67,7 +64,7 @@ def make_uuid(item, graph):
 		idd = item['URI'].rsplit('/', 1)[-1]
 		if idd and idd.isdigit():
 			uri = base_uri + 'ext-arachne/' + idd
-			if uuid : graph.add( ( URIRef(uuid), rdfs.seeAlso, URIRef(uri) ) )
+			if uuid : graph.add( ( URIRef(uuid), RDFS.seeAlso, URIRef(uri) ) )
 			else : uuid = uri
 	if 'URI 2' in item and item['URI 2']:
 		idd = None
@@ -85,7 +82,7 @@ def make_uuid(item, graph):
 				ext = 'ext-ceres'
 		if idd and ext:
 			uri = base_uri + ext + '/' + idd
-			if uuid : graph.add( ( URIRef(uuid), rdfs.seeAlso, URIRef(uri) ) )
+			if uuid : graph.add( ( URIRef(uuid), RDFS.seeAlso, URIRef(uri) ) )
 			else : uuid = uri
 	return uuid
 
@@ -102,20 +99,32 @@ base_uri = "http://data.open.ac.uk/baetica/physical_object/ext-arachne/"
 for item in list:
 	subj = make_uuid(item, g)
 	if subj : 
-		g.add( ( URIRef(subj), rdf.type, crm.E24 ) )
+		g.add( ( URIRef(subj), RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
 			g.add( ( URIRef(subj), geo.location, URIRef(item['Pleiades URI']) ) )
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
-			if match: g.add( ( URIRef(subj), crm.P45, URIRef(match) ) )
+			if match: g.add( ( URIRef(subj), crm.P45_consists_of, URIRef(match) ) )
 		# Look for an exact match on the object type (using the Eagle vocabulary)
 		if 'Type' in item and item['Type']:
 			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-			if match: g.add( ( URIRef(subj), crm.P2, URIRef(match) ) )
+			if match: g.add( ( URIRef(subj), crm.P2_has_type, URIRef(match) ) )
 			
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
 g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
-print(g.serialize(format='turtle').decode('utf8'))
+
+# ... to a file 'out/arachne.ttl' (will create the 'out' directory if missing)
+dir = 'out'
+if not os.path.exists(dir):
+    os.makedirs(dir)
+# Note: it will overwrite the existing Turtle file!
+path = os.path.join(dir, 'arachne.ttl')
+g.serialize(destination=path, format='turtle')
+print('DONE. ' + str(len(g)) + ' triples written to ' + path)
+
+# Uncomment the last line to print to screen instead of file
+# ... but don't forget that the other messages printed earlier will get in the way!
+# print(g.serialize(format='turtle').decode('utf8'))

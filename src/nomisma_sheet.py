@@ -2,8 +2,10 @@
 import google
 import os, re
 import rdflib
-from rdflib import Graph, Namespace, URIRef, Literal, XSD
+from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
+import unidecode
 from urllib.parse import urlparse, parse_qs
+from urllib.error import URLError
 
 print()
 
@@ -14,12 +16,10 @@ geo = Namespace ('http://www.w3.org/2003/01/geo/wgs84_pos#')
 osgeo = Namespace ('http://data.ordnancesurvey.co.uk/ontology/geometry/') 
 nmo = Namespace ('http://nomisma.org/ontology#') 
 nm = Namespace ('http://nomisma.org/id/')
-owl = Namespace ('http://www.w3.org/2002/07/owl#')
-rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') 
-rdfs = Namespace ('http://www.w3.org/2000/01/rdf-schema#')
+rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') # for containers
 rs = Namespace ('http://www.researchspace.org/ontology/')
-skos = Namespace ('http://www.w3.org/2004/02/skos/core#') 
-xsd = Namespace ('http://www.w3.org/2001/XMLSchema#') 
+skos = Namespace ('http://www.w3.org/2004/02/skos/core#')
+spatial = Namespace ('http://geovocab.org/spatial#')
 
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
@@ -64,7 +64,8 @@ def find_matches_researchspace( mappings ):
 	for x, id in mappings.items():
 		values += '( <' + str(x) + '> "' + str(id) + '" )'
 	values += '}'
-	sparql = SPARQLWrapper("https://collection.britishmuseum.org/sparql") 
+	#sparql = SPARQLWrapper("http://public.researchspace.org/sparql")
+	sparql = SPARQLWrapper("http://collection.britishmuseum.org/sparql") 
 	query = ("""
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 CONSTRUCT { ?x <http://data.open.ac.uk/ontology/culturalcontact/hasInstance> ?same } 
@@ -79,7 +80,10 @@ WHERE { """
 	# print(query)
 	sparql.setQuery(query)
 	sparql.setReturnFormat(N3)
-	results = sparql.query().convert()
+	try:
+		results = sparql.query().convert()
+	except:
+		raise
 	return Graph().parse(data=results,format="n3")
 
 uricache = {}
@@ -111,8 +115,9 @@ print('Slicing Google sheet NomismaMintsNew to range A:AZ ...')
 list = google.get_data('NomismaMintsNew', 'A:AZ')
 print('Done. Got {:d} elements'.format(len(list)))
 
+mappings_rs = {} # Keep track of ResearchSpace mappings
 
-mappings_rs = {}
+# Now process the rows in the spreadsheet
 for i, item in enumerate(list):
 	subj = make_uuid(item, g, i)
 	if subj :
@@ -120,8 +125,8 @@ for i, item in enumerate(list):
 		label = ''
 		
 		# Add some types (for rdf:type and other taxonomical properties)
-		g.add( ( subj, rdf.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinSeries") ) )
-		g.add( ( subj, rdf.type, owl.Class ) )
+		g.add( ( subj, RDF.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinSeries") ) )
+		g.add( ( subj, RDF.type, OWL.Class ) )
 		# g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
 		g.add( ( subj, rs.PX_object_type, URIRef('http://collection.britishmuseum.org/id/thesauri/x6089') ) )
 		
@@ -130,7 +135,7 @@ for i, item in enumerate(list):
 			locn = item['ID'].strip()
 			series = item['Series '].strip()
 			label = locn + ' coin series ' + series
-			g.add( ( subj, rdfs.label, Literal(label, lang='en') ) )
+			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 		
 		# Deal with mints. Note: the URIs ending with #this are NOT mints!
 		if 'Mint' in item and item['Mint'] :
@@ -157,30 +162,30 @@ for i, item in enumerate(list):
 			obv = URIRef(subj + '/obverse')
 			g.add( ( subj, crm.P65_shows_visual_item, obv ) ) # P65_shows_visual_item
 			g.add( ( subj, nmo.hasObverse, obv ) )
-			g.add( ( obv, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
-			if label: g.add( ( obv, rdfs.label, Literal('obverse of ' + label, lang='en') ) )
+			g.add( ( obv, RDF.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
+			if label: g.add( ( obv, RDFS.label, Literal('obverse of ' + label, lang='en') ) )
 			if has_o : g.add( ( obv, dct.description, Literal(item['ObverseDescription'].strip(), lang='en') ) )
 			if has_o_inscr :
 				obvinscr = URIRef(subj + '/obverse/inscription')
 				g.add( ( obv, crm.P128_carries, obvinscr ) ) # P128_carries
-				g.add( ( obvinscr, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
-				g.add( ( obvinscr, rdf.type, rdf.Bag ) )
+				g.add( ( obvinscr, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+				g.add( ( obvinscr, RDF.type, RDF.Bag ) )
 				obvinscr1 = URIRef(subj + '/obverse/inscription/1')
 				g.add( ( obvinscr, rdf._1, obvinscr1 ) )
-				g.add( ( obvinscr, rdfs.member, obvinscr1 ) )
-				g.add( ( obvinscr1, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
+				g.add( ( obvinscr, RDFS.member, obvinscr1 ) )
+				g.add( ( obvinscr1, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
 				if 'ObverseLegend1' in item and item['ObverseLegend1'] :
 					g.add( ( obvinscr1, rs.PX_has_transliteration, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
 				if 'ObverseLanguage1' in item and item['ObverseLanguage1'] :
 					lang = item['ObverseLanguage1'].strip()
 					ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
 					g.add( ( obvinscr1, crm.P72_has_language, ulang ) )
-					g.add( ( ulang, rdfs.label, Literal(lang, lang='en') ) )
+					g.add( ( ulang, RDFS.label, Literal(lang, lang='en') ) )
 				if 'ObverseScript1' in item and item['ObverseScript1'] :
 					scr = item['ObverseScript1'].strip()
 					uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
 					g.add( ( obvinscr1, rs.PX_inscription_script, uscr ) )
-					g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
+					g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
 					
 		# Reverse
 		has_r_inscr_1 = 'ReverseLegend1' in item and item['ReverseLegend1'] \
@@ -194,61 +199,98 @@ for i, item in enumerate(list):
 			rev = URIRef(subj + '/reverse')
 			g.add( ( subj, crm.P65_shows_visual_item, rev ) ) # P65_shows_visual_item
 			g.add( ( subj, nmo.hasReverse, rev ) )
-			g.add( ( rev, rdf.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
-			if label: g.add( ( rev, rdfs.label, Literal('reverse of ' + label, lang='en') ) )
+			g.add( ( rev, RDF.type, crm.E36_Visual_Item ) ) # E36_Visual_Item
+			if label: g.add( ( rev, RDFS.label, Literal('reverse of ' + label, lang='en') ) )
 			if has_r : g.add( ( rev, dct.description, Literal(item['ReverseDescription'].strip(), lang='en') ) )
 			if has_r_inscr_1 or has_r_inscr_2:
 				revinscr = URIRef(subj + '/reverse/inscription')
 				g.add( ( rev, crm.P128_carries, revinscr ) ) # P128_carries
-				g.add( ( revinscr, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
-				g.add( ( revinscr, rdf.type, rdf.Bag ) )
+				g.add( ( revinscr, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+				g.add( ( revinscr, RDF.type, RDF.Bag ) )
 				if has_r_inscr_1 :
 					revinscr1 = URIRef(subj + '/reverse/inscription/1')
 					g.add( ( revinscr, rdf._1, revinscr1 ) )
-					g.add( ( revinscr, rdfs.member, revinscr1 ) )
-					g.add( ( revinscr1, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
+					g.add( ( revinscr, RDFS.member, revinscr1 ) )
+					g.add( ( revinscr1, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
 					if 'ReverseLegend1' in item and item['ReverseLegend1'] :
 						g.add( ( revinscr1, rs.PX_has_transliteration, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage1' in item and item['ReverseLanguage1'] :
 						lang = item['ReverseLanguage1'].strip()
 						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
 						g.add( ( revinscr1, crm.P72_has_language, ulang ) )
-						g.add( ( ulang, rdfs.label, Literal(lang, lang='en') ) )
+						g.add( ( ulang, RDFS.label, Literal(lang, lang='en') ) )
 					if 'ReverseScript1' in item and item['ReverseScript1'] :
 						scr = item['ReverseScript1'].strip()
 						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
 						g.add( ( revinscr1, rs.PX_inscription_script, uscr ) )
-						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
+						g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
 				if has_r_inscr_2 :
 					revinscr2 = URIRef(subj + '/reverse/inscription/2')
 					g.add( ( revinscr, rdf._2, revinscr2 ) )
-					g.add( ( revinscr, rdfs.member, revinscr2 ) )
-					g.add( ( revinscr2, rdf.type, crm.E34_Inscription ) ) # E34_Inscription
+					g.add( ( revinscr, RDFS.member, revinscr2 ) )
+					g.add( ( revinscr2, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
 					if 'ReverseLegend2' in item and item['ReverseLegend2'] :
 						g.add( ( revinscr2, rs.PX_has_transliteration, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage2' in item and item['ReverseLanguage2'] :
 						lang = item['ReverseLanguage2'].strip()
 						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
 						g.add( ( revinscr2, crm.P72_has_language, ulang ) )
-						g.add( ( ulang, rdfs.label, Literal(lang, lang='en') ) )
+						g.add( ( ulang, RDFS.label, Literal(lang, lang='en') ) )
 					if 'ReverseScript2' in item and item['ReverseScript2'] :
 						scr = item['ReverseScript2'].strip()
 						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
 						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
-						g.add( ( uscr, rdfs.label, Literal(scr, lang='en') ) )
+						g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: g.add( ( subj, crm.P45, URIRef(match) ) )
+
+		# Correct to assume "Region" is the find spot?
+		if 'Region' in item and item['Region']:
+			base_uri = "http://data.open.ac.uk/baetica/"
+			# Sanitise content
+			split = re.split("[,/\?]", item['Region'])
+			locs = []
+			obj = None
+			for sp in split:
+				lloc = sp.strip()
+				if lloc:
+					loc = base_uri + 'place/' + unidecode.unidecode(lloc.lower().replace(' ','_'))
+					locs.append(loc)
+					g.add( ( URIRef(loc), RDF.type, crm.E53_Place ) )
+					g.add( ( URIRef(loc), RDFS.label, Literal(lloc,lang='es') ) )
+			locs.sort()
+			if len(locs) > 1 :
+				h = ''
+				for i,loc in enumerate(locs):
+					if i>0: h += ','
+					h += loc
+				hasz = abs(hash(h)) % (10 ** 8)
+				obj = URIRef(base_uri + 'place/union/' + str(hasz))
+				g.add( ( obj, RDF.type, crm.E53_Place ) )
+				g.add( ( obj, RDFS.label, Literal(item['Region'].strip(),lang='es') ) )
+				for loc in locs:
+					g.add( ( obj, spatial.contains, URIRef(loc) ) )
+			else : obj = locs[0]
+			if obj: g.add( ( subj, nmo.hasFindspot, URIRef(obj) ) )
 			
 		# Look for an exact match on the object type (using the Eagle vocabulary)
 		if 'Type' in item and item['Type']:
 			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
 			if match: g.add( ( subj, crm.P2, URIRef(match) ) )
 
-for t in find_matches_researchspace( mappings_rs ):
-	g.add(t)
+		# External non-semantic links
+		if 'URI Item' in item and item['URI Item']:
+			g.add( ( subj, RDFS.seeAlso, URIRef(item['URI Item'].strip()) ) )
+
+# Now do all the external lookups
+try:
+	for t in find_matches_researchspace( mappings_rs ):
+		g.add(t)
+except URLError:
+	print("[ERROR] ResearchSpace check failed. Not trying further.")
 
 # Print the graph in Turtle format
 g.namespace_manager.bind('bm', URIRef('http://collection.britishmuseum.org/id/thesauri/'))
@@ -269,7 +311,7 @@ g.serialize(destination=path, format='turtle')
 print('DONE. ' + str(len(g)) + ' triples written to ' + path)
 
 # Uncomment the last line to print to screen instead of file
-# ... but don't forget the other messages that were printed earlier!
+# ... but don't forget that the other messages printed earlier will get in the way!
 # print(g.serialize(format='turtle').decode('utf8'))
     
     
