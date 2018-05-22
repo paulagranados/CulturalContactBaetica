@@ -10,7 +10,7 @@ from urllib.error import URLError
 print()
 
 # Define Utility RDF prefixes
-crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
+crm = Namespace('http://erlangen-crm.org/current/')
 dct = Namespace ('http://purl.org/dc/terms/') 
 geo = Namespace ('http://www.w3.org/2003/01/geo/wgs84_pos#') 
 osgeo = Namespace ('http://data.ordnancesurvey.co.uk/ontology/geometry/') 
@@ -142,10 +142,6 @@ for i, item in enumerate(list):
 			mint = item['Mint'].strip()
 			p = rs.Thing_created_at_Place if mint.endswith('#this') else nmo.hasMint
 			g.add( ( subj, URIRef(p), URIRef(mint) ) )
-			
-		# Create the "location" predicate when there is a Pleiades URI
-		if 'Pleiades URI' in item and item['Pleiades URI']:
-			g.add( ( subj, geo.location, URIRef(item['Pleiades URI']) ) )
 			
 		# Check for British Museum ResearchSpace mappings and save them for later
 		if 'BM' in item and item['BM']:

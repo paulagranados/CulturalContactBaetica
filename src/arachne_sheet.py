@@ -4,10 +4,14 @@ import google # Local file
 import os, re
 import rdflib
 from rdflib import Graph, Literal, Namespace, OWL, RDF, RDFS, URIRef
+import unidecode
 from urllib.parse import urlparse, parse_qs
 
+import scrapers
+
 # Define Utility RDF prefixes
-crm = Namespace('http://www.cidoc-crm.org/cidoc-crm/')
+crm = Namespace('http://erlangen-crm.org/current/')
+DCTERMS = Namespace('http://purl.org/dc/terms/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
 
@@ -25,6 +29,10 @@ g_object_type.parse(vocabs['object_type'], format="xml")
 map_material = { '_miss_' : [] }
 map_object_type = { '_miss_' : [] }
 
+def lookup_collections(label, graph):
+	scrapers.JDA2RDF(graph)
+	return None
+
 def lookup_eagle(label, gr, type):
 	"""Tries to find a string match for a given label in a selected
 	EAGLE controlled vocabulary."""
@@ -38,15 +46,28 @@ def lookup_eagle(label, gr, type):
 SELECT DISTINCT ?x
 WHERE {
    ?x skos:inScheme <""" + type + """>
-    ; skos:altLabel ?l FILTER( lcase(str(?l)) = '""" + label.lower() + """' )
+    ; skos:prefLabel|skos:altLabel ?l FILTER( lcase(str(?l)) = '""" + label.lower() + """' )
 }"""
 	qres = graph.query(q)
 	# Update the cache accordingly
 	for row in qres:
 		map[label] = row[0]
 		return row[0]
+	print('[WARN] Could not find a match for label "' + label + '" in EAGLE vocabulary <' + type + '>')
 	map['_miss_'].append(label)
 	return None
+
+def make_basic_entity(label, graph, type):
+	"""Creates the generic triples for an entity ex novo"""
+	base_uri = 'http://data.open.ac.uk/baetica/'
+	lsani = unidecode.unidecode(label.strip().lower().replace(' ','_'))
+	if   type == crm.E55_Type     : t = 'objtyp'
+	elif type == crm.E57_Material : t = 'material'
+	else: t = 'thing'
+	subj = URIRef(base_uri + t + '/' + lsani)
+	graph.add( ( subj, RDF.type, URIRef(type) ) )
+	graph.add( ( subj, RDFS.label, Literal(label,lang='en') ) )
+	return subj
 
 def make_label(item, graph):
 	l = ''
@@ -56,6 +77,7 @@ def make_label(item, graph):
 		l += ' ' + item['Material '].strip()
 	if 'Type' in item and item['Type']:
 		l += ' ' + item['Type'].strip()
+	else : l += ' ' + 'physical object'
 	if 'Settlement ' in item and item['Settlement ']:
 		l += ' from ' + item['Settlement '].strip()
 	l = l.strip()
@@ -65,7 +87,7 @@ def make_uuid(item, graph):
 	base_uri = "http://data.open.ac.uk/baetica/physical_object/"
 	uuid = None
 	if 'UUID' in item and item['UUID']:
-		uuid = base_uri + item['UUID'];
+		uuid = base_uri + 'arachne-' + '{num:04d}'.format(num=int(item['UUID']));
 	# prefer Europeana over Arachne, and Arachne over museums
 	if 'URI 3' in item and item['URI 3']:
 		parsed = urlparse(item['URI 3'])		
@@ -119,17 +141,24 @@ for index, item in enumerate(list):
 	if subj :
 		us = URIRef(subj)
 		g.add( ( us, RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
+		if 'Description' in item and item['Description']:
+			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
+		# Look for an exact match on the material (using the Eagle vocabulary)
+		if 'Material ' in item and item['Material ']:
+			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
+			if match: um = match
+			else: um = make_basic_entity(t, g, crm.E57_Material)
+			g.add( ( us, crm.P45_consists_of, URIRef(um) ) )
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
 			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) )
-		# Look for an exact match on the material (using the Eagle vocabulary)
-		if 'Material ' in item and item['Material ']:
-			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
-			if match: g.add( ( us, crm.P45_consists_of, URIRef(match) ) )
 		# Look for an exact match on the object type (using the Eagle vocabulary)
 		if 'Type' in item and item['Type']:
-			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-			if match: g.add( ( us, crm.P2_has_type, URIRef(match) ) )
+			t = item['Type'].strip()
+			match = lookup_eagle(item['Type'].strip(), 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
+			if match: um = match
+			else: um = make_basic_entity(t, g, crm.E55_Type)
+			g.add( ( us, crm.P2_has_type, URIRef(um) ) )
 		l = make_label(item, g)
 		if l:
 			g.add( ( us, RDFS.label, Literal(l,lang='en') ) )
