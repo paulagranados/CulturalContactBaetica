@@ -1,17 +1,18 @@
 # coding: utf-8
 
-import google # Local file
 import os, re
 import rdflib
 from rdflib import Graph, Literal, Namespace, OWL, RDF, RDFS, URIRef
+from rdflib.namespace import DCTERMS
 import unidecode
 from urllib.parse import urlparse, parse_qs
 
-import scrapers
+import commons.rdf as crdf
+import google # Local module
+from scrapers.jda import JDA2RDF # Local module
 
 # Define Utility RDF prefixes
 crm = Namespace('http://erlangen-crm.org/current/')
-DCTERMS = Namespace('http://purl.org/dc/terms/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
 
@@ -29,9 +30,11 @@ g_object_type.parse(vocabs['object_type'], format="xml")
 map_material = { '_miss_' : [] }
 map_object_type = { '_miss_' : [] }
 
-def lookup_collections(label, graph):
-	scrapers.JDA2RDF(graph)
-	return None
+def lookup_collections(url, graph):
+	domain = '{u.netloc}'.format(u=urlparse(url))
+	if domain == 'www.juntadeandalucia.es' : scr = JDA2RDF(graph)
+	else : scr = None
+	if scr : scr.build( scr.scrape(url) )
 
 def lookup_eagle(label, gr, type):
 	"""Tries to find a string match for a given label in a selected
@@ -56,18 +59,6 @@ WHERE {
 	print('[WARN] Could not find a match for label "' + label + '" in EAGLE vocabulary <' + type + '>')
 	map['_miss_'].append(label)
 	return None
-
-def make_basic_entity(label, graph, type):
-	"""Creates the generic triples for an entity ex novo"""
-	base_uri = 'http://data.open.ac.uk/baetica/'
-	lsani = unidecode.unidecode(label.strip().lower().replace(' ','_'))
-	if   type == crm.E55_Type     : t = 'objtyp'
-	elif type == crm.E57_Material : t = 'material'
-	else: t = 'thing'
-	subj = URIRef(base_uri + t + '/' + lsani)
-	graph.add( ( subj, RDF.type, URIRef(type) ) )
-	graph.add( ( subj, RDFS.label, Literal(label,lang='en') ) )
-	return subj
 
 def make_label(item, graph):
 	l = ''
@@ -147,8 +138,11 @@ for index, item in enumerate(list):
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: um = match
-			else: um = make_basic_entity(t, g, crm.E57_Material)
+			else: um = crdf.make_basic_entity(t, g, crm.E57_Material)
 			g.add( ( us, crm.P45_consists_of, URIRef(um) ) )
+		# Handle external collections
+		if 'URI 2' in item and item['URI 2']:
+			lookup_collections(item['URI 2'].strip(), g)
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
 			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) )
@@ -157,7 +151,7 @@ for index, item in enumerate(list):
 			t = item['Type'].strip()
 			match = lookup_eagle(item['Type'].strip(), 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
 			if match: um = match
-			else: um = make_basic_entity(t, g, crm.E55_Type)
+			else: um = crdf.make_basic_entity(t, g, crm.E55_Type)
 			g.add( ( us, crm.P2_has_type, URIRef(um) ) )
 		l = make_label(item, g)
 		if l:
