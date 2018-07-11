@@ -1,0 +1,2595 @@
+@prefix crm: <http://www.cidoc-crm.org/cidoc-crm/> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix ns1: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://data.open.ac.uk/baetica/physical_object/1> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Abdera"@en ;
+    geo:location <https://pleiades.stoa.org/places/265762> .
+
+<http://data.open.ac.uk/baetica/physical_object/10> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Decumo 2"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/ad_decumo-2> .
+
+<http://data.open.ac.uk/baetica/physical_object/105> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman sandstone body from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/75> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/106> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman terracotta Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/107> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Carruca"@en ;
+    geo:location <https://pleiades.stoa.org/places/256062> .
+
+<http://data.open.ac.uk/baetica/physical_object/11> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Gemellas"@en ;
+    geo:location <https://pleiades.stoa.org/places/265771> .
+
+<http://data.open.ac.uk/baetica/physical_object/111> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Cartima"@en ;
+    geo:location <https://pleiades.stoa.org/places/265851> .
+
+<http://data.open.ac.uk/baetica/physical_object/112> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Carula"@en ;
+    geo:location <https://pleiades.stoa.org/places/256065> .
+
+<http://data.open.ac.uk/baetica/physical_object/113> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Castra Postumiana"@en ;
+    geo:location <https://pleiades.stoa.org/places/265853> .
+
+<http://data.open.ac.uk/baetica/physical_object/119> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Caura"@en ;
+    geo:location <https://pleiades.stoa.org/places/256086> .
+
+<http://data.open.ac.uk/baetica/physical_object/12> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Herculem"@en ;
+    geo:location <https://pleiades.stoa.org/places/255953> .
+
+<http://data.open.ac.uk/baetica/physical_object/120> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Caviclum"@en ;
+    geo:location <https://pleiades.stoa.org/places/265857> .
+
+<http://data.open.ac.uk/baetica/physical_object/122> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Cilniana"@en ;
+    geo:location <https://pleiades.stoa.org/places/256106> .
+
+<http://data.open.ac.uk/baetica/physical_object/123> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Cisimbrium"@en ;
+    geo:location <https://pleiades.stoa.org/places/265867> .
+
+<http://data.open.ac.uk/baetica/physical_object/125> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Contosolia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256125> .
+
+<http://data.open.ac.uk/baetica/physical_object/126> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Contributa"@en ;
+    geo:location <https://pleiades.stoa.org/places/256126> .
+
+<http://data.open.ac.uk/baetica/physical_object/13> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Lucos"@en ;
+    geo:location <https://pleiades.stoa.org/places/265773> .
+
+<http://data.open.ac.uk/baetica/physical_object/14> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Noulas"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/ad_Noulas> .
+
+<http://data.open.ac.uk/baetica/physical_object/141> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Corticata"@en ;
+    geo:location <https://pleiades.stoa.org/places/256244> .
+
+<http://data.open.ac.uk/baetica/physical_object/142> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Curiga"@en ;
+    geo:location <https://pleiades.stoa.org/places/256147> .
+
+<http://data.open.ac.uk/baetica/physical_object/143> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ébora"@en ;
+    geo:location <https://pleiades.stoa.org/places/255962> .
+
+<http://data.open.ac.uk/baetica/physical_object/144> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ebura Cerealis"@en ;
+    geo:location <https://pleiades.stoa.org/places/265882> .
+
+<http://data.open.ac.uk/baetica/physical_object/145> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from El Castillejo"@en .
+
+<http://data.open.ac.uk/baetica/physical_object/146> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from El Laderón"@en ;
+    geo:location <https://pleiades.stoa.org/places/265945> .
+
+<http://data.open.ac.uk/baetica/physical_object/147> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Epora"@en ;
+    geo:location <https://pleiades.stoa.org/places/265893> .
+
+<http://data.open.ac.uk/baetica/physical_object/148> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Fodina Aerariae"@en ;
+    geo:location <https://pleiades.stoa.org/places/256170> .
+
+<http://data.open.ac.uk/baetica/physical_object/149> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Fornacis"@en ;
+    geo:location <https://pleiades.stoa.org/places/256362> .
+
+<http://data.open.ac.uk/baetica/physical_object/15> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Pontem"@en ;
+    geo:location <http://pleiades.stoa.org/places/255954> .
+
+<http://data.open.ac.uk/baetica/physical_object/150> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Fuente Alamo"@en ;
+    geo:location <http://dare.ht.lu.se/places/40005.html> .
+
+<http://data.open.ac.uk/baetica/physical_object/16> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Rubras"@en ;
+    geo:location <https://pleiades.stoa.org/places/255956> .
+
+<http://data.open.ac.uk/baetica/physical_object/177> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone relief from I(p)tuci"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/179> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iliberri"@en ;
+    geo:location <https://pleiades.stoa.org/places/265921> .
+
+<http://data.open.ac.uk/baetica/physical_object/183> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ilipoula/ Ilipla"@en ;
+    geo:location <https://pleiades.stoa.org/places/256221> .
+
+<http://data.open.ac.uk/baetica/physical_object/184> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ilipula Minor"@en ;
+    geo:location <https://pleiades.stoa.org/places/256224> .
+
+<http://data.open.ac.uk/baetica/physical_object/185> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iliturgi"@en ;
+    geo:location <https://pleiades.stoa.org/places/265924> .
+
+<http://data.open.ac.uk/baetica/physical_object/186> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iliturgicola"@en ;
+    geo:location <https://pleiades.stoa.org/places/265925> .
+
+<http://data.open.ac.uk/baetica/physical_object/189> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iluro"@en ;
+    geo:location <https://pleiades.stoa.org/places/256225> .
+
+<http://data.open.ac.uk/baetica/physical_object/19> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Agatucci"@en ;
+    geo:location <https://pleiades.stoa.org/places/265784> .
+
+<http://data.open.ac.uk/baetica/physical_object/190> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ipagrum"@en ;
+    geo:location <https://pleiades.stoa.org/places/256226> .
+
+<http://data.open.ac.uk/baetica/physical_object/191> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ipolcobulcola"@en ;
+    geo:location <https://pleiades.stoa.org/places/265935> .
+
+<http://data.open.ac.uk/baetica/physical_object/192> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iponoba"@en ;
+    geo:location <https://pleiades.stoa.org/places/265936> .
+
+<http://data.open.ac.uk/baetica/physical_object/193> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iporca"@en ;
+    geo:location <https://pleiades.stoa.org/places/256227> .
+
+<http://data.open.ac.uk/baetica/physical_object/194> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ipsca"@en ;
+    geo:location <https://pleiades.stoa.org/places/265937> .
+
+<http://data.open.ac.uk/baetica/physical_object/195> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Irippo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256229> .
+
+<http://data.open.ac.uk/baetica/physical_object/196> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Irni"@en ;
+    geo:location <https://pleiades.stoa.org/places/256230> .
+
+<http://data.open.ac.uk/baetica/physical_object/197> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Isturgi"@en ;
+    geo:location <https://pleiades.stoa.org/places/265939> .
+
+<http://data.open.ac.uk/baetica/physical_object/20> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Aiungi"@en ;
+    geo:location <https://pleiades.stoa.org/places/265785> .
+
+<http://data.open.ac.uk/baetica/physical_object/21> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Anticaria"@en ;
+    geo:location <https://pleiades.stoa.org/places/265799> .
+
+<http://data.open.ac.uk/baetica/physical_object/22> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Aratispi"@en ;
+    geo:location <https://pleiades.stoa.org/places/265801> .
+
+<http://data.open.ac.uk/baetica/physical_object/23> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Arsa"@en ;
+    geo:location <https://pleiades.stoa.org/places/256159> .
+
+<http://data.open.ac.uk/baetica/physical_object/230> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/231> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/232> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/234> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Itucci"@en ;
+    geo:location <https://pleiades.stoa.org/places/256232> .
+
+<http://data.open.ac.uk/baetica/physical_object/235> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iulia Traducta"@en ;
+    geo:location <https://pleiades.stoa.org/places/256235> .
+
+<http://data.open.ac.uk/baetica/physical_object/236> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Iulipa"@en ;
+    geo:location <https://pleiades.stoa.org/places/256236> .
+
+<http://data.open.ac.uk/baetica/physical_object/237> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lacca"@en ;
+    geo:location <https://pleiades.stoa.org/places/256247> .
+
+<http://data.open.ac.uk/baetica/physical_object/238> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lacilbula"@en ;
+    geo:location <https://pleiades.stoa.org/places/256107> .
+
+<http://data.open.ac.uk/baetica/physical_object/239> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lacimurga Constantia Iulia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256250> .
+
+<http://data.open.ac.uk/baetica/physical_object/24> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Artigi"@en ;
+    geo:location <https://pleiades.stoa.org/places/255990> .
+
+<http://data.open.ac.uk/baetica/physical_object/241> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lacunis"@en ;
+    geo:location <https://pleiades.stoa.org/places/256253> .
+
+<http://data.open.ac.uk/baetica/physical_object/242> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Laelia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256254> .
+
+<http://data.open.ac.uk/baetica/physical_object/243> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Laelia?"@en ;
+    geo:location <https://pleiades.stoa.org/places/256254> .
+
+<http://data.open.ac.uk/baetica/physical_object/244> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Laepia Regia"@en ;
+    geo:location <https://pleiades.stoa.org/places/260584> .
+
+<http://data.open.ac.uk/baetica/physical_object/245> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lascuta"@en ;
+    geo:location <https://pleiades.stoa.org/places/256258> .
+
+<http://data.open.ac.uk/baetica/physical_object/247> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lucis Dubiae Fanum"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Lucis_Dubiae_Fanun> .
+
+<http://data.open.ac.uk/baetica/physical_object/248> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Lucurgentum"@en ;
+    geo:location <https://pleiades.stoa.org/places/256275> .
+
+<http://data.open.ac.uk/baetica/physical_object/249> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Maenoba"@en ;
+    geo:location <https://pleiades.stoa.org/places/265959> .
+
+<http://data.open.ac.uk/baetica/physical_object/25> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Arucci"@en ;
+    geo:location <https://pleiades.stoa.org/places/255991> .
+
+<http://data.open.ac.uk/baetica/physical_object/250> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Malaca"@en ;
+    geo:location <https://pleiades.stoa.org/places/265963> .
+
+<http://data.open.ac.uk/baetica/physical_object/251> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Mellaria"@en ;
+    geo:location <https://pleiades.stoa.org/places/256293> .
+
+<http://data.open.ac.uk/baetica/physical_object/252> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Mellaria 2"@en ;
+    geo:location <https://pleiades.stoa.org/places/256292> .
+
+<http://data.open.ac.uk/baetica/physical_object/253> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Mentesa Bastitanorum"@en ;
+    geo:location <https://pleiades.stoa.org/places/265970> .
+
+<http://data.open.ac.uk/baetica/physical_object/254> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Mercablum"@en ;
+    geo:location <https://pleiades.stoa.org/places/256295> .
+
+<http://data.open.ac.uk/baetica/physical_object/255> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Miróbriga"@en ;
+    geo:location <https://pleiades.stoa.org/places/256303> .
+
+<http://data.open.ac.uk/baetica/physical_object/258> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Munda"@en ;
+    geo:location <https://pleiades.stoa.org/places/256314> .
+
+<http://data.open.ac.uk/baetica/physical_object/259> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Munigua"@en ;
+    geo:location <https://pleiades.stoa.org/places/256318> .
+
+<http://data.open.ac.uk/baetica/physical_object/26> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Arunda"@en ;
+    geo:location <https://pleiades.stoa.org/places/255992> .
+
+<http://data.open.ac.uk/baetica/physical_object/260> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Murgi"@en ;
+    geo:location <http://pleiades.stoa.org/places/265977> .
+
+<http://data.open.ac.uk/baetica/physical_object/261> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Nabrissa"@en ;
+    geo:location <https://pleiades.stoa.org/places/256322> .
+
+<http://data.open.ac.uk/baetica/physical_object/262> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Naeva"@en ;
+    geo:location <https://pleiades.stoa.org/places/256323> .
+
+<http://data.open.ac.uk/baetica/physical_object/263> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Nertobriga"@en ;
+    geo:location <https://pleiades.stoa.org/places/256325> .
+
+<http://data.open.ac.uk/baetica/physical_object/264> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Nescania"@en ;
+    geo:location <https://pleiades.stoa.org/places/256326> .
+
+<http://data.open.ac.uk/baetica/physical_object/265> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Oba"@en ;
+    geo:location <https://pleiades.stoa.org/places/256340> .
+
+<http://data.open.ac.uk/baetica/physical_object/27> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Arva"@en ;
+    geo:location <https://pleiades.stoa.org/places/255993> .
+
+<http://data.open.ac.uk/baetica/physical_object/326> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Obúlcula"@en ;
+    geo:location <https://pleiades.stoa.org/places/256332> .
+
+<http://data.open.ac.uk/baetica/physical_object/327> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ocuri"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Ocuri> .
+
+<http://data.open.ac.uk/baetica/physical_object/328> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Oducia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256334> .
+
+<http://data.open.ac.uk/baetica/physical_object/329> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Olaurum"@en ;
+    geo:location <https://pleiades.stoa.org/places/256261> .
+
+<http://data.open.ac.uk/baetica/physical_object/330> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Olontigi?"@en ;
+    geo:location <https://pleiades.stoa.org/places/256339> .
+
+<http://data.open.ac.uk/baetica/physical_object/331> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Oningi"@en ;
+    geo:location <https://pleiades.stoa.org/places/260614> .
+
+<http://data.open.ac.uk/baetica/physical_object/332> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Onoba (Huelva)"@en ;
+    geo:location <https://pleiades.stoa.org/places/256346> .
+
+<http://data.open.ac.uk/baetica/physical_object/335> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Osca"@en ;
+    geo:location <https://pleiades.stoa.org/places/260615> .
+
+<http://data.open.ac.uk/baetica/physical_object/336> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Osqua/ Municipium"@en ;
+    geo:location <https://pleiades.stoa.org/places/265805> .
+
+<http://data.open.ac.uk/baetica/physical_object/337> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Osset"@en ;
+    geo:location <https://pleiades.stoa.org/places/256344> .
+
+<http://data.open.ac.uk/baetica/physical_object/338> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ossigi Latonium"@en ;
+    geo:location <https://pleiades.stoa.org/places/265994> .
+
+<http://data.open.ac.uk/baetica/physical_object/339> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ossonoba?"@en ;
+    geo:location <https://pleiades.stoa.org/places/256345> .
+
+<http://data.open.ac.uk/baetica/physical_object/343> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Perceiana"@en ;
+    geo:location <https://pleiades.stoa.org/places/256361> .
+
+<http://data.open.ac.uk/baetica/physical_object/344> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Portus Albus"@en ;
+    geo:location <https://pleiades.stoa.org/places/255964> .
+
+<http://data.open.ac.uk/baetica/physical_object/345> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Portus Carmonensis"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Portus_Carmonensis> .
+
+<http://data.open.ac.uk/baetica/physical_object/346> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Portus Gaditanus"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Portus_Carmonensis> .
+
+<http://data.open.ac.uk/baetica/physical_object/347> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Portus Menesthei"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Portus_Carmonensis> .
+
+<http://data.open.ac.uk/baetica/physical_object/348> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Praesidium"@en ;
+    geo:location <https://pleiades.stoa.org/places/256386> .
+
+<http://data.open.ac.uk/baetica/physical_object/349> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Regiana"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Regiana> .
+
+<http://data.open.ac.uk/baetica/physical_object/350> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Regina"@en ;
+    geo:location <https://pleiades.stoa.org/places/256397> .
+
+<http://data.open.ac.uk/baetica/physical_object/351> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Sabetum"@en ;
+    geo:location <https://pleiades.stoa.org/places/256407> .
+
+<http://data.open.ac.uk/baetica/physical_object/352> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Sabora"@en ;
+    geo:location <https://pleiades.stoa.org/places/256408> .
+
+<http://data.open.ac.uk/baetica/physical_object/354> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Saepo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256411> .
+
+<http://data.open.ac.uk/baetica/physical_object/355> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Saguntia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256412> .
+
+<http://data.open.ac.uk/baetica/physical_object/356> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Salduba"@en ;
+    geo:location <https://pleiades.stoa.org/places/256416> .
+
+<http://data.open.ac.uk/baetica/physical_object/359> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Saltum"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Saltum> .
+
+<http://data.open.ac.uk/baetica/physical_object/360> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Saudo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256437> .
+
+<http://data.open.ac.uk/baetica/physical_object/361> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Segida Augurina"@en ;
+    geo:location <https://pleiades.stoa.org/places/256440> .
+
+<http://data.open.ac.uk/baetica/physical_object/362> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Segida Restituta Iulia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256439> .
+
+<http://data.open.ac.uk/baetica/physical_object/363> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Selambina"@en ;
+    geo:location <https://pleiades.stoa.org/places/266037> .
+
+<http://data.open.ac.uk/baetica/physical_object/364> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Seria Fama Iulia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256444> .
+
+<http://data.open.ac.uk/baetica/physical_object/367> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Siarum Fortunalium"@en ;
+    geo:location <https://pleiades.stoa.org/places/256449> .
+
+<http://data.open.ac.uk/baetica/physical_object/368> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Singilia Barba"@en ;
+    geo:location <https://pleiades.stoa.org/places/256453> .
+
+<http://data.open.ac.uk/baetica/physical_object/369> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Solia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256456> .
+
+<http://data.open.ac.uk/baetica/physical_object/370> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Soricaria"@en ;
+    geo:location <https://pleiades.stoa.org/places/270373> .
+
+<http://data.open.ac.uk/baetica/physical_object/371> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Sosontigi"@en ;
+    geo:location <https://pleiades.stoa.org/places/266048> .
+
+<http://data.open.ac.uk/baetica/physical_object/372> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Sucaelo"@en ;
+    geo:location <https://pleiades.stoa.org/places/270374> .
+
+<http://data.open.ac.uk/baetica/physical_object/373> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Suel"@en ;
+    geo:location <https://pleiades.stoa.org/places/266055> .
+
+<http://data.open.ac.uk/baetica/physical_object/377> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Tucci"@en ;
+    geo:location <https://pleiades.stoa.org/places/266070> .
+
+<http://data.open.ac.uk/baetica/physical_object/378> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Turobriga"@en ;
+    geo:location <https://pleiades.stoa.org/places/256494> .
+
+<http://data.open.ac.uk/baetica/physical_object/379> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Turris Regina"@en ;
+    geo:location <https://pleiades.stoa.org/places/256492> .
+
+<http://data.open.ac.uk/baetica/physical_object/38> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Astigi"@en ;
+    geo:location <https://pleiades.stoa.org/places/255996> .
+
+<http://data.open.ac.uk/baetica/physical_object/380> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ucia"@en ;
+    geo:location <https://pleiades.stoa.org/places/266051> .
+
+<http://data.open.ac.uk/baetica/physical_object/383> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ugultunia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256126> .
+
+<http://data.open.ac.uk/baetica/physical_object/384> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ulia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256499> .
+
+<http://data.open.ac.uk/baetica/physical_object/385> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ulisi"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/Ulisi> .
+
+<http://data.open.ac.uk/baetica/physical_object/386> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Urgapa"@en ;
+    geo:location <https://pleiades.stoa.org/places/256500> .
+
+<http://data.open.ac.uk/baetica/physical_object/387> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Urium"@en ;
+    geo:location <https://pleiades.stoa.org/places/256497> .
+
+<http://data.open.ac.uk/baetica/physical_object/388> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Limestone sculpture from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/389> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/390> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/391> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian/Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/392> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian/Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/393> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian/Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/394> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone Architectural element from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/395> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian/Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/396> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian/Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/397> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/398> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/399> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/4> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman sandstone votive offering from Acinipo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/75> ;
+    geo:location <https://pleiades.stoa.org/places/255950> .
+
+<http://data.open.ac.uk/baetica/physical_object/400> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https:yypleiades.stoa.orgyplacesy256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/401> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/402> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/403> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> .
+
+<http://data.open.ac.uk/baetica/physical_object/404> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/405> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone Architectural element from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/406> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone sculpture from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/407> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone Architectural element from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/408> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone sculpture from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/409> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone Architectural element from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/410> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone sculpture from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/411> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/412> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/413> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/414> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/415> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/416> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/417> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/418> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/419> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/420> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/421> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/422> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/423> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/424> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/425> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/426> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/427> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/428> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/429> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/430> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/431> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone relief from Urso"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256503> .
+
+<http://data.open.ac.uk/baetica/physical_object/432> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Usaepo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256411> .
+
+<http://data.open.ac.uk/baetica/physical_object/433> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Vama"@en ;
+    geo:location <https://pleiades.stoa.org/places/256510> .
+
+<http://data.open.ac.uk/baetica/physical_object/434> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ventippo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256511> .
+
+<http://data.open.ac.uk/baetica/physical_object/435> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Vergilia"@en ;
+    geo:location <https://pleiades.stoa.org/places/266093> .
+
+<http://data.open.ac.uk/baetica/physical_object/436> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Vesci"@en ;
+    geo:location <https://pleiades.stoa.org/places/260553> .
+
+<http://data.open.ac.uk/baetica/physical_object/45> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Axati"@en ;
+    geo:location <https://pleiades.stoa.org/places/256002> .
+
+<http://data.open.ac.uk/baetica/physical_object/46> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Baedro"@en ;
+    geo:location <https://pleiades.stoa.org/places/256004> .
+
+<http://data.open.ac.uk/baetica/physical_object/52> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Baesippo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256007> .
+
+<http://data.open.ac.uk/baetica/physical_object/53> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Barba"@en ;
+    geo:location <https://pleiades.stoa.org/places/256453> .
+
+<http://data.open.ac.uk/baetica/physical_object/54> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Barbariana"@en ;
+    geo:location <https://pleiades.stoa.org/places/256017> .
+
+<http://data.open.ac.uk/baetica/physical_object/55> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Barbesula"@en ;
+    geo:location <https://pleiades.stoa.org/places/256016> .
+
+<http://data.open.ac.uk/baetica/physical_object/59> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Batora"@en ;
+    geo:location <https://pleiades.stoa.org/places/265825> .
+
+<http://data.open.ac.uk/baetica/physical_object/60> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Bora"@en ;
+    geo:location <https://pleiades.stoa.org/places/265829> .
+
+<http://data.open.ac.uk/baetica/physical_object/61> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Caepionis Turris"@en ;
+    geo:location <https://pleiades.stoa.org/places/256038> .
+
+<http://data.open.ac.uk/baetica/physical_object/62> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Caetaria"@en ;
+    geo:location <https://pleiades.stoa.org/places/256103> .
+
+<http://data.open.ac.uk/baetica/physical_object/63> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Calecula"@en ;
+    geo:location <https://pleiades.stoa.org/places/260521> .
+
+<http://data.open.ac.uk/baetica/physical_object/64> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Calecula"@en ;
+    geo:location <https://pleiades.stoa.org/places/265835> .
+
+<http://data.open.ac.uk/baetica/physical_object/65> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Callet"@en ;
+    geo:location <https://pleiades.stoa.org/places/256043> .
+
+<http://data.open.ac.uk/baetica/physical_object/66> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Calpe"@en ;
+    geo:location <https://pleiades.stoa.org/places/256045> .
+
+<http://data.open.ac.uk/baetica/physical_object/67> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Calpurniana"@en ;
+    geo:location <https://pleiades.stoa.org/places/265836> .
+
+<http://data.open.ac.uk/baetica/physical_object/68> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Canania"@en ;
+    geo:location <https://pleiades.stoa.org/places/256048> .
+
+<http://data.open.ac.uk/baetica/physical_object/69> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Carbula"@en ;
+    geo:location <https://pleiades.stoa.org/places/256056> .
+
+<http://data.open.ac.uk/baetica/physical_object/8> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Aras"@en ;
+    geo:location <https://pleiades.stoa.org/places/265767> .
+
+<http://data.open.ac.uk/baetica/physical_object/9> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ad Decumo 1"@en ;
+    geo:location <http://data.open.ac.uk/paula/place/ad_decumo-1> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063885> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/77> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063886> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/97> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063887> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/91> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063889> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/93> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063890> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/99> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063891> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/100> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063892> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/76> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063893> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/96> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063894> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/92> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063895> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/95> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063896> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/94> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063897> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/98> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1063899> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/101> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1087263> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/32> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1087290> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/31> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1094158> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/129> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1094622> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/30> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114399> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/127> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114409> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/34> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114410> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/33> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114411> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/28> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114448> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/49> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114455> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/29> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114511> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/3> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114512> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/2> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114545> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/37> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114597> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/365> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114682> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/334> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114765> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/43> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114793> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/42> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114804> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/128> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1114832> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/48> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115893> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/85> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115894> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/78> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115895> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/79> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115896> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/87> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115899> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/84> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115901> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/86> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115902> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/82> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115903> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/83> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115904> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/81> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1115905> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/80> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1117281> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/102> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1185925> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/90> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1186534> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/47> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1186698> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/88> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-arachne/1186699> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/89> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-europeana/2022703> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/103>,
+        <http://data.open.ac.uk/baetica/physical_object/104>,
+        <http://data.open.ac.uk/baetica/physical_object/56>,
+        <http://data.open.ac.uk/baetica/physical_object/57> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/A/CE02480> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/240> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/A/CE02902> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/374> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/A/CE02903> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/375> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/A/CE02913> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/333>,
+        <http://data.open.ac.uk/baetica/physical_object/342> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/A/CE04889> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/437> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/A/CE05227> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/256> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA00818> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/273> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01157> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/44> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0105> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/310> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0198> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/302> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0301> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/312> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0323> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/314> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0329> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/319> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0338> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/305> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0409> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/306> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0417> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/317> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0418> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/308> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0422> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/303> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/0434> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/304> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/1409> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/307> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/1445> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/309> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E01> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/272> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E02> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/276> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E03> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/277> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E04> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/271> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E05> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/323> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E06> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/278> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E07> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/279> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E08> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/274> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E09> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/280> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E10> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/285> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E11> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/313> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E13> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/286> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E14> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/287> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E15> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/282> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E16> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/288> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E17> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/289> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E18> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/290> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E19> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/315> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E20> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/292> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E21> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/316> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E22> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/324> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E24> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/321> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E25> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/318> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E26> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/322> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E27> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/293> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E29> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/294> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E30> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/295> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E31> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/296> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E34> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/291> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E36> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/297> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E37> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/283> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E38> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/298> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E43> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/300> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E44> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/275> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E45> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/299> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E46> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/311> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E49> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/284> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E50> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/301> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01683/E54> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/325> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01684> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/114> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE/DA01776> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/320> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE000020> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/132> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00019> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/224> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE000381> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/139> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00039> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/208> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE000750> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/17> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00078> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/28>,
+        <http://data.open.ac.uk/baetica/physical_object/33> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00079> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/34> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00100> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/212> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00101> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/213> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00104> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/214> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00105> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/198> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00107> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/215> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00108> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/216> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00133> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/218> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00137> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/199> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00142-1> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/340> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00142-2> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/341> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00143-1> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/219> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00144-3> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/220> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00145-2> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/221> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00148-2> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/200> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00148-3> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/201> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00150-1> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/202> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00150-2> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/180> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00151> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/222> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00152> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/203> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00157-1> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/223> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00163> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/181> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00165> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/204> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00171> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/118> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00263> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/117> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE003223> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/381> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE005416> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/138> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE007252> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/382> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE007292> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/267> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE00901> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/115> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE009045> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/131>,
+        <http://data.open.ac.uk/baetica/physical_object/246> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE010467> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/121> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE011832> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/140> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE012604> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/257> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE013164> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/178> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE01856> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/187> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE02344> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/205> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE02374> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/225> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE023800> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/167> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE024523> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/39> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE024558> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/134> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE027129> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/133> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE027130> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/135> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE02778> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/233> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE028883> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/137> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE029045> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/18> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE029048> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/35> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE02908> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/227> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE02958-01> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/228> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE029819> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/40> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE029864> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/41> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE03000> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/365> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE03001> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/366> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE030142> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/129> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE030143> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/136> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE030144> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/130> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE03951> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/229> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE03953> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/206> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE04145> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/124> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE04276> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/182> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE04584> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/160> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE04884> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/110> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE05087> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/151> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE05088> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/152> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE05396> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/209> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE05399> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/57> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE07209> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/30> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE07210> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/32> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE07442> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/31> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE08127> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/36> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE08568> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/188> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE09170> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/70> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE09540> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/49> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE10986> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/109> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE11122> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/217> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE12248> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/108> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE19197> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/358> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE1980/125> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/334> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE1998/149> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/104> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/CE26003> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/226> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ/DA01766> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/281> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ02880> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/116> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030935> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/168> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030936> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/176> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030937> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/172> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030938> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/169> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030939> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/171> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030941> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/166> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030942> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/173> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030944> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/170> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030945> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/174> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ030946> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/175> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ1088E> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/268> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ1089E> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/269> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ1090E> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/270> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ17202> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/50> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ17203> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/51> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ17204> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/47> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ1990/16-06> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/207> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ2005/19-11026> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/165> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ21991> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/159> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ21992> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/161> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ21993> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/162> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ21994> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/163> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ21995> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/164> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23459> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/153> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23460> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/154> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23461> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/155> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23462> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/156> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23463> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/157> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23464> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/158> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DJ23481> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/75> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO000086/2> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/266> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO000099> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/353> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO6903> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/376> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO7928> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/71> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO7929> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/72> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO7930> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/73> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/DO7931> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/74> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/ITA0135> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/210> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/REP08627> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/5> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/REP08628> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/6> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/REP08629> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/7> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/REP16759> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/357> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/REP27402> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/56> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/ROD2082> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/211> .
+
+<http://data.open.ac.uk/baetica/physical_object/ext-museosdeandalucia/ROD5254> ns1:sameAs <http://data.open.ac.uk/baetica/physical_object/58> .
+
+<http://data.open.ac.uk/baetica/physical_object/100> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/101> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/102> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman from Carmo"@en ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/103> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/108> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carteia"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256063> .
+
+<http://data.open.ac.uk/baetica/physical_object/109> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble body from Carteia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256063> .
+
+<http://data.open.ac.uk/baetica/physical_object/110> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Terracotta bust + pedestal from Carteia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256063> .
+
+<http://data.open.ac.uk/baetica/physical_object/114> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone relief from Castulo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> .
+
+<http://data.open.ac.uk/baetica/physical_object/115> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "sculpture from Castulo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> .
+
+<http://data.open.ac.uk/baetica/physical_object/116> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "sculpture from Castulo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> .
+
+<http://data.open.ac.uk/baetica/physical_object/117> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Limestone sculpture from Castulo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> .
+
+<http://data.open.ac.uk/baetica/physical_object/118> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "marble sculpture from Castulo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> .
+
+<http://data.open.ac.uk/baetica/physical_object/121> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble head from Celti"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/66> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256089> .
+
+<http://data.open.ac.uk/baetica/physical_object/124> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Limestone animal from Conobaria"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256124> .
+
+<http://data.open.ac.uk/baetica/physical_object/127> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/128> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman limestone fragment from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/130> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Animal from Corduba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/131> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble bust from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/132> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble bust from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/133> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble body from Corduba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/134> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/135> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble body from Corduba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/136> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble herma from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/132> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/137> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble la/ing statue from Corduba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/138> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Corduba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/139> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone head from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/66> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/140> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble herm from Corduba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/151> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman terracotta statue from Gades"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/152> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman terracotta statue from Gades"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/153> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman brown amber statue from Gades"@en ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/154> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman brown amber statue from Gades"@en ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/155> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman brown amber statue from Gades"@en ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/156> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman brown amber statue from Gades"@en ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/157> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman brown amber statue from Gades"@en ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/158> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman brown amber statue from Gades"@en ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/159> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Punic Terracotta bust from Gades"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/160> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Bronze torso from Gades"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/161> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Punic Terracotta bust from Gades"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/162> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Punic Terracotta bust from Gades"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/163> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Punic Terracotta bust from Gades"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/164> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Punic Terracotta bust from Gades"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/130> ;
+    geo:location <https://pleiades.stoa.org/places/256177> .
+
+<http://data.open.ac.uk/baetica/physical_object/165> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Hispalis"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256210> .
+
+<http://data.open.ac.uk/baetica/physical_object/166> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/167> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/168> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/169> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/17> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Hadrian limestone capitel from Adamuz/ Sacili"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <http://www.geonames.org/2522438/adamuz.html> .
+
+<http://data.open.ac.uk/baetica/physical_object/170> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/171> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/172> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/173> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone fragment from I(p)tuci"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/174> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone fragment from I(p)tuci"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/175> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone fragment from I(p)tuci"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/176> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone sculpture from I(p)tuci"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265938> .
+
+<http://data.open.ac.uk/baetica/physical_object/178> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble group from Igabrum"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265919> .
+
+<http://data.open.ac.uk/baetica/physical_object/18> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Lead Cinerar/ Urn from Adamuz/ Sacili"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/108> ;
+    geo:location <http://www.geonames.org/2522438/adamuz.html> .
+
+<http://data.open.ac.uk/baetica/physical_object/180> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Female head from Ilipa Magna"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256222> .
+
+<http://data.open.ac.uk/baetica/physical_object/181> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Ilipa Magna"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256222> .
+
+<http://data.open.ac.uk/baetica/physical_object/182> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble body from Ilipa Magna"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256222> .
+
+<http://data.open.ac.uk/baetica/physical_object/187> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone low relief from Ilurco"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265930> .
+
+<http://data.open.ac.uk/baetica/physical_object/188> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone low relief from Ilurco"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265930> .
+
+<http://data.open.ac.uk/baetica/physical_object/198> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/199> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/2> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Acinipo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255950> .
+
+<http://data.open.ac.uk/baetica/physical_object/200> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/201> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/202> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/203> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/204> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/205> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/206> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Egician serpentine sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/207> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/208> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble relief on corbel from Italica"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/209> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/210> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble relief from Italica"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/211> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman bronze statuette from Italica"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/212> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble colosal statue from Italica"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/213> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/214> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/215> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/216> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/217> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/218> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/219> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/220> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/221> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/222> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/223> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/224> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/225> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/226> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/227> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/228> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/229> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Marble sculpture from Italica"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/224> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/233> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone scupture from Italica"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256231> .
+
+<http://data.open.ac.uk/baetica/physical_object/240> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman ivor/ head from Lacipo/ Lacippo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/66> ;
+    geo:location <https://pleiades.stoa.org/places/256252> .
+
+<http://data.open.ac.uk/baetica/physical_object/246> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble bust from Los castellares"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/260496> .
+
+<http://data.open.ac.uk/baetica/physical_object/256> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble relief from Montoro"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265973> .
+
+<http://data.open.ac.uk/baetica/physical_object/257> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble herma from Monturque"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/132> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265974> .
+
+<http://data.open.ac.uk/baetica/physical_object/266> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/267> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian limestone statue from Obulco (Porcuna)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/268> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/269> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman limestone statue from Obulco (Porcuna)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/270> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman limestone statue from Obulco (Porcuna)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/271> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite group from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/272> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite statue from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/273> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/274> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite group from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/275> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragments from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/276> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/277> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/278> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/279> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/280> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/281> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite relief from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/282> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/283> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/284> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/285> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/286> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite statue from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/287> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite statue from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/288> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/289> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/29> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Asido (Medina Sidonia)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/290> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/291> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite group fragment from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/292> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/293> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite group from Obulco (Porcuna)"@en ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/294> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/295> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/296> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/297> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/298> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/299> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/3> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Acinipo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255950> .
+
+<http://data.open.ac.uk/baetica/physical_object/300> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/301> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/302> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/303> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/304> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/305> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/306> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/307> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/308> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/309> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/310> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/311> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/312> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/313> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/314> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/315> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/316> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/317> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/318> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/319> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/320> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/321> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/322> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/323> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/324> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/325> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian white calcarenite fragment from Obulco (Porcuna)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    geo:location <https://pleiades.stoa.org/places/265982> .
+
+<http://data.open.ac.uk/baetica/physical_object/333> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble female head from Onuba"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265985> .
+
+<http://data.open.ac.uk/baetica/physical_object/340> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone group from Ostippo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256347> .
+
+<http://data.open.ac.uk/baetica/physical_object/341> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone relief from Ostippo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256347> .
+
+<http://data.open.ac.uk/baetica/physical_object/342> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "from Ostur"@en ;
+    geo:location <https://pleiades.stoa.org/places/256349> .
+
+<http://data.open.ac.uk/baetica/physical_object/35> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Asido (Medina Sidonia)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/353> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Sacili Martialium"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/266017> .
+
+<http://data.open.ac.uk/baetica/physical_object/357> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Bronze animal from Salpensa"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/256417> .
+
+<http://data.open.ac.uk/baetica/physical_object/358> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman sandstone animal from Salpensa"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/75> ;
+    geo:location <https://pleiades.stoa.org/places/256417> .
+
+<http://data.open.ac.uk/baetica/physical_object/36> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Asido (Medina Sidonia)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/366> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Sexi (Almuñecar)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/266038> .
+
+<http://data.open.ac.uk/baetica/physical_object/37> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble togatus from Asta Regia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256193> .
+
+<http://data.open.ac.uk/baetica/physical_object/374> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Tharsis"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256470> .
+
+<http://data.open.ac.uk/baetica/physical_object/375> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble torso from Tharsis"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256470> .
+
+<http://data.open.ac.uk/baetica/physical_object/376> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Tartessos sandstone mask from Tharsis"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/75> ;
+    geo:location <https://pleiades.stoa.org/places/256470> .
+
+<http://data.open.ac.uk/baetica/physical_object/381> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble head from Ucubi (Espejo)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/66> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/266081> .
+
+<http://data.open.ac.uk/baetica/physical_object/382> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Ucubi (Espejo)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/266081> .
+
+<http://data.open.ac.uk/baetica/physical_object/39> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Ategua"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265808> .
+
+<http://data.open.ac.uk/baetica/physical_object/40> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone animal head from Ategua"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265808> .
+
+<http://data.open.ac.uk/baetica/physical_object/41> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Iberian Limestone fragment from Ategua"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/265808> .
+
+<http://data.open.ac.uk/baetica/physical_object/42> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Aurgi"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265810> .
+
+<http://data.open.ac.uk/baetica/physical_object/43> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Aurgi"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/265810> .
+
+<http://data.open.ac.uk/baetica/physical_object/437> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/44> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Late Roman Empire sandstone portrait from Aurgi"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/75> ;
+    geo:location <https://pleiades.stoa.org/places/265810> .
+
+<http://data.open.ac.uk/baetica/physical_object/48> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Baelo Claudia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256005> .
+
+<http://data.open.ac.uk/baetica/physical_object/5> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman bronze votive offering from Acinipo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/255950> .
+
+<http://data.open.ac.uk/baetica/physical_object/50> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Pink Marble statue from Baelo Claudia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256005> .
+
+<http://data.open.ac.uk/baetica/physical_object/51> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Pink Marble statue from Baelo Claudia"@en ;
+    geo:location <https://pleiades.stoa.org/places/256005> .
+
+<http://data.open.ac.uk/baetica/physical_object/58> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Bronze statue from Basilippo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/256020> .
+
+<http://data.open.ac.uk/baetica/physical_object/6> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman bronze votive offering from Acinipo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/255950> .
+
+<http://data.open.ac.uk/baetica/physical_object/7> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman bronze votive offering from Acinipo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/109> ;
+    geo:location <https://pleiades.stoa.org/places/255950> .
+
+<http://data.open.ac.uk/baetica/physical_object/70> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone statue tomb from Carissa Aurelia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256057> .
+
+<http://data.open.ac.uk/baetica/physical_object/71> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone statue tomb from Carissa Aurelia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256057> .
+
+<http://data.open.ac.uk/baetica/physical_object/72> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone statue tomb from Carissa Aurelia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256057> .
+
+<http://data.open.ac.uk/baetica/physical_object/73> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone statue tomb from Carissa Aurelia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256057> .
+
+<http://data.open.ac.uk/baetica/physical_object/74> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone statue tomb from Carissa Aurelia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256057> .
+
+<http://data.open.ac.uk/baetica/physical_object/75> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble female head from Carissa Aurelia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256057> .
+
+<http://data.open.ac.uk/baetica/physical_object/76> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue tomb from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/77> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue tomb from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/78> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/79> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/80> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble mask from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/81> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/82> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/83> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/84> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/85> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone body from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/86> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/87> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble body from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/88> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman Marble body from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/89> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone Animal from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/90> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/91> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/92> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/93> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/94> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/95> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/96> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/97> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/98> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/99> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble fragment from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/125> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/104> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Carmo"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256058> .
+
+<http://data.open.ac.uk/baetica/physical_object/129> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble Portrait from Corduba"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256128> .
+
+<http://data.open.ac.uk/baetica/physical_object/28> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Asido (Medina Sidonia)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/30> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Asido (Medina Sidonia)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/31> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Asido (Medina Sidonia)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/32> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble portrait from Asido (Medina Sidonia)"@en ;
+    crm:P2_has_type <https://www.eagle-network.eu/voc/objtyp/lod/135> ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/33> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Asido (Medina Sidonia)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/334> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Ibero-Roman limestone group from Orippo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/67> ;
+    geo:location <https://pleiades.stoa.org/places/256343> .
+
+<http://data.open.ac.uk/baetica/physical_object/34> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Asido (Medina Sidonia)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/255994> .
+
+<http://data.open.ac.uk/baetica/physical_object/365> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Sexi (Almuñecar)"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/266038> .
+
+<http://data.open.ac.uk/baetica/physical_object/47> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Baelo Claudia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256005> .
+
+<http://data.open.ac.uk/baetica/physical_object/49> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Baelo Claudia"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256005> .
+
+<http://data.open.ac.uk/baetica/physical_object/56> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Basilippo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256020> .
+
+<http://data.open.ac.uk/baetica/physical_object/57> a crm:E24_Physical_Man-Made_Thing ;
+    rdfs:label "Roman Marble statue from Basilippo"@en ;
+    crm:P45_consists_of <https://www.eagle-network.eu/voc/material/lod/48> ;
+    geo:location <https://pleiades.stoa.org/places/256020> .
+

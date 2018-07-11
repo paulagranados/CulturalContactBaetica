@@ -1,3 +1,11 @@
+#go to periodo
+#get the periodo data in JSON
+#keep the data into a file in the folder
+#take the values from the google spreadsheet. 
+#Then take the time period and use the value to make a string match with Periodo. 
+#Make a parameter with the string you take for the time period. 
+#generate the RDF triple that notices this alignment
+
 import google
 
 from rdflib import Graph, plugin
