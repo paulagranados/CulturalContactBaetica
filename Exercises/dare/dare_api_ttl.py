@@ -17,7 +17,7 @@ with open('dare-test.txt') as baetica:
                 data = url.read().decode('utf8')
                 dare_places_in_baetica = Graph()
                 dare_places_in_baetica.parse(data=data,format=rdflib.util.guess_format(pl))
- 				print (data) 
+ 				print (data_places_in_baetica) 
  				               
 #from rdflib import Graph
 #import re
