@@ -11,6 +11,8 @@ import commons.rdf as crdf
 import google # Local module
 from scrapers.jda import JDA2RDF # Local module
 
+print('Running Arachne extractor (from Google sheet)...\n')
+
 # Define Utility RDF prefixes
 crm = Namespace('http://erlangen-crm.org/current/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')

@@ -11,6 +11,10 @@ setup(name='Cultural Contact Baetica',
       install_requires=[
          'bs4',
          'google-api-python-client',
-         'rdflib'
+         'oauth2client',
+         'rdflib',
+         'requests',
+         'unidecode',
+         'SPARQLWrapper'
       ],
 )

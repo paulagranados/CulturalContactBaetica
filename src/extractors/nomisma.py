@@ -1,5 +1,5 @@
-# This is not a Google library, it's our own wrapper for the Google Web API
-import google
+# coding: utf-8
+
 import os, re
 import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
@@ -7,7 +7,9 @@ import unidecode
 from urllib.parse import urlparse, parse_qs
 from urllib.error import URLError
 
-print()
+import google # Local module
+
+print('Running Nomisma (new data) extractor (from Google sheet)...\n')
 
 # Define Utility RDF prefixes
 crm = Namespace('http://erlangen-crm.org/current/')
