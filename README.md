@@ -2,6 +2,8 @@
 This is a repository for my PhD project "Cultural Contact in Early Roman Spain through Linked Open Data" 
 
 # Requirements
+__This software requires access to certain online spreadsheets in order to execute some data extractors. These spreadsheets are currently private.__
+
 To run the software, be sure to have the following on your system:
 - python >= 3.6
 - we recommend the `pip` package manager as well
