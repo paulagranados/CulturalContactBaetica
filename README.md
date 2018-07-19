@@ -27,11 +27,13 @@ where `sourceNames` is a space-separated list of data sources, for example:
 
     python src/baetica.py arachne nomisma
     
+Will look for `extractors/arachne.py` and execute it, then same for `extractors/nomisma.py`.
+
 For each source there must be a Python module with that name inside the `extractors` package, so you can simply drop new ones in there.
 
 Each extractor should generate a `.ttl` file named after the source itself inside an `out` subdirectory of the current directory, so for example: `CulturalContactBaetica/out/nomisma.ttl`.
 
-Note that existing Turtle files will be overwritten
+Note that existing Turtle files will be overwritten.
 
 # License
 See [LICENSE](LICENSE) file (for now).
