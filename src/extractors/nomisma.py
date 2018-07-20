@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os, re
+from json import JSONDecodeError
 import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
 import unidecode
@@ -113,11 +114,12 @@ g = Graph() # The final RDF graph
 # Get the Nomisma data from the online Google Sheet.
 # To use the local CSV file instead, change google.get_data to localcsv.get_data
 # and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
-print('Slicing Google sheet NomismaMintsNew to range A:AZ ...')
-list = google.get_data('NomismaMintsNew', 'A:AZ')
+print('Slicing Google sheet NomismaMintsNew to range A:BZ ...')
+list = google.get_data('NomismaMintsNew', 'A:BZ')
 print('Done. Got {:d} elements'.format(len(list)))
 
 mappings_rs = {} # Keep track of ResearchSpace mappings
+mappings_deity_auth = {} # A cache of DBpedia Spotlight searches for deities and authorities
 
 # Now process the rows in the spreadsheet
 for i, item in enumerate(list):
@@ -127,8 +129,8 @@ for i, item in enumerate(list):
 		label = ''
 		
 		# Add some types (for rdf:type and other taxonomical properties)
-		g.add( ( subj, RDF.type, URIRef("http://data.open.ac.uk/ontology/culturalcontact/CoinSeries") ) )
-		g.add( ( subj, RDF.type, OWL.Class ) )
+		g.add( ( subj, RDF.type, URIRef(nmo.TypeSeries) ) )
+		# g.add( ( subj, RDF.type, OWL.Class ) )
 		# g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
 		g.add( ( subj, rs.PX_object_type, URIRef('http://collection.britishmuseum.org/id/thesauri/x6089') ) )
 		
@@ -138,6 +140,11 @@ for i, item in enumerate(list):
 			series = item['Series '].strip()
 			label = locn + ' coin series ' + series
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
+
+		# Deal with mints. Note: the URIs ending with #this are NOT mints!
+		if 'Description' in item and item['Description'] :
+			desc = item['Description'].strip()
+			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
 		
 		# Deal with mints. Note: the URIs ending with #this are NOT mints!
 		if 'Mint' in item and item['Mint'] :
@@ -148,6 +155,12 @@ for i, item in enumerate(list):
 		# Check for British Museum ResearchSpace mappings and save them for later
 		if 'BM' in item and item['BM']:
 			mappings_rs[subj] = item['BM'].strip()
+
+		if 'Obv_Deity/Authority' in item and item['Obv_Deity/Authority']:
+			dea = item['Obv_Deity/Authority'].strip()
+			if dea not in mappings_deity_auth : mappings_deity_auth[dea] = []
+			g.add( ( subj, URIRef('http://data.open.ac.uk/ontology/culturalcontact/temp/obverse_deityauth'), Literal(dea) ) )
+			
 
 		# Look for inscriptions, their languages etc.
 		pref_rs_thes = 'http://collection.britishmuseum.org/id/thesauri/'
@@ -289,11 +302,34 @@ try:
 		g.add(t)
 except URLError:
 	print("[ERROR] ResearchSpace check failed. Not trying further.")
+import search.dbpedia as spotlight
+try:
+	for txt in mappings_deity_auth:
+		print('searching "' + txt + '" :')
+		de = spotlight.annotations( txt, types=["DBpedia:Person","DBpedia:unknown"] )
+		if 'Resources' in de :
+			for res in de['Resources']:
+				print('- '+res['@URI'])
+				mappings_deity_auth[txt].append(res['@URI'])
+except URLError:
+	print("[ERROR] DBpedia Spotlight lookup failed. Not trying further.")
+except JSONDecodeError as e:
+	print("[ERROR] DBpedia Spotlight lookup returned unparsable content. Not trying further.")
+	print(e)
+for s,p,o in g.triples( (None, URIRef('http://data.open.ac.uk/ontology/culturalcontact/temp/obverse_deityauth'), None) ):
+	odatxt = str(o)
+	for s1,p1,obverse in g.triples( (s, nmo.hasObverse, None) ) :
+		if odatxt in mappings_deity_auth and mappings_deity_auth[odatxt] :
+			for oda in mappings_deity_auth[odatxt] :
+				g.add( ( obverse, crm.P138_represents, URIRef(oda) ) )
+
+g.remove( (None, URIRef('http://data.open.ac.uk/ontology/culturalcontact/temp/obverse_deityauth'), None) )
+	
 
 # Print the graph in Turtle format
 g.namespace_manager.bind('bm', URIRef('http://collection.britishmuseum.org/id/thesauri/'))
 g.namespace_manager.bind('cc', URIRef('http://data.open.ac.uk/ontology/culturalcontact/'))
-g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
+g.namespace_manager.bind('crm', URIRef('http://erlangen-crm.org/current/'))
 g.namespace_manager.bind('dct', URIRef('http://purl.org/dc/terms/'))
 g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
 g.namespace_manager.bind('owl', URIRef('http://www.w3.org/2002/07/owl#'))
