@@ -325,7 +325,7 @@ widgets=[
 	format_custom_text,
 ]
 try:
-	i = 0
+	i = 1
 	with progressbar.ProgressBar(max_value=len(mappings_deity_auth), widgets=widgets) as bar:
 		for txt in mappings_deity_auth:
 			de = spotlight.annotations( txt, types=["DBpedia:Person","DBpedia:unknown"] )
@@ -342,7 +342,7 @@ except JSONDecodeError as e:
 	print("[ERROR] DBpedia Spotlight lookup returned unparsable content. Not trying further.")
 	print(e)
 	print("[ERROR] Failing document follows:")
-	print(doc)
+	print(e.doc)
 for s,p,o in g.triples( (None, temp.obverse_deityauth, None) ):
 	odatxt = str(o)
 	for s1,p1,obverse in g.triples( (s, nmo.hasObverse, None) ) :
