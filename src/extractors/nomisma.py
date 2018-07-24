@@ -10,7 +10,7 @@ from urllib.error import URLError
 
 import google # Local module
 
-print('Running Nomisma (new data) extractor (from Google sheet)...\n')
+print('Running Nomisma (new data) extractor (from Google sheet)...')
 
 # Define Utility RDF prefixes
 crm = Namespace('http://erlangen-crm.org/current/')
@@ -23,6 +23,7 @@ rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') # for containers
 rs = Namespace ('http://www.researchspace.org/ontology/')
 skos = Namespace ('http://www.w3.org/2004/02/skos/core#')
 spatial = Namespace ('http://geovocab.org/spatial#')
+temp = Namespace('http://data.open.ac.uk/ontology/culturalcontact/temp/')
 
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
@@ -156,10 +157,11 @@ for i, item in enumerate(list):
 		if 'BM' in item and item['BM']:
 			mappings_rs[subj] = item['BM'].strip()
 
+		# Use "temporary" triples, lasting just long enough to do some NLP
 		if 'Obv_Deity/Authority' in item and item['Obv_Deity/Authority']:
 			dea = item['Obv_Deity/Authority'].strip()
 			if dea not in mappings_deity_auth : mappings_deity_auth[dea] = []
-			g.add( ( subj, URIRef('http://data.open.ac.uk/ontology/culturalcontact/temp/obverse_deityauth'), Literal(dea) ) )
+			g.add( ( subj, temp.obverse_deityauth, Literal(dea) ) )
 			
 
 		# Look for inscriptions, their languages etc.
@@ -253,6 +255,12 @@ for i, item in enumerate(list):
 						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
 						g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
 
+		# Use "temporary" triples, lasting just long enough to do some NLP
+		if 'Rev_Deity/Authority' in item and item['Rev_Deity/Authority']:
+			dea = item['Rev_Deity/Authority'].strip()
+			if dea not in mappings_deity_auth : mappings_deity_auth[dea] = []
+			g.add( ( subj, temp.reverse_deityauth, Literal(dea) ) )
+
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
@@ -297,33 +305,60 @@ for i, item in enumerate(list):
 			g.add( ( subj, RDFS.seeAlso, URIRef(item['URI Item'].strip()) ) )
 
 # Now do all the external lookups
+
+# ResearchSpace
 try:
 	for t in find_matches_researchspace( mappings_rs ):
 		g.add(t)
 except URLError:
 	print("[ERROR] ResearchSpace check failed. Not trying further.")
+
+# DBpedia Spotlight
+print("Performing DBpedia Spotlight lookups for deity/authority figures...")
 import search.dbpedia as spotlight
+import progressbar
+format_custom_text = progressbar.FormatCustomText(' (%(msg)s)')
+widgets=[
+	' [', progressbar.Timer(), '] ',
+	progressbar.Percentage(),
+	progressbar.Bar(),
+	format_custom_text,
+]
 try:
-	for txt in mappings_deity_auth:
-		print('searching "' + txt + '" :')
-		de = spotlight.annotations( txt, types=["DBpedia:Person","DBpedia:unknown"] )
-		if 'Resources' in de :
-			for res in de['Resources']:
-				print('- '+res['@URI'])
-				mappings_deity_auth[txt].append(res['@URI'])
+	i = 0
+	with progressbar.ProgressBar(max_value=len(mappings_deity_auth), widgets=widgets) as bar:
+		for txt in mappings_deity_auth:
+			de = spotlight.annotations( txt, types=["DBpedia:Person","DBpedia:unknown"] )
+			if 'Resources' in de :
+				for res in de['Resources']:
+					mappings_deity_auth[txt].append(res['@URI'])
+					form = txt if len(txt) <= 16 else txt[:16] + '...' 
+					format_custom_text.update_mapping(msg=form)
+					bar.update(i)
+					i += 1
 except URLError:
 	print("[ERROR] DBpedia Spotlight lookup failed. Not trying further.")
 except JSONDecodeError as e:
 	print("[ERROR] DBpedia Spotlight lookup returned unparsable content. Not trying further.")
 	print(e)
-for s,p,o in g.triples( (None, URIRef('http://data.open.ac.uk/ontology/culturalcontact/temp/obverse_deityauth'), None) ):
+	print("[ERROR] Failing document follows:")
+	print(doc)
+for s,p,o in g.triples( (None, temp.obverse_deityauth, None) ):
 	odatxt = str(o)
 	for s1,p1,obverse in g.triples( (s, nmo.hasObverse, None) ) :
 		if odatxt in mappings_deity_auth and mappings_deity_auth[odatxt] :
 			for oda in mappings_deity_auth[odatxt] :
 				g.add( ( obverse, crm.P138_represents, URIRef(oda) ) )
+for s,p,o in g.triples( (None, temp.reverse_deityauth, None) ):
+	rdatxt = str(o)
+	for s1,p1,reverse in g.triples( (s, nmo.hasReverse, None) ) :
+		if rdatxt in mappings_deity_auth and mappings_deity_auth[rdatxt] :
+			for rda in mappings_deity_auth[rdatxt] :
+				g.add( ( reverse, crm.P138_represents, URIRef(rda) ) )
 
-g.remove( (None, URIRef('http://data.open.ac.uk/ontology/culturalcontact/temp/obverse_deityauth'), None) )
+# Remove temporary triples
+g.remove( (None, temp.obverse_deityauth, None) )
+g.remove( (None, temp.reverse_deityauth, None) )
 	
 
 # Print the graph in Turtle format
