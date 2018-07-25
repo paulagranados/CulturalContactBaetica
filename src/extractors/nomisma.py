@@ -6,7 +6,7 @@ import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
 import unidecode
 from urllib.parse import urlparse, parse_qs
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 import google # Local module
 
@@ -307,10 +307,11 @@ for i, item in enumerate(list):
 # Now do all the external lookups
 
 # ResearchSpace
+print("Performing ResearchSpace lookup...")
 try:
 	for t in find_matches_researchspace( mappings_rs ):
 		g.add(t)
-except URLError:
+except (HTTPError, URLError) :
 	print("[ERROR] ResearchSpace check failed. Not trying further.")
 
 # DBpedia Spotlight
@@ -336,7 +337,7 @@ try:
 					format_custom_text.update_mapping(msg=form)
 					bar.update(i)
 					i += 1
-except URLError:
+except (HTTPError, URLError) :
 	print("[ERROR] DBpedia Spotlight lookup failed. Not trying further.")
 except JSONDecodeError as e:
 	print("[ERROR] DBpedia Spotlight lookup returned unparsable content. Not trying further.")
