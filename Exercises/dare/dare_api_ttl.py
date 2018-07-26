@@ -1,6 +1,6 @@
 import rdflib
-from rdflib import Graph
-import re
+from rdflib import Graph, URIRef, Literal
+import os, re
 import urllib.request, urllib.parse, urllib.error
 from urllib.request import urlopen
 
@@ -24,9 +24,16 @@ with open('dare-test.txt') as baetica:
                 data = fix_turtle(data)
                 dare_places_in_baetica = Graph()
                 dare_places_in_baetica.parse(data=data, format=rdflib.util.guess_format(pl))
+                #print ('graph has staments' + str (len(dare_places_in_baetica)) 
                 # Note that print() on a Graph does not achieve the expected result.
-                print (dare_places_in_baetica)
+                #print (dare_places_in_baetica)
                 # Try to iterate over it instead.
+                dir = 'dare.out'
+                if not os.path.exists(dir):
+                       os.makedirs(dir)
+                path = os.path.join(dir, 'dare.out')
+                dare_places_in_baetica.serialize(format='turtle').decode('utf8')
+                print('DONE. ' + str(len(dare_places_in_baetica)) + ' triples written to ' + path)
 
 """ 				               
 from rdflib import Graph
