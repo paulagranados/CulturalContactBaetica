@@ -28,12 +28,12 @@ with open('dare-test.txt') as baetica:
                 # Note that print() on a Graph does not achieve the expected result.
                 #print (dare_places_in_baetica)
                 # Try to iterate over it instead.
-                dir = 'dare.out'
-                if not os.path.exists(dir):
-                       os.makedirs(dir)
-                path = os.path.join(dir, 'dare.out')
-                dare_places_in_baetica.serialize(format='turtle').decode('utf8')
-                print('DONE. ' + str(len(dare_places_in_baetica)) + ' triples written to ' + path)
+                #dir = 'dare.out'
+                #if not os.path.exists(dir):
+                       #os.makedirs(dir)
+                #path = os.path.join(dir, 'dare.out')
+                print(dare_places_in_baetica.serialize(format='turtle').decode('utf8'))
+                #print('DONE. ' + str(len(dare_places_in_baetica)) + ' triples written to ' + path)
 
 """ 				               
 from rdflib import Graph
