@@ -4,10 +4,12 @@ import os, re
 from json import JSONDecodeError
 import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
+from rdflib.namespace import FOAF
 import unidecode
 from urllib.parse import urlparse, parse_qs
 from urllib.error import HTTPError, URLError
 
+import commons.rdf as crdf
 import google # Local module
 
 print('Running Nomisma (new data) extractor (from Google sheet)...')
@@ -130,9 +132,8 @@ for i, item in enumerate(list):
 		label = ''
 		
 		# Add some types (for rdf:type and other taxonomical properties)
-		g.add( ( subj, RDF.type, URIRef(nmo.TypeSeries) ) )
+		g.add( ( subj, RDF.type, URIRef(nmo.TypeSeriesItem) ) )
 		# g.add( ( subj, RDF.type, OWL.Class ) )
-		# g.add( ( subj, nmo.hasObjectType, nmo.Coin ) )
 		g.add( ( subj, rs.PX_object_type, URIRef('http://collection.britishmuseum.org/id/thesauri/x6089') ) )
 		
 		# Make labels
@@ -142,10 +143,15 @@ for i, item in enumerate(list):
 			label = locn + ' coin series ' + series
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 
-		# Deal with mints. Note: the URIs ending with #this are NOT mints!
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
 			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
+
+		# Deal with mints. Note: the URIs ending with #this are NOT mints!
+		if 'Metal' in item and item['Metal'] :
+			for ma in re.findall(r"\w+", item['Metal']) :
+				material = 'http://nomisma.org/id/' + ma.strip().lower()
+				g.add( ( subj, nmo.hasMaterial, URIRef(material) ) )
 		
 		# Deal with mints. Note: the URIs ending with #this are NOT mints!
 		if 'Mint' in item and item['Mint'] :
@@ -157,12 +163,20 @@ for i, item in enumerate(list):
 		if 'BM' in item and item['BM']:
 			mappings_rs[subj] = item['BM'].strip()
 
+		# Seems to be the one transcribed on the coins: using hasStatedAuthority
+		if 'Authority' in item and item['Authority'] :
+			auth = crdf.make_basic_entity(item['Authority'].strip(), g, FOAF.Agent)
+			g.add( ( subj, nmo.hasStatedAuthority, URIRef(auth) ) )
+
 		# Use "temporary" triples, lasting just long enough to do some NLP
 		if 'Obv_Deity/Authority' in item and item['Obv_Deity/Authority']:
 			dea = item['Obv_Deity/Authority'].strip()
 			if dea not in mappings_deity_auth : mappings_deity_auth[dea] = []
 			g.add( ( subj, temp.obverse_deityauth, Literal(dea) ) )
-			
+		if 'Rev_Deity/Authority' in item and item['Rev_Deity/Authority']:
+			dea = item['Rev_Deity/Authority'].strip()
+			if dea not in mappings_deity_auth : mappings_deity_auth[dea] = []
+			g.add( ( subj, temp.reverse_deityauth, Literal(dea) ) )
 
 		# Look for inscriptions, their languages etc.
 		pref_rs_thes = 'http://collection.britishmuseum.org/id/thesauri/'
@@ -188,7 +202,7 @@ for i, item in enumerate(list):
 				g.add( ( obvinscr, RDFS.member, obvinscr1 ) )
 				g.add( ( obvinscr1, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
 				if 'ObverseLegend1' in item and item['ObverseLegend1'] :
-					g.add( ( obvinscr1, rs.PX_has_transliteration, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
+					g.add( ( obvinscr1, nmo.hasLegend, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
 				if 'ObverseLanguage1' in item and item['ObverseLanguage1'] :
 					lang = item['ObverseLanguage1'].strip()
 					ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
@@ -226,7 +240,7 @@ for i, item in enumerate(list):
 					g.add( ( revinscr, RDFS.member, revinscr1 ) )
 					g.add( ( revinscr1, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
 					if 'ReverseLegend1' in item and item['ReverseLegend1'] :
-						g.add( ( revinscr1, rs.PX_has_transliteration, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
+						g.add( ( revinscr1, nmo.hasLegend, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage1' in item and item['ReverseLanguage1'] :
 						lang = item['ReverseLanguage1'].strip()
 						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
@@ -243,7 +257,7 @@ for i, item in enumerate(list):
 					g.add( ( revinscr, RDFS.member, revinscr2 ) )
 					g.add( ( revinscr2, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
 					if 'ReverseLegend2' in item and item['ReverseLegend2'] :
-						g.add( ( revinscr2, rs.PX_has_transliteration, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
+						g.add( ( revinscr2, nmo.hasLegend, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
 					if 'ReverseLanguage2' in item and item['ReverseLanguage2'] :
 						lang = item['ReverseLanguage2'].strip()
 						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
@@ -254,17 +268,6 @@ for i, item in enumerate(list):
 						uscr = URIRef(pref_rs_thes+'script/' + scr.lower().replace(' ','_'))
 						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
 						g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
-
-		# Use "temporary" triples, lasting just long enough to do some NLP
-		if 'Rev_Deity/Authority' in item and item['Rev_Deity/Authority']:
-			dea = item['Rev_Deity/Authority'].strip()
-			if dea not in mappings_deity_auth : mappings_deity_auth[dea] = []
-			g.add( ( subj, temp.reverse_deityauth, Literal(dea) ) )
-
-		# Look for an exact match on the material (using the Eagle vocabulary)
-		if 'Material ' in item and item['Material ']:
-			match = lookup_eagle(item['Material '], 'material', 'https://www.eagle-network.eu/voc/material/')
-			if match: g.add( ( subj, crm.P45, URIRef(match) ) )
 
 		# Correct to assume "Region" is the find spot?
 		if 'Region' in item and item['Region']:
@@ -294,20 +297,32 @@ for i, item in enumerate(list):
 					g.add( ( obj, spatial.contains, URIRef(loc) ) )
 			else : obj = locs[0]
 			if obj: g.add( ( subj, nmo.hasFindspot, URIRef(obj) ) )
-			
-		# Look for an exact match on the object type (using the Eagle vocabulary)
-		if 'Type' in item and item['Type']:
-			match = lookup_eagle(item['Type'], 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-			if match: g.add( ( subj, crm.P2, URIRef(match) ) )
 
 		# External non-semantic links
 		if 'URI Item' in item and item['URI Item']:
 			g.add( ( subj, RDFS.seeAlso, URIRef(item['URI Item'].strip()) ) )
 
-# Now do all the external lookups
+
+#########################
+#### POST-PROCESSING ####
+#########################
+
+# Do all the external lookups
+
+# Nomisma
+print("Performing Nomisma term lookup...")
+nmo_materials = {}
+for s,p,o in g.triples( (None, nmo.hasMaterial, None) ):
+	nmo_materials[str(o)] = []
+for m in nmo_materials :
+	try:
+		g_tmp = Graph().parse(m + '.rdf', format="xml")
+	except HTTPError as e:
+		print("[WARN] Failed Nomisma lookup of " + m)
+		g.remove( (None, nmo.hasMaterial, URIRef(m)) )
 
 # ResearchSpace
-print("Performing ResearchSpace lookup...")
+print("Performing ResearchSpace link lookup...")
 try:
 	for t in find_matches_researchspace( mappings_rs ):
 		g.add(t)
@@ -315,7 +330,7 @@ except (HTTPError, URLError) :
 	print("[ERROR] ResearchSpace check failed. Not trying further.")
 
 # DBpedia Spotlight
-print("Performing DBpedia Spotlight lookups for deity/authority figures...")
+print("Performing DBpedia Spotlight lookup for deity/authority figures...")
 import search.dbpedia as spotlight
 import progressbar
 format_custom_text = progressbar.FormatCustomText(' (%(msg)s)')
@@ -349,18 +364,22 @@ for s,p,o in g.triples( (None, temp.obverse_deityauth, None) ):
 	for s1,p1,obverse in g.triples( (s, nmo.hasObverse, None) ) :
 		if odatxt in mappings_deity_auth and mappings_deity_auth[odatxt] :
 			for oda in mappings_deity_auth[odatxt] :
-				g.add( ( obverse, crm.P138_represents, URIRef(oda) ) )
+				g.add( ( obverse, nmo.hasPortrait, URIRef(oda) ) )
 for s,p,o in g.triples( (None, temp.reverse_deityauth, None) ):
 	rdatxt = str(o)
 	for s1,p1,reverse in g.triples( (s, nmo.hasReverse, None) ) :
 		if rdatxt in mappings_deity_auth and mappings_deity_auth[rdatxt] :
 			for rda in mappings_deity_auth[rdatxt] :
-				g.add( ( reverse, crm.P138_represents, URIRef(rda) ) )
+				g.add( ( reverse, nmo.hasPortrait, URIRef(rda) ) )
 
 # Remove temporary triples
 g.remove( (None, temp.obverse_deityauth, None) )
 g.remove( (None, temp.reverse_deityauth, None) )
-	
+
+
+#########################
+######## OUTPUT #########
+#########################
 
 # Print the graph in Turtle format
 g.namespace_manager.bind('bm', URIRef('http://collection.britishmuseum.org/id/thesauri/'))
