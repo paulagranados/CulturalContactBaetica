@@ -1,4 +1,3 @@
-import rdflib
 from rdflib import Graph, URIRef, Literal
 import os, re
 import urllib.request, urllib.parse, urllib.error
@@ -11,11 +10,17 @@ def fix_turtle(ttl):
 	ttl = "@prefix foaf: <http://xmlns.com/foaf/0.1/> . " + ttl
 	return ttl
 
+def fix_broken_uri(ttl):
+    """There seems to be a dbpedia URI broken with a space where it should be underscore"""
+    ttl = re.replace('(<.*?)\s(.*?>)','$1_$2')
+
 with open('dare-test.txt') as baetica:
     b = []
     for l in baetica:
         if re.match('http://',l):
             pl = l.rstrip()+'.ttl'
+            l1 = l.rstrip()
+            l2 = l1.split('dare.ht.lu.se/places/')[1]
             
             with urlopen(pl) as url:
                 http_info = url.info()
@@ -25,15 +30,16 @@ with open('dare-test.txt') as baetica:
                 dare_places_in_baetica = Graph()
                 dare_places_in_baetica.parse(data=data, format=rdflib.util.guess_format(pl))
                 #print ('graph has staments' + str (len(dare_places_in_baetica)) 
-                # Note that print() on a Graph does not achieve the expected result.
+                #Note that print() on a Graph does not achieve the expected result.
                 #print (dare_places_in_baetica)
                 # Try to iterate over it instead.
-                #dir = 'dare.out'
-                #if not os.path.exists(dir):
-                       #os.makedirs(dir)
-                #path = os.path.join(dir, 'dare.out')
-                print(dare_places_in_baetica.serialize(format='turtle').decode('utf8'))
-                #print('DONE. ' + str(len(dare_places_in_baetica)) + ' triples written to ' + path)
+                dir = 'dare.out'
+                if not os.path.exists(dir):
+                       os.makedirs(dir)
+                dest = dir + '/dare-'+l2+'.ttl'
+                #print(dare_places_in_baetica.serialize(format='turtle').decode('utf8'))
+                dare_places_in_baetica.serialize(destination = dest, format='turtle')
+                print(l2 + ' DONE. ' + str(len(dare_places_in_baetica)) + ' triples written to ' + dest)
 
 """ 				               
 from rdflib import Graph
