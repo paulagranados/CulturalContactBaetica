@@ -10,9 +10,11 @@ def fix_turtle(ttl):
 	ttl = "@prefix foaf: <http://xmlns.com/foaf/0.1/> . " + ttl
 	return ttl
 
-def fix_broken_uri(ttl):
+def fix_uri(ttl):
     """There seems to be a dbpedia URI broken with a space where it should be underscore"""
-    ttl = re.replace('(<.*?)\s(.*?>)','$1_$2')
+    #ttl = re.replace('(<.*?)\s(.*?>)','$1_$2')
+    ttl = re.sub('<\s>', '<_>', ttl) 
+    return ttl 
 
 with open('dare-test.txt') as baetica:
     b = []
@@ -27,8 +29,10 @@ with open('dare-test.txt') as baetica:
 #                data = url.read().decode(http_info.get_content_charset())
                 data = url.read().decode('utf8')
                 data = fix_turtle(data)
+                data = fix_uri(data)
                 dare_places_in_baetica = Graph()
-                dare_places_in_baetica.parse(data=data, format=rdflib.util.guess_format(pl))
+                #dare_places_in_baetica.parse(data=data, format=rdflib.util.guessformat(pl))
+                dare_places_in_baetica.parse(data=data, format='turtle')
                 #print ('graph has staments' + str (len(dare_places_in_baetica)) 
                 #Note that print() on a Graph does not achieve the expected result.
                 #print (dare_places_in_baetica)
@@ -40,6 +44,7 @@ with open('dare-test.txt') as baetica:
                 #print(dare_places_in_baetica.serialize(format='turtle').decode('utf8'))
                 dare_places_in_baetica.serialize(destination = dest, format='turtle')
                 print(l2 + ' DONE. ' + str(len(dare_places_in_baetica)) + ' triples written to ' + dest)
+
 
 """ 				               
 from rdflib import Graph
