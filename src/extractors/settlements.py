@@ -43,8 +43,10 @@ def make_uuid(item, graph, index = -1):
 	# All the URIs we create for Nomisma coins will start like this
 	base_uri = "http://data.open.ac.uk/baetica/settlement/"
 	uuid = None
-	if 'Settlement' in item and item['Settlement'] :
-		locn = item['Settlement'].strip()
+	# WARN: note the space after Settlement : it is there becase there is one
+	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
+	if 'Settlement ' in item and item['Settlement '] :
+		locn = item['Settlement '].strip()
 		# Use locn and whatever other data you need to make the final URIRef
 	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable data to make a URI from.')
 	return uuid
@@ -67,8 +69,8 @@ for i, item in enumerate(list):
 		g.add( ( subj, RDF.type, URIRef("Replace this with the OWL class of the entity") ) )
 		
 		# Make the rdfs:label out of what is in the Settlement column
-		if 'Settlement' in item and item['Settlement'] :
-			label = item['Settlement'].strip()
+		if 'Settlement ' in item and item['Settlement '] :
+			label = item['Settlement '].strip()
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 
 
