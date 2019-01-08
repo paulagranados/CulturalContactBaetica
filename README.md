@@ -1,5 +1,5 @@
 # CulturalContactBaetica
-This is a repository for my PhD project "Cultural Contact in Early Roman Spain through Linked Open Data" 
+This is a repository for Paula Loreto Granados García PhD project "Cultural Contact in Early Roman Spain through Linked Open Data" 
 
 # Requirements
 __This software requires access to certain online spreadsheets in order to execute some data extractors. These spreadsheets are currently private.__
