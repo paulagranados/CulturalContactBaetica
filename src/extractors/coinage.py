@@ -5,6 +5,7 @@ from json import JSONDecodeError
 import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
 from rdflib.namespace import FOAF
+from SPARQLWrapper import SPARQLExceptions, SPARQLWrapper, JSON, N3
 import unidecode
 from urllib.parse import urlparse, parse_qs
 from urllib.error import HTTPError, URLError
@@ -39,7 +40,7 @@ g_dates.parse(vocabs['dates'], format="xml")
 g_nomisma = Graph()
 g_nomisma.parse(vocabs['nomisma'], format="xml")
 
-def lookup_nomisma(label, gr, material, object_type, mint, date, end_date, legend, iconography, findspot, issue, ethnic):
+def lookup_Nomisma(label, gr, material, object_type, mint, date, end_date, legend, iconography, findspot, issue, ethnic):
 	"""Tries to find a string match for a given label in a selected
 	Nomisma controlled vocabulary."""
 	# First check if a cached result exists
@@ -65,13 +66,12 @@ WHERE {
 def find_matches_researchspace( mappings ):
 	"""Does a bulk lookup of the supplied mappings to ResearchSpace IDs 
 	in order to generate links using hasInstance."""
-	from SPARQLWrapper import SPARQLWrapper, JSON, N3
 	values = 'VALUES( ?x ?id ) {'
 	for x, id in mappings.items():
 		values += '( <' + str(x) + '> "' + str(id) + '" )'
 	values += '}'
-	#sparql = SPARQLWrapper("http://public.researchspace.org/sparql")
-	sparql = SPARQLWrapper("http://collection.britishmuseum.org/sparql") 
+	sparql = SPARQLWrapper("http://public.researchspace.org/sparql")
+	#sparql = SPARQLWrapper("http://collection.britishmuseum.org/sparql") 
 	query = ("""
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 CONSTRUCT { ?x <http://data.open.ac.uk/ontology/culturalcontact/hasInstance> ?same } 
@@ -86,18 +86,13 @@ WHERE { """
 	# print(query)
 	sparql.setQuery(query)
 	sparql.setReturnFormat(N3)
-	try:
-		results = sparql.query().convert()
-	except:
-		raise
+	results = sparql.query().convert()
+
 	return Graph().parse(data=results,format="n3")
 
 uricache = {}
 def make_uuid(item, graph, index = -1):
-    # uuid is a general notation for universal unique identifier. 
-    # Do we want to create an entire URI or just the final part of the URI?
-    # Some people call the final part of the URI 'the fragment' or 'the last alphanumerical string after the last slash'.
-	# All the URIs we create for Coin types will start like this:
+	# All the URIs we create for coin types will start like this
 	base_uri = "http://data.open.ac.uk/baetica/coin_type/"
 	uuid = None
 	if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
@@ -117,7 +112,7 @@ def make_uuid(item, graph, index = -1):
 
 g = Graph() # The final RDF graph
 
-# Get the Nomisma data from the online Google Sheet.
+# Get the Coinage data from the online Google Sheet.
 # To use the local CSV file instead, change google.get_data to localcsv.get_data
 # and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
 print('Slicing Google sheet CoinageData to range A:BZ ...')
@@ -145,30 +140,14 @@ for i, item in enumerate(list):
 			series = item['Series '].strip()
 			label = locn + ' coin series ' + series
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
-			
-		if 'Metrology' in item and item['Metrology'] :
-			desc = item['Metrology'].strip()
-			g.add( ( subj, CuCoO.HasMetrology, Literal(desc, lang='en') ) )
-			
-		if 'FromDate' in item and item['FromDate'] :
-			desc = item['FromDate'].strip()
-			g.add( ( subj, nmo.hasStartDate, Literal(desc, lang='en') ) )
-			
-		if 'ToDate' in item and item['ToDate'] :
-			desc = item['ToDate'].strip()
-			g.add( ( subj, nmo.hasEndDate, Literal(desc, lang='en') ) )
-			
-		if 'Iconography' in item and item['Iconography'] :
-			desc = item['Iconography'].strip()
-			g.add( ( subj, nmo.hasIconography, Literal(desc, lang='en') ) )
 
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
 			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
 
-		# Deal with material. 
-		if 'Material' in item and item['Material'] :
-			for ma in re.findall(r"\w+", item['Material']) :
+		# Deal with mints. Note: the URIs ending with #this are NOT mints!
+		if 'Metal' in item and item['Metal'] :
+			for ma in re.findall(r"\w+", item['Metal']) :
 				material = 'http://nomisma.org/id/' + ma.strip().lower()
 				g.add( ( subj, nmo.hasMaterial, URIRef(material) ) )
 		
@@ -288,8 +267,7 @@ for i, item in enumerate(list):
 						g.add( ( revinscr2, rs.PX_inscription_script, uscr ) )
 						g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
 
-		#Correct to assume "Region" is the find spot?
-		#Region is not the fin spot, but the modern name of the region where the mint was. 
+		# Correct to assume "Region" is the find spot?
 		if 'Region' in item and item['Region']:
 			base_uri = "http://data.open.ac.uk/baetica/"
 			# Sanitise content
@@ -329,8 +307,8 @@ for i, item in enumerate(list):
 
 # Do all the external lookups
 
-# Coinage
-print("Performing CoinageData term lookup...")
+# Nomisma
+print("Performing Nomisma term lookup...")
 nmo_materials = {}
 for s,p,o in g.triples( (None, nmo.hasMaterial, None) ):
 	nmo_materials[str(o)] = []
@@ -338,7 +316,7 @@ for m in nmo_materials :
 	try:
 		g_tmp = Graph().parse(m + '.rdf', format="xml")
 	except HTTPError as e:
-		print("[WARN] Failed CoinageData lookup of " + m)
+		print("[WARN] Failed Nomisma lookup of " + m)
 		g.remove( (None, nmo.hasMaterial, URIRef(m)) )
 
 # ResearchSpace
@@ -347,7 +325,9 @@ try:
 	for t in find_matches_researchspace( mappings_rs ):
 		g.add(t)
 except (HTTPError, URLError) :
-	print("[ERROR] ResearchSpace check failed. Not trying further.")
+	print("[ERROR] ResearchSpace check failed: trouble querying SPARQL endpoint. Not trying further.")
+except (SPARQLExceptions.EndPointInternalError) :
+	print("[ERROR] ResearchSpace check failed: SPARQL endpoint had internal error. Not trying further.")
 
 # DBpedia Spotlight
 print("Performing DBpedia Spotlight lookup for deity/authority figures...")
@@ -410,7 +390,7 @@ g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
 g.namespace_manager.bind('owl', URIRef('http://www.w3.org/2002/07/owl#'))
 g.namespace_manager.bind('rs', URIRef('http://www.researchspace.org/ontology/'))
 
-# ... to a file 'out/coinage.ttl' (will create the 'out' directory if missing)
+# ... to a file 'out/Coinage.ttl' (will create the 'out' directory if missing)
 dir = 'out'
 if not os.path.exists(dir):
     os.makedirs(dir)
