@@ -92,7 +92,10 @@ WHERE { """
 
 uricache = {}
 def make_uuid(item, graph, index = -1):
-	# All the URIs we create for coin types will start like this
+	# uuid is a general notation for universal unique identifier. 
+    # Do we want to create an entire URI or just the final part of the URI?
+    # Some people call the final part of the URI 'the fragment' or 'the last alphanumerical string after the last slash'.
+	# All the URIs we create for Coin types will start like this: 
 	base_uri = "http://data.open.ac.uk/baetica/coin_type/"
 	uuid = None
 	if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
@@ -140,14 +143,30 @@ for i, item in enumerate(list):
 			series = item['Series '].strip()
 			label = locn + ' coin series ' + series
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
+			
+		if 'Metrology' in item and item['Metrology'] :
+			desc = item['Metrology'].strip()
+			g.add( ( subj, CuCoO.HasMetrology, Literal(desc, lang='en') ) )
+			
+		if 'FromDate' in item and item['FromDate'] :
+			desc = item['FromDate'].strip()
+			g.add( ( subj, nmo.hasStartDate, Literal(desc) ) )
+			
+		if 'ToDate' in item and item['ToDate'] :
+			desc = item['ToDate'].strip()
+			g.add( ( subj, nmo.hasEndDate, Literal(desc) ) )
+			
+		if 'Iconography' in item and item['Iconography'] :
+			desc = item['Iconography'].strip()
+			g.add( ( subj, nmo.hasIconography, Literal(desc, lang='en') ) )
 
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
 			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
 
-		# Deal with mints. Note: the URIs ending with #this are NOT mints!
-		if 'Metal' in item and item['Metal'] :
-			for ma in re.findall(r"\w+", item['Metal']) :
+		# Deal with materials. Note: the URIs ending with #this are NOT mints!
+		if 'Material' in item and item['Material'] :
+			for ma in re.findall(r"\w+", item['Material']) :
 				material = 'http://nomisma.org/id/' + ma.strip().lower()
 				g.add( ( subj, nmo.hasMaterial, URIRef(material) ) )
 		
