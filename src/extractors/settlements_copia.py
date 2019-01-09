@@ -20,12 +20,13 @@ crm = Namespace('http://erlangen-crm.org/current/')
 rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') # for containers
 skos = Namespace ('http://www.w3.org/2004/02/skos/core#')
 spatial = Namespace ('http://geovocab.org/spatial#')
+owl = Namespace ("http://www.w3.org/2002/07/owl#") 
 
 
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
     'nomisma': 'http://nomisma.org/ontology.rdf'
-    'CuCoO_base': 'http://www.semanticweb.org/paulagranadosgarcia/CuCoO6/'
+    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl'
 }
 # Load the necessary vocabularies so we can query them locally
 # (Nomisma is only here as an example)
