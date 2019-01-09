@@ -25,7 +25,7 @@ owl = Namespace ("http://www.w3.org/2002/07/owl#")
 
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
-    'nomisma': 'http://nomisma.org/ontology.rdf'
+    'nomisma': 'http://nomisma.org/ontology.rdf',
     'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl'
 }
 # Load the necessary vocabularies so we can query them locally
@@ -37,6 +37,7 @@ g_CuCoO.parse (vocabs ['CuCoO'], format="xml")
 
 # Create the universal identifier (must be a URIRef)
 
+uricache = {}
 def make_uuid(item, graph, index = -1):
 	'''
 	Creates the universal unique identifier (UUID) for the main entity 
@@ -56,12 +57,15 @@ def make_uuid(item, graph, index = -1):
 	if 'Settlement ' in item and item['Settlement '] and 'ID' in item and item['ID'] :
 		locn = item['Settlement '].strip()
 		ID = item['ID'].strip()
+		if locn in uricache and ID in uricache[locn] : 
+			print('[WARN] there is already an item for {0}'.format(locn, ID, uricache[locn][ID]))
+		else:
 			if not locn in uricache : uricache[locn] = {}
-			uricache[locn][series] = uuid
-		# Use locn and whatever other data you need to make the final URIRef
-	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable data to make a URI from.')
+			uricache[locn][ID] = uuid
+	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
 
+	
 g = Graph() # This will contain the final RDF graph
 
 # Get the Settlements data from the online Google Sheet.
