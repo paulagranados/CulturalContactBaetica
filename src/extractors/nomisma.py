@@ -5,6 +5,7 @@ from json import JSONDecodeError
 import rdflib
 from rdflib import Graph, Namespace, URIRef, Literal, OWL, RDF, RDFS, XSD
 from rdflib.namespace import FOAF
+from SPARQLWrapper import SPARQLExceptions, SPARQLWrapper, JSON, N3
 import unidecode
 from urllib.parse import urlparse, parse_qs
 from urllib.error import HTTPError, URLError
@@ -65,13 +66,12 @@ WHERE {
 def find_matches_researchspace( mappings ):
 	"""Does a bulk lookup of the supplied mappings to ResearchSpace IDs 
 	in order to generate links using hasInstance."""
-	from SPARQLWrapper import SPARQLWrapper, JSON, N3
 	values = 'VALUES( ?x ?id ) {'
 	for x, id in mappings.items():
 		values += '( <' + str(x) + '> "' + str(id) + '" )'
 	values += '}'
-	#sparql = SPARQLWrapper("http://public.researchspace.org/sparql")
-	sparql = SPARQLWrapper("http://collection.britishmuseum.org/sparql") 
+	sparql = SPARQLWrapper("http://public.researchspace.org/sparql")
+	#sparql = SPARQLWrapper("http://collection.britishmuseum.org/sparql") 
 	query = ("""
 PREFIX crm: <http://www.cidoc-crm.org/cidoc-crm/>
 CONSTRUCT { ?x <http://data.open.ac.uk/ontology/culturalcontact/hasInstance> ?same } 
@@ -86,10 +86,8 @@ WHERE { """
 	# print(query)
 	sparql.setQuery(query)
 	sparql.setReturnFormat(N3)
-	try:
-		results = sparql.query().convert()
-	except:
-		raise
+	results = sparql.query().convert()
+
 	return Graph().parse(data=results,format="n3")
 
 uricache = {}
@@ -327,7 +325,9 @@ try:
 	for t in find_matches_researchspace( mappings_rs ):
 		g.add(t)
 except (HTTPError, URLError) :
-	print("[ERROR] ResearchSpace check failed. Not trying further.")
+	print("[ERROR] ResearchSpace check failed: trouble querying SPARQL endpoint. Not trying further.")
+except (SPARQLExceptions.EndPointInternalError) :
+	print("[ERROR] ResearchSpace check failed: SPARQL endpoint had internal error. Not trying further.")
 
 # DBpedia Spotlight
 print("Performing DBpedia Spotlight lookup for deity/authority figures...")
