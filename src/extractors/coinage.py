@@ -16,7 +16,7 @@ import google # Local module
 print('Running Coinage (new data) extractor (from Google sheet)...')
 
 # Define Utility RDF prefixes
-CuCoO = Namespace('https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl')
+CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 crm = Namespace('http://erlangen-crm.org/current/')
 dct = Namespace ('http://purl.org/dc/terms/') 
 geo = Namespace ('http://www.w3.org/2003/01/geo/wgs84_pos#') 
@@ -147,8 +147,16 @@ for i, item in enumerate(list):
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
 		if 'Metrology' in item and item['Metrology'] :
-			desc = item['Metrology'].strip()
-			g.add( ( subj, CuCoO.HasMetrology, Literal(desc, lang='en') ) )
+			base_uri = "http://data.open.ac.uk/baetica/"
+			# Sanitise content
+			split = re.split("[,/\?]", item['Metrology'])
+			locs = []
+			obj = None
+			for sp in split:
+				locs = sp.strip()
+				if locs:
+					locs = base_uri + 'Metrology/' + unidecode.unidecode(locs.lower().replace(' ','_'))
+			g.add( ( subj, CuCoO.HasMetrology, URIRef(locs) ) )
 			
 		if 'FromDate' in item and item['FromDate'] :
 			desc = item['FromDate'].strip()
