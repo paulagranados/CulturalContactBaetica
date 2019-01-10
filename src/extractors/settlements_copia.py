@@ -55,11 +55,11 @@ def make_uuid(item, graph, index = -1):
 	uuid = None
 	# WARN: note the space after Settlement : it is there becase there is one
 	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
-	if 'Settlement ' in item and item['Settlement '] and 'ID' in item and item['ID'] :
-		locn = item['Settlement '].strip()
+	if 'Settlement' in item and item['Settlement'] and 'ID' in item and item['ID'] :
+		locn = item['Settlement'].strip()
 		ID = item['ID'].strip()
-		if locn in uricache and ID in uricache[locn] : 
-			print('[WARN] there is already an item for {0}'.format(locn, ID, uricache[locn][ID]))
+		if locn in uricache and series in uricache[locn] : 
+			print('[WARN] there is already an item for Settlement {0} ID {1}'.format(locn, ID, uricache[locn][ID]))
 		else:
 			if not locn in uricache : uricache[locn] = {}
 			uricache[locn][ID] = uuid
@@ -85,27 +85,29 @@ for i, item in enumerate(list):
 		
 		# Make the rdfs:label out of what is in the Settlement column
 		if 'Settlement ' in item and item['Settlement '] :
-			label = item['Settlement '].strip()
+			locn = item['Settlement'].strip()
+			label = locn + ['Settlement'].strip()
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
 		#Make labels
-		
-		
+		if 'Description' in item and item['Description'] :
+			desc = item['Description'].strip()
+			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
 			
 		if 'CVB' in item and item['CVB'] :
 			desc = item['CVB'].strip()
 			g.add( ( subj, RDFS.seeAlso,  URIRef(desc) ) )
 			
-
-
+		if 'EthncitiyA1' in item and item['EthnicityA1'] :
+			desc = item['EthnicityA1'].strip()
+			g.add( ( subj, CuCoO.HasEthnicity,  Literal(desc, lang='en') ) )
+			
 #########################
 #### POST-PROCESSING ####
 #########################
 
 # Perform any external lookups if needed. 
 # You can put any resulting data alignments into 'g'
-
-
 
 #########################
 ######## OUTPUT #########
