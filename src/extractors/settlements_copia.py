@@ -16,6 +16,7 @@ print('Running Settlements Data extractor (from Google sheet)...')
 
 # Define utility RDF prefixes, so you can just use 'crm' to create any
 # URIRef for any class or property in CIDOC-CRM, for example.
+CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 crm = Namespace('http://erlangen-crm.org/current/')
 rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') # for containers
 skos = Namespace ('http://www.w3.org/2004/02/skos/core#')
@@ -26,7 +27,7 @@ owl = Namespace ("http://www.w3.org/2002/07/owl#")
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
     'nomisma': 'http://nomisma.org/ontology.rdf',
-    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl'
+    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 # Load the necessary vocabularies so we can query them locally
 # (Nomisma is only here as an example)
@@ -64,7 +65,6 @@ def make_uuid(item, graph, index = -1):
 			uricache[locn][ID] = uuid
 	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
-
 	
 g = Graph() # This will contain the final RDF graph
 
@@ -81,16 +81,20 @@ for i, item in enumerate(list):
 		label = ''
 		
 		# Add some types (for rdf:type and other taxonomical properties)
-		g.add( (subj, RDF.type, URIRef("Replace this with the OWL class of the entity") ) )
+		g.add( (subj, RDF.type, URIRef(CuCoO.Settlement) ) )
 		
 		# Make the rdfs:label out of what is in the Settlement column
 		if 'Settlement ' in item and item['Settlement '] :
 			label = item['Settlement '].strip()
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
+		#Make labels
+		
+		
+			
 		if 'CVB' in item and item['CVB'] :
 			desc = item['CVB'].strip()
-			g.add( ( subj, RDFS.seealso,  URIRef(desc) ) )
+			g.add( ( subj, RDFS.seeAlso,  URIRef(desc) ) )
 			
 
 
@@ -109,6 +113,7 @@ for i, item in enumerate(list):
 
 # Print the graph in Turtle format (with nice prefixes)
 g.namespace_manager.bind('crm', crm)
+g.namespace_manager.bind('cucoo', CuCoO)
 # Add as many prefix bindings as the namespaces of your data 
 
 # ... to a file 'out/settlements.ttl' (will create the 'out' directory if missing)

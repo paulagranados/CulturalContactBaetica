@@ -33,7 +33,7 @@ temp = Namespace('http://data.open.ac.uk/ontology/culturalcontact/temp/')
 vocabs = {
     'dates': 'http://www.eagle-network.eu/voc/dates.rdf', 
     'nomisma': 'http://nomisma.org/ontology.rdf',
-    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl'
+    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 
 # Load the Nomisma vocabularies so we can query them locally
@@ -167,8 +167,16 @@ for i, item in enumerate(list):
 			g.add( ( subj, nmo.hasEndDate, Literal(desc) ) )
 			
 		if 'Iconography' in item and item['Iconography'] :
-			desc = item['Iconography'].strip()
-			g.add( ( subj, nmo.hasIconography, Literal(desc, lang='en') ) )
+			base_uri = "http://data.open.ac.uk/baetica/"
+			# Sanitise content
+			split = re.split("[,/\?]", item['Iconography'])
+			locs = []
+			obj = None
+			for sp in split:
+				locs = sp.strip()
+				if locs:
+					locs = base_uri + 'Iconography/' + unidecode.unidecode(locs.lower().replace(' ','_'))	
+			g.add( ( subj, CuCoO.HasIconography, URIRef(locs) ) )
 
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
@@ -418,6 +426,7 @@ g.namespace_manager.bind('dct', URIRef('http://purl.org/dc/terms/'))
 g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
 g.namespace_manager.bind('owl', URIRef('http://www.w3.org/2002/07/owl#'))
 g.namespace_manager.bind('rs', URIRef('http://www.researchspace.org/ontology/'))
+g.namespace_manager.bind('cucoo', CuCoO)
 
 # ... to a file 'out/Coinage.ttl' (will create the 'out' directory if missing)
 dir = 'out'
