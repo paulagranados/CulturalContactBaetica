@@ -16,6 +16,7 @@ import google # Local module
 print('Running Coinage (new data) extractor (from Google sheet)...')
 
 # Define Utility RDF prefixes
+CuCoO = Namespace('https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl')
 crm = Namespace('http://erlangen-crm.org/current/')
 dct = Namespace ('http://purl.org/dc/terms/') 
 geo = Namespace ('http://www.w3.org/2003/01/geo/wgs84_pos#') 
@@ -31,7 +32,8 @@ temp = Namespace('http://data.open.ac.uk/ontology/culturalcontact/temp/')
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
     'dates': 'http://www.eagle-network.eu/voc/dates.rdf', 
-    'nomisma': 'http://nomisma.org/ontology.rdf'
+    'nomisma': 'http://nomisma.org/ontology.rdf',
+    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO-XML.owl'
 }
 
 # Load the Nomisma vocabularies so we can query them locally

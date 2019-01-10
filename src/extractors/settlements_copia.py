@@ -87,6 +87,11 @@ for i, item in enumerate(list):
 		if 'Settlement ' in item and item['Settlement '] :
 			label = item['Settlement '].strip()
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
+			
+		if 'CVB' in item and item['CVB'] :
+			desc = item['CVB'].strip()
+			g.add( ( subj, RDFS.seealso,  URIRef(desc) ) )
+			
 
 
 #########################
