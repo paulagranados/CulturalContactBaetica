@@ -57,12 +57,15 @@ def make_uuid(item, graph, index = -1):
 	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
 	if 'Settlement' in item and item['Settlement'] and 'ID' in item and item['ID'] :
 		locn = item['Settlement'].strip()
-		ID = item['ID'].strip()
-		if locn in uricache and series in uricache[locn] : 
-			print('[WARN] there is already an item for Settlement {0} ID {1}'.format(locn, ID, uricache[locn][ID]))
+		id = item['ID'].strip()
+		if locn in uricache and id in uricache[locn] : 
+			print('[WARN] there is already an item for Settlement {0} and ID {1} : {2}'.format(locn, id, uricache[locn][id]))
 		else:
 			if not locn in uricache : uricache[locn] = {}
-			uricache[locn][ID] = uuid
+			# This is the part you were missing: you need to concatenate the elements
+			# that you want and assign the result to uuid, otherwise it will always be null!
+			uuid = base_uri + locn.lower().replace(' ','_') + '/' + id
+			uricache[locn][id] = uuid
 	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
 	
@@ -85,8 +88,8 @@ for i, item in enumerate(list):
 		
 		# Make the rdfs:label out of what is in the Settlement column
 		if 'Settlement ' in item and item['Settlement '] :
-			locn = item['Settlement'].strip()
-			label = locn + ['Settlement'].strip()
+			locn = item['Settlement '].strip()
+			label = locn
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
 		#Make labels
