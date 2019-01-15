@@ -87,8 +87,8 @@ for i, item in enumerate(list):
 		g.add( (subj, RDF.type, URIRef(CuCoO.Settlement) ) )
 		
 		# Make the rdfs:label out of what is in the Settlement column
-		if 'Settlement ' in item and item['Settlement '] :
-			locn = item['Settlement '].strip()
+		if 'Settlement' in item and item['Settlement'] :
+			locn = item['Settlement'].strip()
 			label = locn
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
@@ -96,14 +96,29 @@ for i, item in enumerate(list):
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
 			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
+						
+		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
+			desc = item['Ethnicity_A1'].strip()
+			g.add( ( subj, CuCoO.HasEthnicity,  Literal(desc, lang='en') ) )
 			
+		if 'Ethnicity_B1' in item and item ['Ethnicity_B1'] :
+		    desc = item['Ethnicity_B1'].strip()
+		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) ) 
+  
+		if 'Ethnicity_C1' in item and item ['Ethnicity_C1'] :
+		    desc = item['Ethnicity_C1'].strip()
+		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) )
+		
+		#Reference: 
+		
 		if 'CVB' in item and item['CVB'] :
 			desc = item['CVB'].strip()
-			g.add( ( subj, RDFS.seeAlso,  URIRef(desc) ) )
-			
-		if 'EthncitiyA1' in item and item['EthnicityA1'] :
-			desc = item['EthnicityA1'].strip()
-			g.add( ( subj, CuCoO.HasEthnicity,  Literal(desc, lang='en') ) )
+			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) ) 
+		
+		if 'IAPH' in item and item['IAPH'] :
+		    desc = item['IAPH'].strip()
+		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) ) 
+		    
 			
 #########################
 #### POST-PROCESSING ####
