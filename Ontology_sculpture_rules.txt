@@ -1,0 +1,272 @@
+# Inference Rules for the CuCoO ontology:
+
+# Sculpture Inference Rules: 
+
+1. CARVING:
+
+If the object has carving type high_relief, then the Object has cultural influence Roman.
+
+	PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO6/>
+	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+	CONSTRUCT {
+	    ?x cucoo:Has_Cultural_Influence cucoo-ext:culture_roman
+	} WHERE {
+		?x cucoo:Has_Carving cucoo-ext:high_relief
+	}
+	
+			
+if the object has caring type low_relief, then the object has cultural influence Indigenous. 			
+if the object has caring type schematic_folds then the object has cultural influence Indigenous. 		
+if the object has caring type naturalistic_style, then the object has cultural influence Indigenous. 
+				
+2. INSCRIPTIONS:
+
+If the object has an inscription in Latin language then the object has Roman influence 
+
+3. MATERIAL:
+
+If the object material is brown_amber in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has cultural influence Roman. 
+If the object material is ivory in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has cultural influence Roman.
+If the object material is lead in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has cultural influence Roman. 
+If the object material is *any type of marble in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has Roman Influence. 
+If the object material is limestone in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
+If the object material is sandsote in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
+If the object material is white serpentinit in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
+If the object material is terracota in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
+If the object material is white_calcarenite in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence).
+ 
+4. ICONOGRAPHY:
+
+Generics: 
+if the object iconography displays a Roman_deity, then the object has cultural influence Roman.
+if the object iconography displays a Roman_authority, then the object has cultural influence Roman.
+If the object iconography displays a Roman_myth, then the object has cultural influence Roman.
+If the object iconography displays a Punic_god, then the object has cultural influence Punic. 
+Specifics:
+
+If the object iconography displays Ray_Ammony_Ammon-Ray_Horus, then the object has Egipcian influence. 
+If the object iconography displays Egiptian_sphynx, then the object has Egipcian influence. 
+if the object iconography displays Bastetani_dancing, then the object has Iberian influence. 
+if the object iconography displays bull_snout, then the object has Iberian influence. 
+if the object iconography displays Capital_with_volutes, then the object has Iberian influence. 
+if the object iconography displays eagle, then the object has Iberian influence. 
+if the object iconography displays female_women, then the object has Iberian influence. 
+if the object iconography displays figure_groupy_horse_rider_atacking_the_enemy, then the object has Iberian influence. 
+if the object iconography displays flaut_playeryPriestess, then the object has Iberian influence. 
+if the object iconography displays Goat, then the object has Iberian influence. 
+if the object iconography displays griffin, then the object has Iberian influence. 
+if the object iconography displays griffin_fight, then the object has Iberian influence. 
+if the object iconography displays head_with_helmet_, then the object has Iberian influence. 
+if the object iconography displays horse, then the object has Iberian influence. 
+if the object iconography displays Horse_head, then the object has Iberian influence. 
+if the object iconography displays human_figure, then the object has Iberian influence. 
+if the object iconography displays human_head, then the object has Iberian influence. 
+if the object iconography displays Hunting_scene, then the object has Iberian influence. 
+if the object iconography displays lion_fight, then the object has Iberian influence. 
+if the object iconography displays Male_bust, then the object has Iberian influence. 
+if the object iconography displays Male_head, then the object has Iberian influence. 
+if the object iconography displays Male_priesty_Iberian_god, then the object has Iberian influence. 
+if the object iconography displays male_representation, then the object has Iberian influence. 
+if the object iconography displays men_fightypalestra_scene_, then the object has Iberian influence. 
+if the object iconography displays offeror_with_goats_, then the object has Iberian influence. 
+if the object iconography displays Phalic_torso, then the object has Iberian influence. 
+if the object iconography displays Potnia_Theronywarrior, then the object has Iberian influence. 
+if the object iconography displays pregnant_female, then the object has Iberian influence. 
+if the object iconography displays Priestess, then the object has Iberian influence. 
+if the object iconography displays priestessygodess_with_snake, then the object has Iberian influence. 
+if the object iconography displays seated_female_on_a_throne, then the object has Iberian influence. 
+if the object iconography displays seated_woman, then the object has Iberian influence. 
+if the object iconography displays seated_woman_on_throne, then the object has Iberian influence. 
+if the object iconography displays soldier, then the object has Iberian influence. 
+if the object iconography displays sphinx, then the object has Iberian influence. 
+if the object iconography displays steer, then the object has Iberian influence. 
+if the object iconography displays torso, then the object has Iberian influence. 
+if the object iconography displays Vegetable_Decoration, then the object has Iberian influence. 
+if the object iconography displays warrior, then the object has Iberian influence. 
+if the object iconography displays woman_with_child, then the object has Iberian influence. 
+if the object iconography displays woolf_biting_a_ram, then the object has Iberian influence. 
+if the object iconography displays kiss, then the object has Iberian influence. 
+if the object iconography displays ram, then the object has Iberian influence. 
+
+If the object iconography displays Acrobat, then the object has Iberian influence
+If the object iconography displays animal, then the object has Iberian influence
+If the object iconography displays Athena?, then the object has Roman influence
+If the object iconography displays Attis, then the object has Roman influence
+If the object iconography displays Black_man_under_a_lion, then the object has Iberian influence
+If the object iconography displays bull, then the object has Iberian influence
+If the object iconography displays cornicen_player, then the object has Roman influence
+If the object iconography displays elephant, then the object has Iberian influence
+If the object iconography displays feline_head, then the object has Iberian influence
+If the object iconography displays godess, then the object has Iberian influence
+If the object iconography displays human_legs, then the object has Roman influence
+If the object iconography displays lion, then the object has Iberian influence
+If the object iconography displays married_couple, then the object has Roman influence
+If the object iconography displays married_couple, then the object has Roman influence
+If the object iconography displays silenus, then the object has Iberian influence
+If the object iconography displays married_couple, then the object has Roman influence
+If the object iconography displays married_couple, then the object has Roman influence
+If the object iconography displays married_couple, then the object has Roman influence
+If the object iconography displays married_couple, then the object has Roman influence
+If the object iconography displays soldiery_horse_rider, then the object has Iberian influence
+If the object iconography displays Warrior, then the object has Iberian influence
+If the object iconography displays married_couple, then the object has Roman influence
+
+
+If the object iconography displays Astarte_Tanit, then the object has Punic influence
+If the object iconography displays acanthus_scrolls_of_thick_stem_and_very_fleshy_leaves,_at_the_end_of_which_figures_of_faced_birds_are_representedthen, the object has Roman influence. 
+If the object iconography displays Afrodita_y_Venusthen, the object has Roman influence. 
+If the object iconography displays Agustusthen, the object has Roman influence. 
+If the object iconography displays Alexander_the_greatthen, the object has Roman influence. 
+If the object iconography displays Artemisthen, the object has Roman influence. 
+If the object iconography displays Artemisia_of_the_Mausoleum_of_Halicarnassusthen, the object has Roman influence. 
+If the object iconography displays Bonus_eventus,_[God_or_protective_Genius_linked_to_success_and_good_omen]then, the object has Roman influence. 
+If the object iconography displays Clodio_Albinothen, the object has Roman influence. 
+If the object iconography displays corinthiusthen, the object has Roman influence. 
+If the object iconography displays Diadumenethen, the object has Roman influence. 
+If the object iconography displays Divus_Iulius_Divus_Agustusthen, the object has Roman influence. 
+If the object iconography displays Druso_the_younger_then, the object has Roman influence. 
+If the object iconography displays Dyonisosthen, the object has Roman influence. 
+If the object iconography displays emperorthen, the object has Roman influence. 
+If the object iconography displays erosthen, the object has Roman influence. 
+If the object iconography displays falconthen, the object has Roman influence. 
+If the object iconography displays feet_contourthen, the object has Roman influence. 
+If the object iconography displays Female_bustthen, the object has Roman influence. 
+If the object iconography displays Female_figurethen, the object has Roman influence. 
+If the object iconography displays Female_headthen, the object has Roman influence. 
+If the object iconography displays female_portraitthen, the object has Roman influence. 
+If the object iconography displays Galbathen, the object has Roman influence. 
+If the object iconography displays Gladiatorthen, the object has Roman influence. 
+If the object iconography displays Hadrian?then, the object has Roman influence. 
+If the object iconography displays Herculesthen, the object has Roman influence. 
+If the object iconography displays Isis_priestessthen, the object has Roman influence. 
+If the object iconography displays Iuppiter?then, the object has Roman influence. 
+If the object iconography displays Junethen, the object has Roman influence. 
+If the object iconography displays Livia?then, the object has Roman influence. 
+If the object iconography displays Livia´s_portraitthen, the object has Roman influence. 
+If the object iconography displays Magistratethen, the object has Roman influence. 
+If the object iconography displays Male_figurethen, the object has Roman influence. 
+If the object iconography displays male_portrait_Julio-Claudian_family?then, the object has Roman influence. 
+If the object iconography displays Marsthen, the object has Roman influence. 
+If the object iconography displays Minervathen, the object has Roman influence. 
+If the object iconography displays Mithrasthen, the object has Roman influence. 
+If the object iconography displays nymphthen, the object has Roman influence. 
+If the object iconography displays nymph?then, the object has Roman influence. 
+If the object iconography displays Octavia?then, the object has Roman influence. 
+If the object iconography displays portraitthen, the object has Roman influence. 
+If the object iconography displays Prisoner_leadership?then, the object has Roman influence. 
+If the object iconography displays rabbitthen, the object has Roman influence. 
+If the object iconography displays ramthen, the object has Roman influence. 
+If the object iconography displays right_footthen, the object has Roman influence. 
+If the object iconography displays River_deitythen, the object has Roman influence. 
+If the object iconography displays river_godthen, the object has Roman influence. 
+If the object iconography displays Roman_emperorthen, the object has Roman influence. 
+If the object iconography displays Roman_laidythen, the object has Roman influence. 
+If the object iconography displays Roman_soldierthen, the object has Roman influence. 
+If the object iconography displays Rounded_woman_headthen, the object has Roman influence. 
+If the object iconography displays satirethen, the object has Roman influence. 
+If the object iconography displays seated_personthen, the object has Roman influence. 
+If the object iconography displays seated_woman_with_a_babythen, the object has Roman influence. 
+If the object iconography displays small_animalthen, the object has Roman influence. 
+If the object iconography displays sphinxthen, the object has Roman influence. 
+If the object iconography displays standing_womanthen, the object has Roman influence. 
+If the object iconography displays standing_womanthen, the object has Roman influence. 
+If the object iconography displays Thoracatusthen, the object has Roman influence. 
+If the object iconography displays Tiberiusthen, the object has Roman influence. 
+If the object iconography displays Togathus_Germanicusthen, the object has Roman influence. 
+If the object iconography displays Togatusthen, the object has Roman influence. 
+If the object iconography displays Togatus_without_head_then, the object has Roman influence. 
+If the object iconography displays Venus_y_Afrodite_Anadyomenethen, the object has Roman influence. 
+If the object iconography displays Venus_y_nymph?then, the object has Roman influence. 
+If the object iconography displays Vibia_Sabinathen, the object has Roman influence. 
+If the object iconography displays Victorythen, the object has Roman influence. 
+If the object iconography displays vulcanothen, the object has Roman influence. 
+If the object iconography displays War_prisioner_Barbarianthen, the object has Roman influence. 
+If the object iconography displays woman_standingthen, the object has Roman influence. 
+If the object iconography displays woolf_myththen, the object has Roman influence. 
+If the object iconography displays young_manthen, the object has Roman influence. 
+If the object iconography displays Zeus_Ammony_Dionisosthen, the object has Roman influence. 
+"If the object iconography displays Amazone
+[Según_García_y_Bellidoy_1949:_168]_Dea_Roma[Según_Fernández_y_Fernándezy_1980:_44]then, the object has Roman influence. "
+If the object iconography displays Dionysosthen, the object has Roman influence. 
+If the object iconography displays Erosthen, the object has Roman influence. 
+If the object iconography displays Isisthen, the object has Roman influence. 
+If the object iconography displays manthen, the object has Roman influence. 
+If the object iconography displays priestthen, the object has Roman influence. 
+If the object iconography displays right_handthen, the object has Roman influence. 
+If the object iconography displays Serviliathen, the object has Roman influence. 
+If the object iconography displays Togatusthen, the object has Roman influence. 
+If the object iconography displays Togatusthen, the object has Roman influence. 
+If the object iconography displays Trajanthen, the object has Roman influence. 
+If the object iconography displays Male_head_maskthen, the object has Roman influence. 
+
+
+5. CLOTHES:
+
+GENERAL:
+
+If the clothes display toga, then the object has cultural influence Roman. 
+
+	PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO6/>
+	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+	CONSTRUCT {
+	    ?x cucoo:Has_Cultural_Influence ?culture
+	} WHERE {
+	   VALUES( ?cloth ?culture ) {
+	      ( cucoo-ext:toga  cucoo-ext:culture_roman )
+	      ( cucoo-ext:crown cucoo-ext:culture_roman )
+	      ( cucoo-ext:hair_band  cucoo-ext:culture_roman )
+	   }
+		?x cucoo:Has_Carving/skos:broader* ?cloth
+	}
+
+SPECIFIC:
+
+if the clothes display breast_plate, then the object has Egiptian influence. 
+if the clothes display Phyrgian_cap, then the object has hellenistic influence. 
+If the object displaystalar_clothing, then the object has Iberian influence. 
+If the clothes display helmet, then the object has Iberian influence. 
+If the clothes display Military_clothing,_armour_with_breasplate, then the object has Iberian influence. 
+If the clothes display tunic_and_veil, then the object has Iberian influence. 
+If the clothes display tunic_and_weapons, then the object has Iberian influence. 
+If the clothes display Tunic, then the object has Iberian influence. 
+If the clothes display tunic/_belt/_helmet/_brazalets._, then the object has Iberian influence. 
+If the clothes display tunic/chiton, then the object has Iberian influence. 
+If the clothes display Tunica_and_shoes_, then the object has Iberian influence. 
+If the clothes display chitonthen the object has Iberian influence. 
+If the clothes display dressed_with_tunica_and_bare_footthen the object has Iberian influence. 
+If the clothes display short_skirtthen the object has Iberian influence. 
+If the clothes display short_tunicthen the object has Iberian influence. 
+If the clothes display short_tunic_and_helmetthen the object has Iberian influence. 
+If the clothes display short_tunic_skirt_with_frillsthen the object has Iberian influence. 
+If the clothes display short/long_tunicthen the object has Iberian influence. 
+If the clothes display skirtthen the object has Iberian influence. 
+If the clothes display tunicthen the object has Iberian influence. 
+If the clothes display tunicsthen the object has Iberian influence. 
+If the clothes display Persian, the object has Persian influence. 
+If the clothes display bulla_and_toga_praetextathen the object has Roman influence
+If the clothes display calceolithen the object has Roman influence
+If the clothes display crownthen the object has Roman influence
+If the clothes display dorsualethen the object has Roman influence
+If the clothes display dressed_with_tunica_and_calceoli_then the object has Roman influence
+If the clothes display hair_bandthen the object has Roman influence
+If the clothes display hair_band/crownthen the object has Roman influence
+If the clothes display Pilos_hatthen the object has Roman influence
+If the clothes display kilt_and_weapons_then the object has Roman influence
+If the clothes display leaves_crown_then the object has Roman influence
+If the clothes display militar_clothesthen the object has Roman influence
+If the clothes display militar_dressthen the object has Roman influence
+If the clothes display militar/_clothesthen the object has Roman influence
+If the clothes display Militar/_clothes_and_weaponsthen the object has Roman influence
+If the clothes display militar/_clothingthen the object has Roman influence
+If the clothes display Bunch_of_raysthen the object has Roman influence
+If the clothes display robethen the object has Roman influence
+If the clothes display sandalthen the object has Roman influence
+If the clothes display toga, then the object has Roman influence
+If the clothes display Togatusthen the object has Roman influence
+If the clothes display turbanthen the object has Roman influence
+If the clothes display veil_and_mantlethen the object has Roman influence
+If the clothes display weapons_and_armorthen the object has Roman influence
+
+
+
+

@@ -117,7 +117,11 @@ for i, item in enumerate(list):
 		
 		if 'IAPH' in item and item['IAPH'] :
 		    desc = item['IAPH'].strip()
-		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) ) 
+		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
+		    
+		#linking:
+		
+		if 
 		    
 			
 #########################
