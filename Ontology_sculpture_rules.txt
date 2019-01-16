@@ -265,8 +265,4 @@ If the clothes display toga, then the object has Roman influence
 If the clothes display Togatusthen the object has Roman influence
 If the clothes display turbanthen the object has Roman influence
 If the clothes display veil_and_mantlethen the object has Roman influence
-If the clothes display weapons_and_armorthen the object has Roman influence
-
-
-
-
+If the clothes display weapons_and_armorthen the object has Roman influence. 
