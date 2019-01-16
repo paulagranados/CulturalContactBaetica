@@ -17,10 +17,12 @@ print('Running sculpture extractor (from Google sheet)...\n')
 crm = Namespace('http://erlangen-crm.org/current/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
+CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
-    'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf'
+    'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf',
+    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 
 # Load the EAGLE SKOS vocabularies so we can query them locally
@@ -136,6 +138,8 @@ for index, item in enumerate(list):
 		g.add( ( us, RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
 		if 'Description' in item and item['Description']:
 			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
+		if 'Carving' in item and item ['Carving']:
+		    g.add( (us, CuCoO.HasCarving,  Literal(item['Carving'].strip(), lang='en') ) ) 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
@@ -166,6 +170,7 @@ for index, item in enumerate(list):
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
 g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
+g.namespace_manager.bind('cucoo', CuCoO)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'

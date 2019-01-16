@@ -17,10 +17,12 @@ print('Running Arachne extractor (from Google sheet)...\n')
 crm = Namespace('http://erlangen-crm.org/current/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
+CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
-    'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf'
+    'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf', 
+    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 
 # Load the EAGLE SKOS vocabularies so we can query them locally
@@ -136,12 +138,17 @@ for index, item in enumerate(list):
 		g.add( ( us, RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
 		if 'Description' in item and item['Description']:
 			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
+		if 'Carving' in item and item ['Carving']:
+		    g.add( (us, CucoO:HasCarving,  Literal(item['Carving'].strip(), lang='en') ) ) 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: um = match
 			else: um = crdf.make_basic_entity(t, g, crm.E57_Material)
 			g.add( ( us, crm.P45_consists_of, URIRef(um) ) )
+			if 'IAPH' in item and item['IAPH'] :
+		    desc = item['IAPH'].strip()
+		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
 		# Handle external collections
 		if 'URI 2' in item and item['URI 2']:
 			lookup_collections(item['URI 2'].strip(), g)
@@ -166,6 +173,7 @@ for index, item in enumerate(list):
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
 g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
+g.namespace_manager.bind('cucoo', CuCoO)
 
 # ... to a file 'out/arachne.ttl' (will create the 'out' directory if missing)
 dir = 'out'
