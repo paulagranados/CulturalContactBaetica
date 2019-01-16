@@ -158,6 +158,10 @@ for i, item in enumerate(list):
 					locs = base_uri + 'Metrology/' + unidecode.unidecode(locs.lower().replace(' ','_'))
 			g.add( ( subj, CuCoO.HasMetrology, URIRef(locs) ) )
 			
+		if 'Denomination' in item and item['Denomination'] :
+			desc = item['Denomination'].strip()
+			g.add( ( subj, nmo.hasDenomination, Literal(desc) ) )
+			
 		if 'FromDate' in item and item['FromDate'] :
 			desc = item['FromDate'].strip()
 			g.add( ( subj, nmo.hasStartDate, Literal(desc) ) )
