@@ -101,15 +101,29 @@ for i, item in enumerate(list):
 			desc = item['Ethnicity_A1'].strip()
 			g.add( ( subj, CuCoO.HasEthnicity,  Literal(desc, lang='en') ) )
 			
-		if 'Ethnicity_B1' in item and item ['Ethnicity_B1'] :
+		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 		    desc = item['Ethnicity_B1'].strip()
 		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) ) 
   
-		if 'Ethnicity_C1' in item and item ['Ethnicity_C1'] :
+		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
 		    desc = item['Ethnicity_C1'].strip()
 		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) )
+		    
+		#Linking:
 		
-		#Reference: 
+		if 'R-Province1' in item and item ['R-Province1'] : 
+		    prov1 = item['R-Province1'].strip()
+		    prov1_u = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
+		    g.add ( (subj, CuCoO.HasProvince, prov1_u) ) 
+		    
+		if 'R-Province2' in item and item ['R-Province2'] : 
+		    prov2 = item['R-Province2'].strip()
+		    if prov2 != 'Lusitania':
+		       prov2 = 'Hispania_' + prov2
+		    prov2_u = URIRef('http://dbpedia.org/resource/' + prov2)
+		    g.add ( (subj, CuCoO.HasProvince, prov2_u) ) 
+		    
+		#Alignment: 
 		
 		if 'CVB' in item and item['CVB'] :
 			desc = item['CVB'].strip()
@@ -118,10 +132,6 @@ for i, item in enumerate(list):
 		if 'IAPH' in item and item['IAPH'] :
 		    desc = item['IAPH'].strip()
 		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
-		    
-		#linking:
-		
-		if 
 		    
 			
 #########################
