@@ -109,9 +109,10 @@ for i, item in enumerate(list):
 		    desc = item['Ethnicity_C1'].strip()
 		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) )
 		    
-		if 'Conventus' in item and item ['Conventus'] :
-		    desc = item['Conventus'].strip()
-		    g.add( (subj, CuCoO.HasConventus, Literal(desc,lang='lat') ) ) 
+	    if 'Conventus' in item and item['Conventus'] :    
+	        desc= item['Conventus'].strip()
+		    desc= URIRef('http://data.open.ac.uk/baetica/' + desc)
+		    g.add ( (subj, CuCoO.HasProvince, desc) ) 
 		    
 		#Linking:
 		
