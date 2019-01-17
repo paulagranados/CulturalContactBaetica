@@ -123,7 +123,7 @@ for i, item in enumerate(list):
 		    prov2_u = URIRef('http://dbpedia.org/resource/' + prov2)
 		    g.add ( (subj, CuCoO.HasProvince, prov2_u) ) 
 		    
-		#Alignment: 
+		#Alignment in order of compatibility: 
 		
 		if 'CVB' in item and item['CVB'] :
 			desc = item['CVB'].strip()
@@ -133,7 +133,32 @@ for i, item in enumerate(list):
 		    desc = item['IAPH'].strip()
 		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
 		    
-			
+		if 'Wikipedia' in item and item['Wikipedia'] :
+		    desc = item['Wikipedia'].strip()
+		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
+		    
+		if 'Wikidata' in item and item['Wikidata'] :
+		    desc = item['Wikidata'].strip()
+		    g.add( (subj, skos.closeMatch, URIRef(desc) ) ) 
+		    
+		if 'TM' in item and item['TM'] :
+		    desc = item['TM'].strip()
+		    g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+		    
+		if 'DARE' in item and item['DARE'] :
+		    desc = item['DARE'].strip()
+		    g.add( (subj, skos.exactMatch, URIRef(desc) ) )
+		
+		if 'VICI' in item and item['VICI'] :
+		    desc = item['VICI'].strip()
+		    g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+		    
+		if 'Pleiades' in item and item['Pleiades'] :
+		    desc = item['Pleiades'].strip()
+		    g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+		    
+		    
+  	    			
 #########################
 #### POST-PROCESSING ####
 #########################
@@ -148,6 +173,7 @@ for i, item in enumerate(list):
 # Print the graph in Turtle format (with nice prefixes)
 g.namespace_manager.bind('crm', crm)
 g.namespace_manager.bind('cucoo', CuCoO)
+g.namespace_manager.bind('skos', skos)
 # Add as many prefix bindings as the namespaces of your data 
 
 # ... to a file 'out/settlements.ttl' (will create the 'out' directory if missing)
