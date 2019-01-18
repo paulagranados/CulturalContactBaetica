@@ -109,24 +109,24 @@ for i, item in enumerate(list):
 		    desc = item['Ethnicity_C1'].strip()
 		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) )
 		    
-	    if 'Conventus' in item and item['Conventus'] :    
-	        desc= item['Conventus'].strip()
-		    desc= URIRef('http://data.open.ac.uk/baetica/' + desc)
-		    g.add ( (subj, CuCoO.HasProvince, desc) ) 
+		if 'Conventus' in item and item['Conventus'] :
+			desc= item['Conventus'].strip()
+			desc= URIRef('http://data.open.ac.uk/baetica/' + desc)
+			g.add ( (subj, CuCoO.Has_Province, desc) ) 
 		    
 		#Linking:
 		
 		if 'R-Province1' in item and item ['R-Province1'] : 
 		    prov1 = item['R-Province1'].strip()
 		    prov1_u = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
-		    g.add ( (subj, CuCoO.HasProvince, prov1_u) ) 
+		    g.add ( (subj, CuCoO.Has_Province, prov1_u) ) 
 		    
 		if 'R-Province2' in item and item ['R-Province2'] : 
 		    prov2 = item['R-Province2'].strip()
 		    if prov2 != 'Lusitania':
 		       prov2 = 'Hispania_' + prov2
 		    prov2_u = URIRef('http://dbpedia.org/resource/' + prov2)
-		    g.add ( (subj, CuCoO.HasProvince, prov2_u) ) 
+		    g.add ( (subj, CuCoO.Has_Province, prov2_u) ) 
 		    
 		#Alignment in order of compatibility: 
 		

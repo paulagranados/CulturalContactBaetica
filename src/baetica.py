@@ -12,5 +12,5 @@ if args.sources:
 	print('Looking for the following extractors to run: ' + str(args.sources))
 	for src in vars(args)['sources']:
 		spec = importlib.util.find_spec('extractors.' + src)
-		if spec is None : print('[ERROR] module \'' + src + '\' not found, did you forget to drop one inside the \'extractors\' package?')
+		if spec is None : print('[ERROR] module \'' + src + '\' not found, did you forget to drop a \'' + src + '.py\' inside the \'extractors\' package?')
 		else : importlib.import_module('extractors.' + src)
