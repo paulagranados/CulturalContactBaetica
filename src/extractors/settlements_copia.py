@@ -99,33 +99,31 @@ for i, item in enumerate(list):
 						
 		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
 			desc = item['Ethnicity_A1'].strip()
-			g.add( ( subj, CuCoO.HasEthnicity,  Literal(desc, lang='en') ) )
+			g.add( ( subj, CuCoO.Has_Ethnicity,  Literal(desc, lang='en') ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 		    desc = item['Ethnicity_B1'].strip()
-		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) ) 
+		    g.add( (subj, CuCoO.Has_Ethnicity, Literal(desc,lang='en') ) ) 
   
 		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
 		    desc = item['Ethnicity_C1'].strip()
-		    g.add( (subj, CuCoO.HasEthnicity, Literal(desc,lang='en') ) )
+		    g.add( (subj, CuCoO.Has_Ethnicity, Literal(desc,lang='en') ) )
 		    
 		if 'Conventus' in item and item['Conventus'] :
 			desc= item['Conventus'].strip()
-			desc= URIRef('http://data.open.ac.uk/baetica/' + desc)
-			g.add ( (subj, CuCoO.Has_Province, desc) ) 
+			desc= URIRef('http://data.open.ac.uk/baetica/administrative_region/' + desc)
+			g.add ( (subj, CuCoO.Has_Conventus, desc) ) 
 		    
-		#Linking:
-		
 		if 'R-Province1' in item and item ['R-Province1'] : 
 		    prov1 = item['R-Province1'].strip()
-		    prov1_u = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
+		    prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/' + prov1)
 		    g.add ( (subj, CuCoO.Has_Province, prov1_u) ) 
 		    
 		if 'R-Province2' in item and item ['R-Province2'] : 
 		    prov2 = item['R-Province2'].strip()
 		    if prov2 != 'Lusitania':
 		       prov2 = 'Hispania_' + prov2
-		    prov2_u = URIRef('http://dbpedia.org/resource/' + prov2)
+		    prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/' + prov2)
 		    g.add ( (subj, CuCoO.Has_Province, prov2_u) ) 
 		    
 		#Alignment in order of compatibility: 
@@ -144,7 +142,7 @@ for i, item in enumerate(list):
 		    
 		if 'Wikidata' in item and item['Wikidata'] :
 		    desc = item['Wikidata'].strip()
-		    g.add( (subj, skos.closeMatch, URIRef(desc) ) ) 
+		    g.add( (subj, skos.closeMatch, URIRef(desc) ) )
 		    
 		if 'TM' in item and item['TM'] :
 		    desc = item['TM'].strip()

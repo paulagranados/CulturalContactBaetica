@@ -156,7 +156,7 @@ for i, item in enumerate(list):
 				locs = sp.strip()
 				if locs:
 					locs = base_uri + 'Metrology/' + unidecode.unidecode(locs.lower().replace(' ','_'))
-			g.add( ( subj, CuCoO.HasMetrology, URIRef(locs) ) )
+			g.add( ( subj, CuCoO.Has_Metrology, URIRef(locs) ) )
 			
 		if 'Denomination' in item and item['Denomination'] :
 			desc = item['Denomination'].strip()
@@ -180,7 +180,7 @@ for i, item in enumerate(list):
 				locs = sp.strip()
 				if locs:
 					locs = base_uri + 'Iconography/' + unidecode.unidecode(locs.lower().replace(' ','_'))	
-			g.add( ( subj, CuCoO.HasIconography, URIRef(locs) ) )
+			g.add( ( subj, CuCoO.Has_Iconography, URIRef(locs) ) )
 
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
