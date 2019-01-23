@@ -117,14 +117,16 @@ for i, item in enumerate(list):
 		if 'R-Province1' in item and item ['R-Province1'] : 
 		    prov1 = item['R-Province1'].strip()
 		    prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/' + prov1)
-		    g.add ( (subj, CuCoO.Has_Province, prov1_u) ) 
+		    prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania_Ulterior')
+		    g.add ( (subj, CuCoO.Has_Province, prov1_u) )
+		    g.add ( (prov1_u, skos.closeMatch, prov1_dbp) ) 
 		    
 		if 'R-Province2' in item and item ['R-Province2'] : 
 		    prov2 = item['R-Province2'].strip()
 		    if prov2 != 'Lusitania':
 		       prov2 = 'Hispania_' + prov2
 		    prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/' + prov2)
-		    g.add ( (subj, CuCoO.Has_Province, prov2_u) ) 
+		    g.add ( (subj, skos.closeMatch, prov2_u) )  
 		    
 		#Alignment in order of compatibility: 
 		

@@ -6,22 +6,59 @@
 
 If the object has carving type high_relief, then the Object has cultural influence Roman.
 
-	PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO6/>
+	PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
 	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
 	CONSTRUCT {
-	    ?x cucoo:Has_Cultural_Influence cucoo-ext:culture_roman
+	    ?x cucoo:Has_Cultural_Influence cucoo-ext:Roman
 	} WHERE {
 		?x cucoo:Has_Carving cucoo-ext:high_relief
 	}
 	
 			
-if the object has caring type low_relief, then the object has cultural influence Indigenous. 			
-if the object has caring type schematic_folds then the object has cultural influence Indigenous. 		
+if the object has caring type low_relief, then the object has cultural influence Indigenous. 
+
+        PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
+	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+	CONSTRUCT {
+	    ?x cucoo:Has_Cultural_Influence cucoo-ext:(everything but Roman)
+	} WHERE {
+		?x cucoo:Has_Carving cucoo-ext:low_relief
+	}
+	
+			
+if the object has caring type schematic_folds then the object has cultural influence Indigenous. 
+
+  PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
+	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+	CONSTRUCT {
+	    ?x cucoo:Has_Cultural_Influence cucoo-ext:(everything but Roman)
+	} WHERE {
+		?x cucoo:Has_Carving cucoo-ext:Schematic_folds
+	}
+		
 if the object has caring type naturalistic_style, then the object has cultural influence Indigenous. 
+
+  PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
+	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+	CONSTRUCT {
+	    ?x cucoo:Has_Cultural_Influence cucoo-ext:(everything but Roman)
+	} WHERE {
+		?x cucoo:Has_Carving cucoo-ext:naturalistic_style
+	}
 				
 2. INSCRIPTIONS:
 
-If the object has an inscription in Latin language then the object has Roman influence 
+If the object has an inscription in Latin language then the object has Roman influence. 
+
+
+  PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
+	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+	CONSTRUCT {
+	    ?x cucoo:Has_Inscription cucoo-ext:Roman
+
+	} WHERE {
+		?x cucoo:Has_Carving cucoo-ext:naturalistic_style
+	}
 
 3. MATERIAL:
 
@@ -30,7 +67,7 @@ If the object material is ivory in Ulterior/Baetica Province from the 2nd centur
 If the object material is lead in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has cultural influence Roman. 
 If the object material is *any type of marble in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has Roman Influence. 
 If the object material is limestone in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
-If the object material is sandsote in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
+If the object material is sandstone in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
 If the object material is white serpentinit in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
 If the object material is terracota in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence). 
 If the object material is white_calcarenite in Ulterior/Baetica Province from the 2nd century BCE to the 1st century BCE then it has indigenous influence (everything but Roman influence).
