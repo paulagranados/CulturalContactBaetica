@@ -99,28 +99,28 @@ for i, item in enumerate(list):
 						
 		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
 			desc = item['Ethnicity_A1'].strip()
-			g.add( ( subj, CuCoO.Has_Ethnicity,  Literal(desc, lang='en') ) )
+			g.add( ( subj, CuCoO.hasEthnicity,  Literal(desc, lang='en') ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 		    desc = item['Ethnicity_B1'].strip()
-		    g.add( (subj, CuCoO.Has_Ethnicity, Literal(desc,lang='en') ) ) 
+		    g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) ) 
   
 		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
 		    desc = item['Ethnicity_C1'].strip()
-		    g.add( (subj, CuCoO.Has_Ethnicity, Literal(desc,lang='en') ) )
+		    g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) )
 		    
 		if 'Conventus' in item and item['Conventus'] :
 			desc= item['Conventus'].strip()
 			desc= URIRef('http://data.open.ac.uk/baetica/administrative_region/' + desc)
-			g.add ( (subj, CuCoO.Has_Conventus, desc) ) 
+			g.add ( (subj, CuCoO.hasConventus, desc) ) 
 			
 		#Linking:
 		    
 		if 'R-Province1' in item and item ['R-Province1'] : 
 		    prov1 = item['R-Province1'].strip()
 		    prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/Hispania_' + prov1)
-		    g.add ( (subj, CuCoO.Has_Province, prov1_u) )
 		    prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania' + prov1)
+		    g.add ( (subj, CuCoO.Has_Province, prov1_u) )
 		    g.add ( (prov1_u, skos.closeMatch, prov1_dbp) ) 
 		    
 		if 'R-Province2' in item and item ['R-Province2'] : 
@@ -128,7 +128,7 @@ for i, item in enumerate(list):
 		    if prov2 != 'Lusitania':
 		       prov2 = 'Hispania_' + prov2
 		    prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/' + prov2)
-		    g.add ( (subj, CuCoO.Has_Province, prov2_u) )  
+		    g.add ( (subj, CuCoO.hasProvince, prov2_u) )  
 		    
 		#Alignment in order of compatibility: 
 		

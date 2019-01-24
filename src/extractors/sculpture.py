@@ -139,7 +139,7 @@ for index, item in enumerate(list):
 		if 'Description' in item and item['Description']:
 			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
 		if 'Carving' in item and item ['Carving']:
-		    g.add( (us, CuCoO.Has_Carving,  Literal(item['Carving'].strip(), lang='en') ) ) 
+		    g.add( (us, CuCoO.hasCarving,  Literal(item['Carving'].strip(), lang='en') ) ) 
 		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
