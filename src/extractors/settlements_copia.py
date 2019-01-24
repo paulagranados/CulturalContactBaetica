@@ -128,7 +128,9 @@ for i, item in enumerate(list):
 		    if prov2 != 'Lusitania':
 		       prov2 = 'Hispania_' + prov2
 		    prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/' + prov2)
-		    g.add ( (subj, CuCoO.hasProvince, prov2_u) )  
+		    prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania' + prov2)
+		    g.add ( (subj, CuCoO.hasProvince, prov2_u) )
+		    g.add ( (prov2_u, skos.closeMatch, prov2_dbp) )
 		    
 		#Alignment in order of compatibility: 
 		
