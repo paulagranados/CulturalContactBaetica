@@ -125,7 +125,8 @@ for i, item in enumerate(list):
 		    id = item ['ID']
 		    desc1 = ('LegalStatus_') + set + ('_') + id
 		    g.add ( (subj, CuCoO.hasLegalStatus, Literal(desc1, lang='en') )
-		    g.add ( (desc1, RDFs.label, sit.TimeIndexedSituation) ) 
+		    desc2 = ('sit.TimeIndexedSituation') 
+		    g.add ( (desc1, RDFs.label, Literal(desc2, lang='en') ) 
 			
 		#Linking:
 		
