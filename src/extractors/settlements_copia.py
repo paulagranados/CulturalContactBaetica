@@ -112,10 +112,23 @@ for i, item in enumerate(list):
 		if 'Conventus' in item and item['Conventus'] :
 			desc= item['Conventus'].strip()
 			desc= URIRef('http://data.open.ac.uk/baetica/administrative_region/' + desc)
-			g.add ( (subj, CuCoO.hasConventus, desc) ) 
+			g.add ( (subj, CuCoO.hasConventus, desc) )
+			
+		#Creating a ternary relationship between the settlements and the dates when they received a specific legal status.
+		#Osuna    has_Legal_Status    legalstatus_osuna_12345 .
+        #legalstatus_osuna_12345    a    sit:TimeIndexedSituation
+        #;    sit:atTime    "-44"^^xsd:gYear
+        #;    has_status_definition    Colonia
+			
+		if 'Settlement' in item and item ['Settlement'] : 
+		    set = item ['Settlement'].strip()
+		    id = item ['ID']
+		    desc1 = ('LegalStatus_') + set + ('_') + id
+		    g.add ( (subj, CuCoO.hasLegalStatus, Literal(desc1, lang='en') )
+		    g.add ( (desc1, RDFs.label, sit.TimeIndexedSituation) ) 
 			
 		#Linking:
-		    
+		
 		if 'R-Province1' in item and item ['R-Province1'] : 
 		    prov1 = item['R-Province1'].strip()
 		    prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/Hispania_' + prov1)
@@ -123,13 +136,13 @@ for i, item in enumerate(list):
 		    g.add ( (subj, CuCoO.Has_Province, prov1_u) )
 		    g.add ( (prov1_u, skos.closeMatch, prov1_dbp) ) 
 		    
-		if 'R-Province2' in item and item ['R-Province2'] : 
+		if 'R-Province2' in item and item ['R-Province2'] :
 		    prov2 = item['R-Province2'].strip()
 		    prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/Hispania_' + prov2)
 		    prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
 		    g.add ( (subj, CuCoO.hasProvince, prov2_u) )
-		    if 'Lusitania' not in prov2_dbp : 
-		        g.add ( (prov2_u, skos.closeMatch, prov2_dbp) )
+		    #if 'Lusitania' not in prov2_dbp : 
+		    g.add ( (prov2_u, skos.closeMatch, prov2_dbp) )
 		    
 		#Alignment in order of compatibility: 
 		
