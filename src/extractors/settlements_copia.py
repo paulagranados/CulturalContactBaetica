@@ -119,15 +119,20 @@ for i, item in enumerate(list):
         #legalstatus_osuna_12345    a    sit:TimeIndexedSituation
         #;    sit:atTime    "-44"^^xsd:gYear
         #;    has_status_definition    Colonia
-			
-		if 'Settlement' in item and item ['Settlement'] : 
-		    set = item ['Settlement'].strip()
-		    id = item ['ID']
-		    desc1 = ('LegalStatus_') + set + ('_') + id
-		    g.add ( (subj, CuCoO.hasLegalStatus, Literal(desc1, lang='en') )
-		    desc2 = ('sit.TimeIndexedSituation') 
-		    g.add ( (desc1, RDFs.label, Literal(desc2, lang='en') ) 
-			
+
+         if 'Settlement' in item and item ['Settlement'] : 
+             set = item ['Settlement'].strip()
+             id = item ['ID']
+             label = ('LegalStatus_') + set + ('_') + id
+             g.add ( ( subj, CuCoO.hasLegalStatus, Literal(label, lang='en') ) 
+             definition = ('sit.TimeIndexedSituation')
+             g.add ( (label, RDFS.label, Literal(definition))
+             if 'YearA' in tem and item ['YearA'] :
+                year = item ['YearA'].strip()
+                g.add ( ( definition, sit.atTime, int(year) )
+                if 'LegalStatusA' in item and item ['LegalStatusA'] : 
+                    status = item ['LegalStatusA'].strip()
+                    g.add ( (definition, CuCoO.hasStatusDefinition, Literal(status, lang='n') )
 		#Linking:
 		
 		if 'R-Province1' in item and item ['R-Province1'] : 
