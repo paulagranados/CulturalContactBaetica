@@ -26,8 +26,8 @@ owl = Namespace ("http://www.w3.org/2002/07/owl#")
 
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
-    'nomisma': 'http://nomisma.org/ontology.rdf',
-    'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
+	'nomisma': 'http://nomisma.org/ontology.rdf',
+	'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 # Load the necessary vocabularies so we can query them locally
 # (Nomisma is only here as an example)
@@ -102,13 +102,13 @@ for i, item in enumerate(list):
 			g.add( ( subj, CuCoO.hasEthnicity,  Literal(desc, lang='en') ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
-		    desc = item['Ethnicity_B1'].strip()
-		    g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) ) 
-  
+			desc = item['Ethnicity_B1'].strip()
+			g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) ) 
+			
 		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
-		    desc = item['Ethnicity_C1'].strip()
-		    g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) )
-		    
+			desc = item['Ethnicity_C1'].strip()
+			g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) )
+			
 		if 'Conventus' in item and item['Conventus'] :
 			desc= item['Conventus'].strip()
 			desc= URIRef('http://data.open.ac.uk/baetica/administrative_region/' + desc)
@@ -120,72 +120,103 @@ for i, item in enumerate(list):
         #;    sit:atTime    "-44"^^xsd:gYear
         #;    has_status_definition    Colonia
 
-         if 'Settlement' in item and item ['Settlement'] : 
-             set = item ['Settlement'].strip()
-             id = item ['ID']
-             label = ('LegalStatus_') + set + ('_') + id
-             g.add ( ( subj, CuCoO.hasLegalStatus, Literal(label, lang='en') ) 
-             definition = ('sit.TimeIndexedSituation')
-             g.add ( (label, RDFS.label, Literal(definition))
-             if 'YearA' in tem and item ['YearA'] :
-                year = item ['YearA'].strip()
-                g.add ( ( definition, sit.atTime, int(year) )
-                if 'LegalStatusA' in item and item ['LegalStatusA'] : 
-                    status = item ['LegalStatusA'].strip()
-                    g.add ( (definition, CuCoO.hasStatusDefinition, Literal(status, lang='n') )
+		#if 'Settlement' in item and item ['Settlement'] :
+		#	set = item['Settlement'].strip()
+		#	id = item['ID'].strip()
+		#	label = ('LegalStatus_') + set + ('_') + id
+		#	g.add ( ( subj, CuCoO.hasLegalStatus, Literal(label, lang='en') ) 
+		#	time = item['sit.TimeIndexedSituation'].strip()
+		#	g.add ( (label, RDFS.label, Literal(time))
+		#	if 'YearA' in tem and item ['YearA'] :
+		#		year = item['YearA'].strip()
+		#		g.add ( ( sit, sit.atTime, int(year) )
+		#		if 'LegalStatusA' in item and item ['LegalStatusA'] : 
+		#			status = item['LegalStatusA'].strip()
+		#			g.add ( (definition, CuCoO.hasStatusDefinition, Literal(status, lang='n') )
+		
 		#Linking:
 		
-		if 'R-Province1' in item and item ['R-Province1'] : 
-		    prov1 = item['R-Province1'].strip()
-		    prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/Hispania_' + prov1)
-		    prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
-		    g.add ( (subj, CuCoO.Has_Province, prov1_u) )
-		    g.add ( (prov1_u, skos.closeMatch, prov1_dbp) ) 
-		    
+		if 'R-Province1' in item and item ['R-Province1'] :
+			prov1 = item['R-Province1'].strip()
+			prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/Hispania_' + prov1)
+			prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
+			g.add ( (subj, CuCoO.hasProvince, prov1_u) )
+			g.add ( (prov1_u, skos.closeMatch, prov1_dbp) ) 
+			
 		if 'R-Province2' in item and item ['R-Province2'] :
-		    prov2 = item['R-Province2'].strip()
-		    prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/Hispania_' + prov2)
-		    prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
-		    g.add ( (subj, CuCoO.hasProvince, prov2_u) )
-		    #if 'Lusitania' not in prov2_dbp : 
-		    g.add ( (prov2_u, skos.closeMatch, prov2_dbp) )
-		    
+			prov2 = item['R-Province2'].strip()
+			prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/Hispania_' + prov2)
+			prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
+			g.add ( (subj, CuCoO.hasProvince, prov2_u) )
+			#if 'Lusitania' not in prov2_dbp : 
+			g.add ( (prov2_u, skos.closeMatch, prov2_dbp) )
+			
+		#Different names for the settlements along time. 
+			
+		if 'Name1' in item and item ['Name1'] :
+			name1 = item['Name1'].strip()
+			name1_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name1)
+			g.add ( (subj, CuCoO.hasName, name1_u) )
+			#if 'Name1_Pleaides_URI' in item and item ['Name1_Pleiades_URI'] :
+			#	name1_p = item['Name1_Pleaides_URI']
+			#	g.add ( (name1_u, skos.closeMatch, URIRef(name1_p) ) )
+			
+		if 'Name2' in item and item ['Name2'] :
+			name2 = item['Name2'].strip()
+			name2_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name2)
+			g.add ( (subj, CuCoO.hasName, name2_u) )
+			
+		if 'Name3' in item and item ['Name3'] :
+			name3 = item['Name3'].strip()
+			name3_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name3)
+			g.add ( (subj, CuCoO.hasName, name3_u) )
+			
+		if 'Name4' in item and item ['Name4'] :
+			name4 = item['Name4'].strip()
+			name4_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name4)
+			g.add ( (subj, CuCoO.hasName, name4_u) )
+			
+		if 'Current_name' in item and item ['Current_name'] :
+			current_name = item['Current_name']
+			current_name_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + current_name)
+			g.add ( ( subj, CuCoO.hasName, Literal(current_name, lang ='es') )
+			
 		#Alignment in order of compatibility: 
-		
-		if 'CVB' in item and item['CVB'] :
-			desc = item['CVB'].strip()
-			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) ) 
-		
+			
 		if 'IAPH' in item and item['IAPH'] :
-		    desc = item['IAPH'].strip()
-		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
-		    
+			desc = item['IAPH'].strip()
+			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
+			
+		if 'CVB' in tem and item['CVB'] :
+			desc = item['CVB'].strip()
+			g.add( (subj, RDFS.seeAslo, URIRef(desc) ) )
+			
 		if 'Wikipedia' in item and item['Wikipedia'] :
-		    desc = item['Wikipedia'].strip()
-		    g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
-		    
+			desc = item['Wikipedia'].strip()
+			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
+			
 		if 'Wikidata' in item and item['Wikidata'] :
-		    desc = item['Wikidata'].strip()
-		    g.add( (subj, skos.closeMatch, URIRef(desc) ) )
-		    
+			desc = item['Wikidata'].strip()
+			g.add( (subj, skos.closeMatch, URIRef(desc) ) )
+			
 		if 'TM' in item and item['TM'] :
-		    desc = item['TM'].strip()
-		    g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
-		    
+			desc = item['TM'].strip()
+			g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+			
 		if 'DARE' in item and item['DARE'] :
-		    desc = item['DARE'].strip()
-		    g.add( (subj, skos.exactMatch, URIRef(desc) ) )
+			desc = item['DARE'].strip()
+			g.add( (subj, skos.exactMatch, URIRef(desc) ) )
 		
 		if 'VICI' in item and item['VICI'] :
-		    desc = item['VICI'].strip()
-		    g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
-		    
+			desc = item['VICI'].strip()
+			g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+			
 		if 'Pleiades' in item and item['Pleiades'] :
-		    desc = item['Pleiades'].strip()
-		    g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
-		    
-		    
-  	    			
+			desc = item['Pleiades'].strip()
+			g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+			
+			
+			
 #########################
 #### POST-PROCESSING ####
 #########################
@@ -206,7 +237,7 @@ g.namespace_manager.bind('skos', skos)
 # ... to a file 'out/settlements.ttl' (will create the 'out' directory if missing)
 dir = 'out'
 if not os.path.exists(dir):
-    os.makedirs(dir)
+	os.makedirs(dir)
 # Note: it will overwrite the existing Turtle file!
 path = os.path.join(dir, 'settlements.ttl')
 g.serialize(destination=path, format='turtle')
