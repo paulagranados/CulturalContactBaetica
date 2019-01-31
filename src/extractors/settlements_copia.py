@@ -99,7 +99,7 @@ for i, item in enumerate(list):
 						
 		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
 			desc = item['Ethnicity_A1'].strip()
-			g.add( ( subj, CuCoO.hasEthnicity,  Literal(desc, lang='en') ) )
+			g.add( (subj, CuCoO.hasEthnicity,  Literal(desc, lang='en') ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 			desc = item['Ethnicity_B1'].strip()
@@ -114,6 +114,14 @@ for i, item in enumerate(list):
 			desc= URIRef('http://data.open.ac.uk/baetica/administrative_region/' + desc)
 			g.add ( (subj, CuCoO.hasConventus, desc) )
 			
+		if 'FromDate' in item and item['FromDate'] :
+			desc = item['FromDate'].strip()
+			g.add( ( subj, CuCoO.hasStartDate, Literal(desc) ) )
+			
+		if 'ToDate' in item and item['ToDate'] :
+			desc = item['ToDate'].strip()
+			g.add( ( subj, CuCoO.hasEndDate, Literal(desc) ) )
+			
 		#Creating a ternary relationship between the settlements and the dates when they received a specific legal status.
 		#Osuna    has_Legal_Status    legalstatus_osuna_12345 .
         #legalstatus_osuna_12345    a    sit:TimeIndexedSituation
@@ -124,13 +132,13 @@ for i, item in enumerate(list):
 		#	set = item['Settlement'].strip()
 		#	id = item['ID'].strip()
 		#	label = ('LegalStatus_') + set + ('_') + id
-		#	g.add ( ( subj, CuCoO.hasLegalStatus, Literal(label, lang='en') ) 
 		#	time = item['sit.TimeIndexedSituation'].strip()
-		#	g.add ( (label, RDFS.label, Literal(time))
+		#	g.add ( (subj, CuCoO.hasLegalStatus, Literal(label, lang='en') )
+		#	g.add ( (label, RDF.type, Literal(time, lang='en') )
 		#	if 'YearA' in tem and item ['YearA'] :
 		#		year = item['YearA'].strip()
-		#		g.add ( ( sit, sit.atTime, int(year) )
-		#		if 'LegalStatusA' in item and item ['LegalStatusA'] : 
+		#		g.add ( (sit, sit.atTime, int(year) )
+		#		if 'LegalStatusA' in item and item ['LegalStatusA'] :
 		#			status = item['LegalStatusA'].strip()
 		#			g.add ( (definition, CuCoO.hasStatusDefinition, Literal(status, lang='n') )
 		
