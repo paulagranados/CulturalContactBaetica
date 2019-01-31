@@ -18,10 +18,8 @@ print('Running Settlements Data extractor (from Google sheet)...')
 # URIRef for any class or property in CIDOC-CRM, for example.
 CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 crm = Namespace('http://erlangen-crm.org/current/')
-rdf = Namespace ('http://www.w3.org/1999/02/22-rdf-syntax-ns#') # for containers
-skos = Namespace ('http://www.w3.org/2004/02/skos/core#')
+sit = Namespace('http://www.ontologydesignpatterns.org/cp/owl/timeindexedsituation.owl#')
 spatial = Namespace ('http://geovocab.org/spatial#')
-owl = Namespace ("http://www.w3.org/2002/07/owl#") 
 
 
 # These are the URIs of the RDF vocabularies that we can load
@@ -29,6 +27,9 @@ vocabs = {
 	'nomisma': 'http://nomisma.org/ontology.rdf',
 	'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
+
+base = 'http://data.open.ac.uk/baetica/'
+
 # Load the necessary vocabularies so we can query them locally
 # (Nomisma is only here as an example)
 g_nomisma = Graph()
@@ -127,10 +128,27 @@ for i, item in enumerate(list):
         #legalstatus_osuna_12345    a    sit:TimeIndexedSituation
         #;    sit:atTime    "-44"^^xsd:gYear
         #;    has_status_definition    Colonia
-
-		#if 'Settlement' in item and item ['Settlement'] :
-		#	set = item['Settlement'].strip()
-		#	id = item['ID'].strip()
+		if 'LegalStatusA' in item and item['LegalStatusA'] :
+			statName = item['LegalStatusA'].strip()
+			# Get the settlement name again
+			locn = item['Settlement'].strip()
+			# make a "sanitised" version to use inside URIs
+			locn_short = locn.lower().replace(' ','_');
+			# Check if we have a year this status was received
+			if 'YearA' in item and item['YearA'] :
+				stat1_year = item['YearA'].strip()
+			else :
+				stat1_year = None
+			
+			stat1_u = URIRef(base + 'legalstatus/' + locn_short + '_' + ( stat1_year if stat1_year else 'A' ) )
+			stat1_l = locn + ' was legally a ' + statName + ( (' as of ' + stat1_year) if stat1_year else ' at some point' )
+			g.add ( ( subj, CuCoO.hasLegalStatus, stat1_u ) )
+			g.add ( ( stat1_u, RDF.type, sit.TimeIndexedSituation ) )
+			g.add ( ( stat1_u, RDFS.label, Literal(stat1_l, lang='en') ) )
+			if stat1_year :
+				g.add ( ( stat1_u, sit.atTime, Literal(stat1_year, datatype=XSD.gYear) ) )
+			g.add ( ( stat1_u, CuCoO.hasStatusDefinition, Literal(statName) ) )
+			
 		#	label = ('LegalStatus_') + set + ('_') + id
 		#	time = item['sit.TimeIndexedSituation'].strip()
 		#	g.add ( (subj, CuCoO.hasLegalStatus, Literal(label, lang='en') )
@@ -149,7 +167,7 @@ for i, item in enumerate(list):
 			prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/Hispania_' + prov1)
 			prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
 			g.add ( (subj, CuCoO.hasProvince, prov1_u) )
-			g.add ( (prov1_u, skos.closeMatch, prov1_dbp) ) 
+			g.add ( (prov1_u, SKOS.closeMatch, prov1_dbp) ) 
 			
 		if 'R-Province2' in item and item ['R-Province2'] :
 			prov2 = item['R-Province2'].strip()
@@ -157,7 +175,7 @@ for i, item in enumerate(list):
 			prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
 			g.add ( (subj, CuCoO.hasProvince, prov2_u) )
 			#if 'Lusitania' not in prov2_dbp : 
-			g.add ( (prov2_u, skos.closeMatch, prov2_dbp) )
+			g.add ( (prov2_u, SKOS.closeMatch, prov2_dbp) )
 			
 		#Different names for the settlements along time. 
 			
@@ -167,7 +185,7 @@ for i, item in enumerate(list):
 			g.add ( (subj, CuCoO.hasName, name1_u) )
 			#if 'Name1_Pleaides_URI' in item and item ['Name1_Pleiades_URI'] :
 			#	name1_p = item['Name1_Pleaides_URI']
-			#	g.add ( (name1_u, skos.closeMatch, URIRef(name1_p) ) )
+			#	g.add ( (name1_u, SKOS.closeMatch, URIRef(name1_p) ) )
 			
 		if 'Name2' in item and item ['Name2'] :
 			name2 = item['Name2'].strip()
@@ -186,18 +204,17 @@ for i, item in enumerate(list):
 			
 		if 'Current_name' in item and item ['Current_name'] :
 			current_name = item['Current_name']
-			current_name_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + current_name)
-			g.add ( ( subj, CuCoO.hasName, Literal(current_name, lang ='es') )
+			# current_name_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + current_name)
+			g.add ( ( subj, CuCoO.hasName, Literal(current_name, lang ='es') ) )
 			
 		#Alignment in order of compatibility: 
-			
 		if 'IAPH' in item and item['IAPH'] :
 			desc = item['IAPH'].strip()
 			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
 			
-		if 'CVB' in tem and item['CVB'] :
+		if 'CVB' in item and item['CVB'] :
 			desc = item['CVB'].strip()
-			g.add( (subj, RDFS.seeAslo, URIRef(desc) ) )
+			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
 			
 		if 'Wikipedia' in item and item['Wikipedia'] :
 			desc = item['Wikipedia'].strip()
@@ -205,23 +222,23 @@ for i, item in enumerate(list):
 			
 		if 'Wikidata' in item and item['Wikidata'] :
 			desc = item['Wikidata'].strip()
-			g.add( (subj, skos.closeMatch, URIRef(desc) ) )
+			g.add( (subj, SKOS.closeMatch, URIRef(desc) ) )
 			
 		if 'TM' in item and item['TM'] :
 			desc = item['TM'].strip()
-			g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+			g.add( (subj, SKOS.exactMatch, URIRef(desc) ) ) 
 			
 		if 'DARE' in item and item['DARE'] :
 			desc = item['DARE'].strip()
-			g.add( (subj, skos.exactMatch, URIRef(desc) ) )
+			g.add( (subj, SKOS.exactMatch, URIRef(desc) ) )
 		
 		if 'VICI' in item and item['VICI'] :
 			desc = item['VICI'].strip()
-			g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+			g.add( (subj, SKOS.exactMatch, URIRef(desc) ) ) 
 			
 		if 'Pleiades' in item and item['Pleiades'] :
 			desc = item['Pleiades'].strip()
-			g.add( (subj, skos.exactMatch, URIRef(desc) ) ) 
+			g.add( (subj, SKOS.exactMatch, URIRef(desc) ) ) 
 			
 			
 			
@@ -239,7 +256,8 @@ for i, item in enumerate(list):
 # Print the graph in Turtle format (with nice prefixes)
 g.namespace_manager.bind('crm', crm)
 g.namespace_manager.bind('cucoo', CuCoO)
-g.namespace_manager.bind('skos', skos)
+g.namespace_manager.bind('sit', sit)
+g.namespace_manager.bind('skos', SKOS)
 # Add as many prefix bindings as the namespaces of your data 
 
 # ... to a file 'out/settlements.ttl' (will create the 'out' directory if missing)
