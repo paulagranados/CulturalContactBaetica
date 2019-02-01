@@ -147,7 +147,7 @@ for i, item in enumerate(list):
 			g.add ( ( stat1_u, RDFS.label, Literal(stat1_l, lang='en') ) )
 			if stat1_year :
 				g.add ( ( stat1_u, sit.atTime, Literal(stat1_year, datatype=XSD.gYear) ) )
-			g.add ( ( stat1_u, CuCoO.hasStatusDefinition, Literal(statName) ) )
+			g.add ( ( stat1_u, CuCoO.hasStatusDenomination, URIRef(CuCoO + statName) ) )
 			
 		#	label = ('LegalStatus_') + set + ('_') + id
 		#	time = item['sit.TimeIndexedSituation'].strip()
