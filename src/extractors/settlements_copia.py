@@ -28,7 +28,7 @@ vocabs = {
 	'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 
-base = 'http://data.open.ac.uk/baetica/'
+base = 'http://data.open.ac.uk/erub/'
 
 # Load the necessary vocabularies so we can query them locally
 # (Nomisma is only here as an example)
@@ -52,7 +52,7 @@ def make_uuid(item, graph, index = -1):
 	:param index: the row number you are making the ID for
 	'''
 	# All the URIs we create for Settlements will start like this
-	base_uri = "http://data.open.ac.uk/baetica/settlement/"
+	base_uri = "http://data.open.ac.uk/erub/settlement/"
 	uuid = None
 	# WARN: note the space after Settlement : it is there becase there is one
 	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
@@ -91,7 +91,7 @@ for i, item in enumerate(list):
 		if 'Settlement' in item and item['Settlement'] :
 			locn = item['Settlement'].strip()
 			label = locn
-			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
+			g.add( ( subj, RDFS.label, Literal(label, lang='spa') ) )
 			
 		#Make labels
 		if 'Description' in item and item['Description'] :
@@ -100,19 +100,22 @@ for i, item in enumerate(list):
 						
 		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
 			desc = item['Ethnicity_A1'].strip()
-			g.add( (subj, CuCoO.hasEthnicity,  Literal(desc, lang='en') ) )
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/' + desc)
+			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 			desc = item['Ethnicity_B1'].strip()
-			g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) ) 
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/' + desc)
+			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
 			desc = item['Ethnicity_C1'].strip()
-			g.add( (subj, CuCoO.hasEthnicity, Literal(desc,lang='en') ) )
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/' + desc)
+			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Conventus' in item and item['Conventus'] :
 			desc= item['Conventus'].strip()
-			desc= URIRef('http://data.open.ac.uk/baetica/administrative_region/' + desc)
+			desc= URIRef('http://data.open.ac.uk/erub/administrative_region/' + desc)
 			g.add ( (subj, CuCoO.hasConventus, desc) )
 			
 		if 'FromDate' in item and item['FromDate'] :
@@ -147,6 +150,7 @@ for i, item in enumerate(list):
 			g.add ( ( stat1_u, RDFS.label, Literal(stat1_l, lang='en') ) )
 			if stat1_year :
 				g.add ( ( stat1_u, sit.atTime, Literal(stat1_year, datatype=XSD.gYear) ) )
+			# g.add ( (stat1_u, CuCoO.hasStatusDefinition, Literal(statName) ) ) 
 			g.add ( ( stat1_u, CuCoO.hasStatusDenomination, URIRef(CuCoO + statName) ) )
 			
 		#	label = ('LegalStatus_') + set + ('_') + id
@@ -164,14 +168,14 @@ for i, item in enumerate(list):
 		
 		if 'R-Province1' in item and item ['R-Province1'] :
 			prov1 = item['R-Province1'].strip()
-			prov1_u = URIRef('http://data.open.ac.uk/baetica/pre-Augustean_province/Hispania_' + prov1)
+			prov1_u = URIRef('http://data.open.ac.uk/erub/pre-Augustean_province/Hispania_' + prov1)
 			prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
 			g.add ( (subj, CuCoO.hasProvince, prov1_u) )
 			g.add ( (prov1_u, SKOS.closeMatch, prov1_dbp) ) 
 			
 		if 'R-Province2' in item and item ['R-Province2'] :
 			prov2 = item['R-Province2'].strip()
-			prov2_u = URIRef('http://data.open.ac.uk/baetica/post-Augustean_province/Hispania_' + prov2)
+			prov2_u = URIRef('http://data.open.ac.uk/erub/post-Augustean_province/Hispania_' + prov2)
 			prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
 			g.add ( (subj, CuCoO.hasProvince, prov2_u) )
 			#if 'Lusitania' not in prov2_dbp : 
@@ -181,7 +185,7 @@ for i, item in enumerate(list):
 			
 		if 'Name1' in item and item ['Name1'] :
 			name1 = item['Name1'].strip()
-			name1_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name1)
+			name1_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name1)
 			g.add ( (subj, CuCoO.hasName, name1_u) )
 			#if 'Name1_Pleaides_URI' in item and item ['Name1_Pleiades_URI'] :
 			#	name1_p = item['Name1_Pleaides_URI']
@@ -189,17 +193,17 @@ for i, item in enumerate(list):
 			
 		if 'Name2' in item and item ['Name2'] :
 			name2 = item['Name2'].strip()
-			name2_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name2)
+			name2_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name2)
 			g.add ( (subj, CuCoO.hasName, name2_u) )
 			
 		if 'Name3' in item and item ['Name3'] :
 			name3 = item['Name3'].strip()
-			name3_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name3)
+			name3_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name3)
 			g.add ( (subj, CuCoO.hasName, name3_u) )
 			
 		if 'Name4' in item and item ['Name4'] :
 			name4 = item['Name4'].strip()
-			name4_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + name4)
+			name4_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name4)
 			g.add ( (subj, CuCoO.hasName, name4_u) )
 			
 		if 'Current_name' in item and item ['Current_name'] :
