@@ -64,6 +64,20 @@ WHERE {
 	map['_miss_'].append(label)
 	return None
 
+def make_label(item, graph):
+	l = ''
+	if 'Culture Museum Atribution' in item and item['Culture Museum Atribution']:
+		l += item['Culture Museum Atribution'].strip()
+	if 'Material ' in item and item['Material ']:
+		l += ' ' + item['Material '].strip()
+	if 'Type' in item and item['Type']:
+		l += ' ' + item['Type'].strip()
+	else : l += ' ' + 'physical object'
+	if 'Settlement ' in item and item['Settlement ']:
+		l += ' from ' + item['Settlement '].strip()
+	l = l.strip()
+	return l
+
 uricache = {}
 def make_uuid(item, graph, index = -1):
 	'''
@@ -94,39 +108,80 @@ def make_uuid(item, graph, index = -1):
 			uricache[locn][id] = uuid
 	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
+	
 g = Graph() # This will contain the final RDF graph
 
-print('Slicing Google sheet SculptureData to range A:AZ ...')
-list = google.get_data('SculptureData', 'A:AZ')
-print('Done. Got {:d} elements'.format(len(list)))
-# Now process the rows in the spreadsheet
-for i, item in enumerate(list):
-	subj = make_uuid(item, g, i)
-	if subj :
-		subj = URIRef(subj)
-		label = ''
+g = Graph() # The final RDF graph
 
-		# Make labels
+# Get the Sculpture data from the online Google Sheet.
+# To use the local CSV file instead, change google.get_data to localcsv.get_data
+# and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
+list = google.get_data('SculptureData', 'A:AZ')
+
+# All the URIs we create for sculptures etc. will start like this
+base_uri = "http://data.open.ac.uk/erub/sculpture/"
+
+for index, item in enumerate(list):
+	subj = make_uuid(item, g)
+	if subj :
+		us = URIRef(subj)
+		g.add( ( us, RDF.type, URIRef('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/sculpture') ) )
 		if 'Description' in item and item['Description']:
 			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
 		if 'Carving' in item and item ['Carving']:
 		    g.add( (us, CuCoO.hasCarving,  Literal(item['Carving'].strip(), lang='en') ) ) 
-		# Look for an exact match on the material (using the Eagle vocabulary)
+		if 'Technique' in item and item ['Technique']:
+		    g.add( (us, CuCoO.hasTechnique,  Literal(item['Technique'].strip(), lang='en') ) )		# Look for an exact match on the material (using the Eagle vocabulary)
+		if 'Shape' in item and item ['Shape']:
+		    g.add( (us, CuCoO.hasShape,  Literal(item['Shape'].strip(), lang='en') ) )
+		if 'Height' in item and item ['Height']:
+		    g.add( (us, CuCoO.hasHeight,  Literal(item['Height'].strip()) ) )
+		if 'width' in item and item ['width']:
+		    g.add( (us, CuCoO.hasWidth,  Literal(item['width'].strip()) ) )
+		if 'Depth' in item and item ['Depth']:
+		    g.add( (us, CuCoO.hasDepth,  Literal(item['Depth'].strip()) ) )
+		if 'Length' in item and item ['Length']:
+		    g.add( (us, CuCoO.hasLenght,  Literal(item['Length'].strip()) ) )
+		if 'Diameter' in item and item ['Diameter']:
+		    g.add( (us, CuCoO.hasDiameter,  Literal(item['Diameter'].strip()) ) )
+		if 'weight' in item and item ['weight']:
+		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip()) ) )
+		if 'URI1' in item and item['URI1'] :
+			desc = item['URI1'].strip()
+			g.add( (us, RDFS.seeAlso, URIRef(desc) ) )
+		if 'URI2' in item and item['URI2'] :
+			desc = item['URI2'].strip()
+			g.add( (us, RDFS.seeAlso, URIRef(desc) ) )
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: um = match
 			else: um = crdf.make_basic_entity(t, g, crm.E57_Material)
-			g.add( ( us, cucoo.hasMaterial, URIRef(um) ) )
+			g.add( ( us, crm.P45_consists_of, URIRef(um) ) )
+		# Handle external collections
+		if 'URI 2' in item and item['URI 2']:
+			lookup_collections(item['URI 2'].strip(), g)
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
-			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) 
-		if 'Technique' in item and item ['Technique']:
-			g.add( ( us, cucoo.hasTechnique, Literal(item['Technique'].strip(), lang='en') ) ) 
-					
+			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) )
+		# Look for an exact match on the object type (using the Eagle vocabulary)
+		if 'Type' in item and item['Type']:
+			t = item['Type'].strip()
+			match = lookup_eagle(item['Type'].strip(), 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
+			if match: um = match
+			else: um = crdf.make_basic_entity(t, g, crm.E55_Type)
+			g.add( ( us, crm.P2_has_type, URIRef(um) ) )
+		l = make_label(item, g)
+		if l:
+			g.add( ( us, RDFS.label, Literal(l,lang='en') ) )
+		else:
+			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
+	else:
+		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
+			
 # Print the graph in Turtle format to screen (with nice prefixes)
- g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
- g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
- g.namespace_manager.bind('cucoo', CuCoO)
+g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
+g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
+g.namespace_manager.bind('cucoo', CuCoO)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'
