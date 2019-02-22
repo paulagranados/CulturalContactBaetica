@@ -100,17 +100,17 @@ for i, item in enumerate(list):
 						
 		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
 			desc = item['Ethnicity_A1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/erub/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 			desc = item['Ethnicity_B1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/erub/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
 			desc = item['Ethnicity_C1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/erub/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Conventus' in item and item['Conventus'] :
