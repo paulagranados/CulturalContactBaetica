@@ -64,78 +64,49 @@ WHERE {
 	map['_miss_'].append(label)
 	return None
 
-def make_label(item, graph):
-	l = ''
-	if 'Culture Museum Atribution' in item and item['Culture Museum Atribution']:
-		l += item['Culture Museum Atribution'].strip()
-	if 'Material ' in item and item['Material ']:
-		l += ' ' + item['Material '].strip()
-	if 'Type' in item and item['Type']:
-		l += ' ' + item['Type'].strip()
-	else : l += ' ' + 'physical object'
-	if 'Settlement ' in item and item['Settlement ']:
-		l += ' from ' + item['Settlement '].strip()
-	l = l.strip()
-	return l
-
-def make_uuid(item, graph):
-	base_uri = "http://data.open.ac.uk/baetica/physical_object/"
+uricache = {}
+def make_uuid(item, graph, index = -1):
+	'''
+	Creates the universal unique identifier (UUID) for the main entity 
+	represented by a given row in the spreadsheet. Returns a URIRef.
+	Use whatever rows contribute to the uniqueness of this entity (for 
+	example in Nomisma it was a combination of ID and Series).
+	
+	:param item: the row in the spreadsheet
+	:param graph: the RDF graph where all the data are being stored
+	:param index: the row number you are making the ID for
+	'''
+	# All the URIs we create for Sculpture will start like this
+	base_uri = "http://data.open.ac.uk/erub/sculpture/"
 	uuid = None
-	if 'UUID' in item and item['UUID']:
-		uuid = base_uri + 'arachne-' + '{num:04d}'.format(num=int(item['UUID']));
-	# prefer Europeana over Arachne, and Arachne over museums
-	if 'URI 3' in item and item['URI 3']:
-		parsed = urlparse(item['URI 3'])		
-		rexp = re.compile('/record/(\d+)/')
-		matches = re.findall(rexp, parsed.path)
-		if matches:
-			ux = base_uri + 'ext-europeana/' + matches[0]
-			if uuid : graph.add( ( URIRef(ux), OWL.sameAs, URIRef(uuid) ) )
-			else : uuid = ux
-	if 'URI' in item and item['URI']:
-		# Extract the Arachne ID from the URI and reuse it
-		# TODO: not the best way to do it, we should get the JSON data for that
-		# object and get the IR attribute of that
-		idd = item['URI'].rsplit('/', 1)[-1]
-		if idd and idd.isdigit():
-			ux = base_uri + 'ext-arachne/' + idd
-			if uuid : graph.add( ( URIRef(ux), OWL.sameAs, URIRef(uuid) ) )
-			else : uuid = ux
-	if 'URI 2' in item and item['URI 2']:
-		idd = None
-		ext = None
-		parsed = urlparse(item['URI 2'])
-		if 'www.juntadeandalucia.es' == parsed.netloc :
-			pqs = parse_qs(parsed.query)
-			if 'ninv' in pqs: 
-				idd = pqs['ninv'][0]
-				ext = 'ext-museosdeandalucia'
-		elif 'ceres.mcu.es' == parsed.netloc :
-			pqs = parse_qs(parsed.query)
-			if 'inventary' in pqs :
-				idd = pqs['inventary'][0]
-				ext = 'ext-ceres'
-		if idd and ext:
-			ux = base_uri + ext + '/' + idd
-			if uuid : graph.add( ( URIRef(ux), OWL.sameAs, URIRef(uuid) ) )
-			else : uuid = ux
+	# WARN: note the space after Settlement : it is there becase there is one
+	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
+	if 'f' in item and item['f'] and 'ID' in item and item['ID'] :
+		locn = item['f'].strip()
+		id = item['ID'].strip()
+		if locn in uricache and id in uricache[locn] : 
+			print('[WARN] there is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, id, uricache[locn][id]))
+		else:
+			if not locn in uricache : uricache[locn] = {}
+			# This is the part you were missing: you need to concatenate the elements
+			# that you want and assign the result to uuid, otherwise it will always be null!
+			uuid = base_uri + locn.lower().replace(' ','_') + '/' + id.lower()
+			uricache[locn][id] = uuid
+	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
+g = Graph() # This will contain the final RDF graph
 
-g = Graph() # The final RDF graph
-
-# Get the Sculpture data from the online Google Sheet.
-# To use the local CSV file instead, change google.get_data to localcsv.get_data
-# and make sure the updated CSV file is in {project-dir}/data/ext/arachne/main.csv
+print('Slicing Google sheet SculptureData to range A:AZ ...')
 list = google.get_data('SculptureData', 'A:AZ')
-
-# All the URIs we create for sculptures etc. will start like this
-base_uri = "http://data.open.ac.uk/baetica/physical_object/ext-sculpture/"
-
-for index, item in enumerate(list):
-	subj = make_uuid(item, g)
+print('Done. Got {:d} elements'.format(len(list)))
+# Now process the rows in the spreadsheet
+for i, item in enumerate(list):
+	subj = make_uuid(item, g, i)
 	if subj :
-		us = URIRef(subj)
-		g.add( ( us, RDF.type, URIRef('http://www.cidoc-crm.org/cidoc-crm/E24_Physical_Man-Made_Thing') ) )
+		subj = URIRef(subj)
+		label = ''
+
+		# Make labels
 		if 'Description' in item and item['Description']:
 			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
 		if 'Carving' in item and item ['Carving']:
@@ -145,32 +116,17 @@ for index, item in enumerate(list):
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: um = match
 			else: um = crdf.make_basic_entity(t, g, crm.E57_Material)
-			g.add( ( us, crm.P45_consists_of, URIRef(um) ) )
-		# Handle external collections
-		if 'URI 2' in item and item['URI 2']:
-			lookup_collections(item['URI 2'].strip(), g)
+			g.add( ( us, cucoo.hasMaterial, URIRef(um) ) )
 		# Create the "location" predicate when there is a Pleiades URI
 		if 'Pleiades URI' in item and item['Pleiades URI']:
-			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) )
-		# Look for an exact match on the object type (using the Eagle vocabulary)
-		if 'Type' in item and item['Type']:
-			t = item['Type'].strip()
-			match = lookup_eagle(item['Type'].strip(), 'object_type', 'https://www.eagle-network.eu/voc/objtyp/')
-			if match: um = match
-			else: um = crdf.make_basic_entity(t, g, crm.E55_Type)
-			g.add( ( us, crm.P2_has_type, URIRef(um) ) )
-		l = make_label(item, g)
-		if l:
-			g.add( ( us, RDFS.label, Literal(l,lang='en') ) )
-		else:
-			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
-	else:
-		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
-			
+			g.add( ( us, geo.location, URIRef(item['Pleiades URI'].strip()) ) 
+		if 'Technique' in item and item ['Technique']:
+			g.add( ( us, cucoo.hasTechnique, Literal(item['Technique'].strip(), lang='en') ) ) 
+					
 # Print the graph in Turtle format to screen (with nice prefixes)
-g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
-g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
-g.namespace_manager.bind('cucoo', CuCoO)
+ g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
+ g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
+ g.namespace_manager.bind('cucoo', CuCoO)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'
