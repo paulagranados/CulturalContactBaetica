@@ -160,15 +160,15 @@ for i, item in enumerate(list):
 			
 		if 'Denomination' in item and item['Denomination'] :
 			desc = item['Denomination'].strip()
-			g.add( ( subj, nmo.hasDenomination, Literal(desc) ) )
+			g.add( ( subj, nmo.hasDenomination, Literal(desc)) )
 			
 		if 'FromDate' in item and item['FromDate'] :
 			desc = item['FromDate'].strip()
-			g.add( ( subj, nmo.hasStartDate, Literal(desc) ) )
+			g.add( ( subj, nmo.hasStartDate, Literal(desc, datatype=XSD.date) ) )
 			
 		if 'ToDate' in item and item['ToDate'] :
 			desc = item['ToDate'].strip()
-			g.add( ( subj, nmo.hasEndDate, Literal(desc) ) )
+			g.add( ( subj, nmo.hasEndDate, Literal(desc, datatype=XSD.date) ) )
 			
 		if 'Iconography' in item and item['Iconography'] :
 			base_uri = "http://data.open.ac.uk/baetica/"

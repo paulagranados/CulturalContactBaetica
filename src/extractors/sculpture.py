@@ -2,7 +2,7 @@
 
 import os, re
 import rdflib
-from rdflib import Graph, Literal, Namespace, OWL, RDF, RDFS, URIRef
+from rdflib import Graph, Literal, Namespace, OWL, RDF, RDFS, URIRef, XSD
 from rdflib.namespace import DCTERMS
 import unidecode
 from urllib.parse import urlparse, parse_qs
@@ -135,17 +135,17 @@ for index, item in enumerate(list):
 		if 'Shape' in item and item ['Shape']:
 		    g.add( (us, CuCoO.hasShape,  Literal(item['Shape'].strip(), lang='en') ) )
 		if 'Height' in item and item ['Height']:
-		    g.add( (us, CuCoO.hasHeight,  Literal(item['Height'].strip()) ) )
+		    g.add( (us, CuCoO.hasHeight,  Literal(item['Height'].strip(), datatype=XSD.int ) ))
 		if 'width' in item and item ['width']:
-		    g.add( (us, CuCoO.hasWidth,  Literal(item['width'].strip()) ) )
+		    g.add( (us, CuCoO.hasWidth,  Literal(item['width'].strip(), datatype=XSD.int ) ))
 		if 'Depth' in item and item ['Depth']:
-		    g.add( (us, CuCoO.hasDepth,  Literal(item['Depth'].strip()) ) )
+		    g.add( (us, CuCoO.hasDepth,  Literal(item['Depth'].strip(), datatype=XSD.int ) ))
 		if 'Length' in item and item ['Length']:
-		    g.add( (us, CuCoO.hasLenght,  Literal(item['Length'].strip()) ) )
+		    g.add( (us, CuCoO.hasLenght,  Literal(item['Length'].strip(), datatype=XSD.int ) ))
 		if 'Diameter' in item and item ['Diameter']:
-		    g.add( (us, CuCoO.hasDiameter,  Literal(item['Diameter'].strip()) ) )
+		    g.add( (us, CuCoO.hasDiameter,  Literal(item['Diameter'].strip(), datatype=XSD.int ) ))
 		if 'weight' in item and item ['weight']:
-		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip()) ) )
+		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip(), datatype=XSD.int ) ))
 		if 'URI1' in item and item['URI1'] :
 			desc = item['URI1'].strip()
 			g.add( (us, RDFS.seeAlso, URIRef(desc) ) )
