@@ -98,7 +98,7 @@ def make_uuid(item, graph, index = -1):
     # Do we want to create an entire URI or just the final part of the URI?
     # Some people call the final part of the URI 'the fragment' or 'the last alphanumerical string after the last slash'.
 	# All the URIs we create for Coin types will start like this: 
-	base_uri = "http://data.open.ac.uk/baetica/coin_type/"
+	base_uri = "http://data.open.ac.uk/context/erub/coin_type/"
 	uuid = None
 	if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
 		locn = item['ID'].strip()
@@ -147,7 +147,7 @@ for i, item in enumerate(list):
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
 		if 'Metrology' in item and item['Metrology'] :
-			base_uri = "http://data.open.ac.uk/baetica/"
+			base_uri = "http://data.open.ac.uk/context/erub/metrology/"
 			# Sanitise content
 			split = re.split("[,/\?]", item['Metrology'])
 			locs = []
@@ -155,7 +155,7 @@ for i, item in enumerate(list):
 			for sp in split:
 				locs = sp.strip()
 				if locs:
-					locs = base_uri + 'Metrology/' + unidecode.unidecode(locs.lower().replace(' ','_'))
+					locs = base_uri + unidecode.unidecode(locs.lower().replace(' ','_'))
 			g.add( ( subj, CuCoO.hasMetrology, URIRef(locs) ) )
 			
 		if 'Denomination' in item and item['Denomination'] :
@@ -171,7 +171,7 @@ for i, item in enumerate(list):
 			g.add( ( subj, nmo.hasEndDate, Literal(desc, datatype=XSD.date) ) )
 			
 		if 'Iconography' in item and item['Iconography'] :
-			base_uri = "http://data.open.ac.uk/baetica/"
+			base_uri = "http://data.open.ac.uk/context/erub/"
 			# Sanitise content
 			split = re.split("[,/\?]", item['Iconography'])
 			locs = []
@@ -185,6 +185,31 @@ for i, item in enumerate(list):
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
 			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
+			
+		if 'Similarity1' in item and item['Similarity1'] : 
+			for ma in re.findall(r"\w+", item['Similarity1']) :
+				similarity = 'http://nomisma.org/id/' + ma.strip().lower()
+				g.add( ( subj, CuCoO.similarTo, URIRef(similarity) ) )
+				
+		if 'Ethnicity_coinage_1' in item and item['Ethnicity_coinage_1'] :
+			desc = item['Ethnicity_coinage_1'].strip()
+			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
+			
+		if 'Ethnicity_coinage_2' in item and item['Ethnicity_coinage_2'] :
+			desc = item['Ethnicity_coinage_2'].strip()
+			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
+			
+		if 'Ethnicity_coinage_3' in item and item['Ethnicity_coinage_3'] :
+			desc = item['Ethnicity_coinage_3'].strip()
+			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
+			
+		if 'Coin_Character' in item and item['Coin_Character'] :
+			desc = item['Coin_Character'].strip()
+			character_u= URIRef('http://data.open.ac.uk/context/erub/coin_character/' + desc)
+			g.add( (subj, CuCoO.hasLingualCharacter, character_u ) )
 
 		# Deal with materials. Note: the URIs ending with #this are NOT mints!
 		if 'Material' in item and item['Material'] :
@@ -240,8 +265,11 @@ for i, item in enumerate(list):
 				g.add( ( obvinscr, rdf._1, obvinscr1 ) )
 				g.add( ( obvinscr, RDFS.member, obvinscr1 ) )
 				g.add( ( obvinscr1, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+				g.add( ( obvinscr1, RDF.type, CuCoO.CulturalContactTrait ) )
 				if 'ObverseLegend1' in item and item['ObverseLegend1'] :
 					g.add( ( obvinscr1, nmo.hasLegend, Literal(item['ObverseLegend1'].strip(), datatype=XSD.string) ) )
+				if 'Meaning1' in item and item ['Meaning1'] :
+					g.add( (obvinscr1, CuCoO.hasType, Literal(item['Meaning1'].strip(), lang='en') ) )
 				if 'ObverseLanguage1' in item and item['ObverseLanguage1'] :
 					lang = item['ObverseLanguage1'].strip()
 					ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
@@ -278,8 +306,11 @@ for i, item in enumerate(list):
 					g.add( ( revinscr, rdf._1, revinscr1 ) )
 					g.add( ( revinscr, RDFS.member, revinscr1 ) )
 					g.add( ( revinscr1, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+					g.add( ( revinscr1, RDF.type, CuCoO.CulturalContactTrait ) )
 					if 'ReverseLegend1' in item and item['ReverseLegend1'] :
-						g.add( ( revinscr1, nmo.hasLegend, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) )
+						g.add( ( revinscr1, nmo.hasLegend, Literal(item['ReverseLegend1'].strip(), datatype=XSD.string) ) ) 
+					if 'Meaning2' in item and item ['Meaning2'] :
+						g.add( (revinscr1, CuCoO.hasType, Literal(item['Meaning2'].strip(), lang='en') ) )
 					if 'ReverseLanguage1' in item and item['ReverseLanguage1'] :
 						lang = item['ReverseLanguage1'].strip()
 						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
@@ -295,8 +326,11 @@ for i, item in enumerate(list):
 					g.add( ( revinscr, rdf._2, revinscr2 ) )
 					g.add( ( revinscr, RDFS.member, revinscr2 ) )
 					g.add( ( revinscr2, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+					g.add( ( revinscr2, RDF.type, CuCoO.CulturalContactTrait ) )
 					if 'ReverseLegend2' in item and item['ReverseLegend2'] :
 						g.add( ( revinscr2, nmo.hasLegend, Literal(item['ReverseLegend2'].strip(), datatype=XSD.string) ) )
+					if 'Meaning3' in item and item ['Meaning3'] :
+						g.add( (revinscr2, CuCoO.hasType, Literal(item['Meaning3'].strip(), lang='en') ) )
 					if 'ReverseLanguage2' in item and item['ReverseLanguage2'] :
 						lang = item['ReverseLanguage2'].strip()
 						ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
@@ -309,8 +343,9 @@ for i, item in enumerate(list):
 						g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
 
 		# Correct to assume "Region" is the find spot?
+		#It is not the find spot, it is the region where the mint is located. 
 		if 'Region' in item and item['Region']:
-			base_uri = "http://data.open.ac.uk/baetica/"
+			base_uri = "http://data.open.ac.uk/context/erub/"
 			# Sanitise content
 			split = re.split("[,/\?]", item['Region'])
 			locs = []
@@ -318,7 +353,7 @@ for i, item in enumerate(list):
 			for sp in split:
 				lloc = sp.strip()
 				if lloc:
-					loc = base_uri + 'place/' + unidecode.unidecode(lloc.lower().replace(' ','_'))
+					loc = base_uri + 'modernRegion/' + unidecode.unidecode(lloc.lower().replace(' ','_'))
 					locs.append(loc)
 					g.add( ( URIRef(loc), RDF.type, crm.E53_Place ) )
 					g.add( ( URIRef(loc), RDFS.label, Literal(lloc,lang='es') ) )
