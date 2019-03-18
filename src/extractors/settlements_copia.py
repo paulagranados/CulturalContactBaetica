@@ -20,7 +20,7 @@ CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 crm = Namespace('http://erlangen-crm.org/current/')
 sit = Namespace('http://www.ontologydesignpatterns.org/cp/owl/timeindexedsituation.owl#')
 spatial = Namespace ('http://geovocab.org/spatial#')
-
+nmo = Namespace ('http://nomisma.org/ontology#')
 
 # These are the URIs of the RDF vocabularies that we can load
 vocabs = {
@@ -28,7 +28,7 @@ vocabs = {
 	'CuCoO': 'https://raw.githubusercontent.com/paulagranados/CuCoO/master/CuCoO.owl'
 }
 
-base = 'http://data.open.ac.uk/erub/'
+base = 'http://data.open.ac.uk/context/erub/'
 
 # Load the necessary vocabularies so we can query them locally
 # (Nomisma is only here as an example)
@@ -52,7 +52,7 @@ def make_uuid(item, graph, index = -1):
 	:param index: the row number you are making the ID for
 	'''
 	# All the URIs we create for Settlements will start like this
-	base_uri = "http://data.open.ac.uk/erub/settlement/"
+	base_uri = "http://data.open.ac.uk/context/erub/settlement/"
 	uuid = None
 	# WARN: note the space after Settlement : it is there becase there is one
 	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
@@ -97,34 +97,46 @@ for i, item in enumerate(list):
 		if 'Description' in item and item['Description'] :
 			desc = item['Description'].strip()
 			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
-						
+			
+		if 'Ethnicity_Hoz' in item and item ['Ethnicity_Hoz'] :
+			desc = item['Ethnicity_Hoz'].strip()
+			g.add( ( subj, CuCoO.hasEthnicity, Literal(desc, lang='en') ) ) 
+			
 		if 'Ethnicity_A1' in item and item['Ethnicity_A1'] :
 			desc = item['Ethnicity_A1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_B1' in item and item['Ethnicity_B1'] :
 			desc = item['Ethnicity_B1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_C1' in item and item['Ethnicity_C1'] :
 			desc = item['Ethnicity_C1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Conventus' in item and item['Conventus'] :
 			desc= item['Conventus'].strip()
-			desc= URIRef('http://data.open.ac.uk/erub/administrative_region/' + desc)
+			desc= URIRef('http://data.open.ac.uk/context/erub/administrative_region/' + desc)
 			g.add ( (subj, CuCoO.hasConventus, desc) )
 			
 		if 'FromDate' in item and item['FromDate'] :
 			desc = item['FromDate'].strip()
-			g.add( ( subj, CuCoO.hasStartDate, Literal(desc) ) )
+			g.add( ( subj, CuCoO.hasStartDate, Literal(desc, datatype=XSD.date) ) )
 			
 		if 'ToDate' in item and item['ToDate'] :
 			desc = item['ToDate'].strip()
-			g.add( ( subj, CuCoO.hasEndDate, Literal(desc) ) )
+			g.add( ( subj, CuCoO.hasEndDate, Literal(desc, datatype=XSD.date) ) )
+			
+		if 'Condition' in item and item ['Condition'] :
+			desc = item ['Condition'].strip()
+			g.add( ( subj,CuCoO.hasCondition, Literal(desc, lang='en') ) ) 
+			
+		if 'Description' in item and item ['Description'] :
+			desc = item ['Description'].strip()
+			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
 			
 		#Creating a ternary relationship between the settlements and the dates when they received a specific legal status.
 		#Osuna    has_Legal_Status    legalstatus_osuna_12345 .
@@ -168,14 +180,14 @@ for i, item in enumerate(list):
 		
 		if 'R-Province1' in item and item ['R-Province1'] :
 			prov1 = item['R-Province1'].strip()
-			prov1_u = URIRef('http://data.open.ac.uk/erub/pre-Augustean_province/Hispania_' + prov1)
+			prov1_u = URIRef('http://data.open.ac.uk/context/erub/pre-Augustean_province/Hispania_' + prov1)
 			prov1_dbp = URIRef('http://dbpedia.org/resource/Hispania_' + prov1)
 			g.add ( (subj, CuCoO.hasProvince, prov1_u) )
 			g.add ( (prov1_u, SKOS.closeMatch, prov1_dbp) ) 
 			
 		if 'R-Province2' in item and item ['R-Province2'] :
 			prov2 = item['R-Province2'].strip()
-			prov2_u = URIRef('http://data.open.ac.uk/erub/post-Augustean_province/Hispania_' + prov2)
+			prov2_u = URIRef('http://data.open.ac.uk/context/erub/post-Augustean_province/Hispania_' + prov2)
 			prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
 			g.add ( (subj, CuCoO.hasProvince, prov2_u) )
 			#if 'Lusitania' not in prov2_dbp : 
@@ -185,7 +197,7 @@ for i, item in enumerate(list):
 			
 		if 'Name1' in item and item ['Name1'] :
 			name1 = item['Name1'].strip()
-			name1_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name1)
+			name1_u = URIRef('http://data.open.ac.uk/context/erub/settlement_name/' + name1)
 			g.add ( (subj, CuCoO.hasName, name1_u) )
 			#if 'Name1_Pleaides_URI' in item and item ['Name1_Pleiades_URI'] :
 			#	name1_p = item['Name1_Pleaides_URI']
@@ -193,25 +205,31 @@ for i, item in enumerate(list):
 			
 		if 'Name2' in item and item ['Name2'] :
 			name2 = item['Name2'].strip()
-			name2_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name2)
+			namep = item['Name1_Pleiades_URI'].strip()
+			name2_u = URIRef('http://data.open.ac.uk/context/erub/settlement_name/' + name2)
 			g.add ( (subj, CuCoO.hasName, name2_u) )
+			g.add ( (name2_u, RDFS.seeAlso, URIRef (namep) ) )
 			
 		if 'Name3' in item and item ['Name3'] :
 			name3 = item['Name3'].strip()
-			name3_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name3)
+			name3_u = URIRef('http://data.open.ac.uk/context/erub/settlement_name/' + name3)
 			g.add ( (subj, CuCoO.hasName, name3_u) )
 			
 		if 'Name4' in item and item ['Name4'] :
 			name4 = item['Name4'].strip()
-			name4_u = URIRef('http://data.open.ac.uk/erub/settlement_name/' + name4)
+			name4_u = URIRef('http://data.open.ac.uk/context/erub/settlement_name/' + name4)
 			g.add ( (subj, CuCoO.hasName, name4_u) )
 			
 		if 'Current_name' in item and item ['Current_name'] :
 			current_name = item['Current_name']
-			# current_name_u = URIRef('http://data.open.ac.uk/baetica/settlement_name/' + current_name)
+			current_name_u = URIRef('http://data.open.ac.uk/context/baetica/settlement_name/' + current_name)
 			g.add ( ( subj, CuCoO.hasName, Literal(current_name, lang ='es') ) )
 			
 		#Alignment in order of compatibility: 
+		if 'Mint' in item and item ['Mint'] :
+			desc= item ['Mint'].strip()
+			g.add( (subj, nmo.hasMint, URIRef(desc) ) )
+			
 		if 'IAPH' in item and item['IAPH'] :
 			desc = item['IAPH'].strip()
 			g.add( (subj, RDFS.seeAlso, URIRef(desc) ) )
@@ -262,6 +280,7 @@ g.namespace_manager.bind('crm', crm)
 g.namespace_manager.bind('cucoo', CuCoO)
 g.namespace_manager.bind('sit', sit)
 g.namespace_manager.bind('skos', SKOS)
+g.namespace_manager.bind('nmo', URIRef('http://nomisma.org/ontology#'))
 # Add as many prefix bindings as the namespaces of your data 
 
 # ... to a file 'out/settlements.ttl' (will create the 'out' directory if missing)
