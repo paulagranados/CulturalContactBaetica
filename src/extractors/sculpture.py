@@ -177,11 +177,12 @@ for index, item in enumerate(list):
 		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
 
 #Create URIs for the persons in the sculptures:
+		pref_rs = 'http://data.open.ac.uk/context/erub/sculpture'
 		has_person = 'Person1' in item and item['Person1']
 		has_person_id ='Person1ID' in item and item['Person1ID'] 
 		if has_person and has_person_id :
-			person = has_person + has_person_id
-			person = URIRef(person)
+			person_uri = URIRef(pref_rs+ '/'+ has_person.lower() + has_person_id)
+			person = URIRef(person_uri)
 			g.add( ( us, epi.hasPerson, person ) )
 			if l: g.add( ( person, RDFS.label, Literal('person of ' + l, lang='en') ) ) 
 			if 'Gender_identity1' in item and item ['Gender_identity1'] :
