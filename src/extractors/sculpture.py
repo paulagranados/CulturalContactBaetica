@@ -18,7 +18,7 @@ crm = Namespace('http://erlangen-crm.org/current/')
 geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
 CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
-
+epi= Namespace('http://edh-www.adw.uni-heidelberg.de/edh/ontology#')
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
     'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf',
@@ -91,7 +91,7 @@ def make_uuid(item, graph, index = -1):
 	:param index: the row number you are making the ID for
 	'''
 	# All the URIs we create for Sculpture will start like this
-	base_uri = "http://data.open.ac.uk/erub/sculpture/"
+	base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
 	uuid = None
 	# WARN: note the space after Settlement : it is there becase there is one
 	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
@@ -119,7 +119,7 @@ g = Graph() # The final RDF graph
 list = google.get_data('SculptureData', 'A:AZ')
 
 # All the URIs we create for sculptures etc. will start like this
-base_uri = "http://data.open.ac.uk/erub/sculpture/"
+base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
 
 for index, item in enumerate(list):
 	subj = make_uuid(item, g)
@@ -177,11 +177,42 @@ for index, item in enumerate(list):
 			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
 	else:
 		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
-			
+		
+	
+#Create URIs for the persons in the sculptures:
+uricache = {}
+def make_person_uri(item, graph, index = -1):
+# All the URIs we create for Sculpture will start like this
+	base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
+	person_uri = None
+	if 'Person1' in item and item['Person1']and 'Person1ID ' in item and item['Person1ID'] :
+		locn = item['Person1'].strip()
+		ID = item['Person1ID'].strip()
+		if locn in uricache and ID in uricache[locn] : 
+			print('[WARN] there is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, id, uricache[locn][id]))
+		else:
+			if not locn in uricache : uricache[locn] = {}
+			p = re.compile('\s*\(.+\)')
+			hasz = abs(hash(locn + '/' + ID)) % (12 ** 8)
+			locn_sane = p.sub('', locn.lower().replace('/','--')).strip().replace(' ','_')
+			person_uri= base_uri + locn_sane + '/' + str(hasz)
+			uricache[locn][id] = person_uri
+	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
+	return person_uri
+
+for index, item in enumerate(list):
+	subj = make_person_uri(item, g)
+	if subj :
+		person_uri = URIRef(subj)
+		g.add(us, epi.hasPerson, URIRef(person_uri) )
+	if 'Gender_identity1' in item and item ['Gender_identity1'] :
+			g.add( (person_uri, cucoo.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) ) 
+																			
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
 g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
 g.namespace_manager.bind('cucoo', CuCoO)
+g.namespace_manager.bund('epi', epi)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'
