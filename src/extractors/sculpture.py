@@ -189,14 +189,14 @@ def make_person_uri(item, graph, index = -1):
 		locn = item['Person1'].strip()
 		ID = item['Person1ID'].strip()
 		if locn in uricache and ID in uricache[locn] : 
-			print('[WARN] there is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, id, uricache[locn][id]))
+			print('[WARN] there is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, ID, uricache[locn][Id]))
 		else:
 			if not locn in uricache : uricache[locn] = {}
 			p = re.compile('\s*\(.+\)')
 			hasz = abs(hash(locn + '/' + ID)) % (12 ** 8)
 			locn_sane = p.sub('', locn.lower().replace('/','--')).strip().replace(' ','_')
 			person_uri= base_uri + locn_sane + '/' + str(hasz)
-			uricache[locn][id] = person_uri
+			uricache[locn][ID] = person_uri
 	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return person_uri
 
