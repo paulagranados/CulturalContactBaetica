@@ -99,19 +99,17 @@ def make_uuid(item, graph, index = -1):
 		locn = item['f'].strip()
 		id = item['ID'].strip()
 		if locn in uricache and id in uricache[locn] : 
-			print('[WARN] there is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, id, uricache[locn][id]))
+			print('[WARN] There is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, id, uricache[locn][id]))
 		else:
 			if not locn in uricache : uricache[locn] = {}
 			# This is the part you were missing: you need to concatenate the elements
 			# that you want and assign the result to uuid, otherwise it will always be null!
 			uuid = base_uri + locn.lower().replace(' ','_') + '/' + id.lower()
 			uricache[locn][id] = uuid
-	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
+	else: print('[WARN] Row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
 	return uuid
 	
 g = Graph() # This will contain the final RDF graph
-
-g = Graph() # The final RDF graph
 
 # Get the Sculpture data from the online Google Sheet.
 # To use the local CSV file instead, change google.get_data to localcsv.get_data
@@ -122,8 +120,8 @@ list = google.get_data('SculptureData', 'A:AZ')
 base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
 
 for index, item in enumerate(list):
-	subj = make_uuid(item, g)
-	if subj :
+	subj = make_uuid(item, g, index)
+	if subj:
 		us = URIRef(subj)
 		g.add( ( us, RDF.type, URIRef('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/sculpture') ) )
 		if 'Description' in item and item['Description']:
@@ -184,15 +182,16 @@ for index, item in enumerate(list):
 		if has_person and has_person_id :
 			person = has_person + has_person_id
 			person = URIRef(person)
-			g.add( ( subj, epi.hasPerson, person ) )
-			if label: g.add( ( person, RDFS.label, Literal('person of ' + label, lang='en') ) ) 
+			g.add( ( us, epi.hasPerson, person ) )
+			if l: g.add( ( person, RDFS.label, Literal('person of ' + l, lang='en') ) ) 
 			if 'Gender_identity1' in item and item ['Gender_identity1'] :
 				g.add( ( person, CuCoO.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) ) 
 					
 																			
 # Print the graph in Turtle format to screen (with nice prefixes)
-g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
-g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
+g.namespace_manager.bind('crm', crm)
+g.namespace_manager.bind('dct', DCTERMS)
+g.namespace_manager.bind('geo', geo)
 g.namespace_manager.bind('cucoo', CuCoO)
 g.namespace_manager.bind('epi', epi)
 
