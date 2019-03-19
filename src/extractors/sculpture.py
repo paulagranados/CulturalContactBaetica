@@ -177,42 +177,24 @@ for index, item in enumerate(list):
 			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
 	else:
 		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
-		
-	
-#Create URIs for the persons in the sculptures:
-uricache = {}
-def make_person_uri(item, graph, index = -1):
-# All the URIs we create for Sculpture will start like this
-	base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
-	person_uri = None
-	if 'Person1' in item and item['Person1']and 'Person1ID ' in item and item['Person1ID'] :
-		locn = item['Person1'].strip()
-		ID = item['Person1ID'].strip()
-		if locn in uricache and ID in uricache[locn] : 
-			print('[WARN] there is already an item for Sculpture {0} and ID {1} : {2}'.format(locn, ID, uricache[locn][Id]))
-		else:
-			if not locn in uricache : uricache[locn] = {}
-			p = re.compile('\s*\(.+\)')
-			hasz = abs(hash(locn + '/' + ID)) % (12 ** 8)
-			locn_sane = p.sub('', locn.lower().replace('/','--')).strip().replace(' ','_')
-			person_uri= base_uri + locn_sane + '/' + str(hasz)
-			uricache[locn][ID] = person_uri
-	else: print('[WARN] row ' + str(index + 2) + ': Could not find suitable UUID to make an URI from.')
-	return person_uri
 
-for index, item in enumerate(list):
-	subj = make_person_uri(item, g)
-	if subj :
-		person_uri = URIRef(subj)
-		g.add(us, epi.hasPerson, URIRef(person_uri) )
-	if 'Gender_identity1' in item and item ['Gender_identity1'] :
-			g.add( (person_uri, cucoo.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) ) 
+#Create URIs for the persons in the sculptures:
+		has_person = 'Person1' in item and item['Person1']
+		has_person_id ='Person1ID' in item and item['Person1ID'] 
+		if has_person and has_person_id :
+			person = has_person + has_person_id
+			person = URIRef(person)
+			g.add( ( subj, epi.hasPerson, person ) )
+			if label: g.add( ( person, RDFS.label, Literal('person of ' + label, lang='en') ) ) 
+			if 'Gender_identity1' in item and item ['Gender_identity1'] :
+				g.add( ( person, CuCoO.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) ) 
+					
 																			
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', URIRef('http://www.cidoc-crm.org/cidoc-crm/'))
 g.namespace_manager.bind('geo', URIRef('http://www.w3.org/2003/01/geo/wgs84_pos#'))
 g.namespace_manager.bind('cucoo', CuCoO)
-g.namespace_manager.bund('epi', epi)
+g.namespace_manager.bind('epi', epi)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'
