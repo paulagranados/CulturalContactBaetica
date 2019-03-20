@@ -183,7 +183,7 @@ for index, item in enumerate(list):
 			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
 	else:
 		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
-
+		
 #Create URIs for the persons in the sculptures:
 		pref_rs = 'http://data.open.ac.uk/context/erub/sculpture'
 		has_person = 'Person1' in item and item['Person1']
