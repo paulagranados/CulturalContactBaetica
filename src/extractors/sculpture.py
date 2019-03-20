@@ -144,10 +144,14 @@ for index, item in enumerate(list):
 		    g.add( (us, CuCoO.hasDiameter,  Literal(item['Diameter'].strip(), datatype=XSD.int ) ))
 		if 'weight' in item and item ['weight']:
 		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip(), datatype=XSD.int ) ))
-		if 'MuseumAtribution' in item and item ['MuseumAtribution']:
-			desc = item['MuseumAtribution'].strip()
-			Museum_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
-			g.add( (us, CuCoO.isAssociatedWith, Museum_u ) )
+		if 'MuseumAtribution1' in item and item ['MuseumAtribution1']:
+			desc = item['MuseumAtribution1'].strip()
+			Museum_u1= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			g.add( (us, CuCoO.isAssociatedWith, Museum_u1 ) )
+		if 'MuseumAtribution2' in item and item ['MuseumAtribution2']:
+			desc = item['MuseumAtribution2'].strip()
+			Museum_u2= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			g.add( (us, CuCoO.isAssociatedWith, Museum_u2 ) )
 		if 'URI1' in item and item['URI1'] :
 			desc = item['URI1'].strip()
 			g.add( (us, RDFS.seeAlso, URIRef(desc) ) )
@@ -185,8 +189,7 @@ for index, item in enumerate(list):
 		has_person = 'Person1' in item and item['Person1']
 		has_person_id ='Person1ID' in item and item['Person1ID'] 
 		if has_person and has_person_id :
-			person_uri = URIRef(pref_rs+ '/'+ has_person.lower() + has_person_id)
-			person = URIRef(person_uri)
+			person = URIRef(pref_rs+ '/'+ has_person.lower() + has_person_id)
 			g.add( ( us, epi.hasPerson, person ) )
 			if l: g.add( ( person, RDFS.label, Literal('person of ' + l, lang='en') ) ) 
 			if 'Gender_identity1' in item and item ['Gender_identity1'] :
