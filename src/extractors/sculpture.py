@@ -144,6 +144,10 @@ for index, item in enumerate(list):
 		    g.add( (us, CuCoO.hasDiameter,  Literal(item['Diameter'].strip(), datatype=XSD.int ) ))
 		if 'weight' in item and item ['weight']:
 		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip(), datatype=XSD.int ) ))
+		if 'MuseumAtribution' in item and item ['MuseumAtribution']:
+			desc = item['MuseumAtribution'].strip()
+			Museum_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			g.add( (us, CuCoO.isAssociatedWith, Museum_u ) )
 		if 'URI1' in item and item['URI1'] :
 			desc = item['URI1'].strip()
 			g.add( (us, RDFS.seeAlso, URIRef(desc) ) )
@@ -186,7 +190,11 @@ for index, item in enumerate(list):
 			g.add( ( us, epi.hasPerson, person ) )
 			if l: g.add( ( person, RDFS.label, Literal('person of ' + l, lang='en') ) ) 
 			if 'Gender_identity1' in item and item ['Gender_identity1'] :
-				g.add( ( person, CuCoO.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) ) 
+				g.add( ( person, CuCoO.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) )
+			if 'Clothes' in item and item ['Clothes']:
+				g.add( ( person, CuCoO.wears, Literal(item['Clothes'].strip(), lang='en') ) )
+			if 'Accesories' in item and item ['Accesories'] :
+				g.add( ( person, CuCoO.hasAccesories, Literal(item['Accesories'].strip(), lang='en') ) )
 					
 																			
 # Print the graph in Turtle format to screen (with nice prefixes)
