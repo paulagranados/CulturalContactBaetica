@@ -91,7 +91,7 @@ def make_uuid(item, graph, index = -1):
 	:param index: the row number you are making the ID for
 	'''
 	# All the URIs we create for Sculpture will start like this
-	base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
+	base_uri = "http://data.open.ac.uk/erub/sculpture/"
 	uuid = None
 	# WARN: note the space after Settlement : it is there becase there is one
 	# on the spreadsheet. DO NOT CHANGE IT unless you change it on the spreadsheet first!
@@ -117,7 +117,7 @@ g = Graph() # This will contain the final RDF graph
 list = google.get_data('SculptureData', 'A:AZ')
 
 # All the URIs we create for sculptures etc. will start like this
-base_uri = "http://data.open.ac.uk/context/erub/sculpture/"
+base_uri = "http://data.open.ac.uk/erub/sculpture/"
 
 for index, item in enumerate(list):
 	subj = make_uuid(item, g, index)
@@ -146,11 +146,11 @@ for index, item in enumerate(list):
 		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip(), datatype=XSD.int ) ))
 		if 'MuseumAtribution1' in item and item ['MuseumAtribution1']:
 			desc = item['MuseumAtribution1'].strip()
-			Museum_u1= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			Museum_u1= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (us, CuCoO.isAssociatedWith, Museum_u1 ) )
 		if 'MuseumAtribution2' in item and item ['MuseumAtribution2']:
 			desc = item['MuseumAtribution2'].strip()
-			Museum_u2= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			Museum_u2= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (us, CuCoO.isAssociatedWith, Museum_u2 ) )
 		if 'URI1' in item and item['URI1'] :
 			desc = item['URI1'].strip()
@@ -181,23 +181,26 @@ for index, item in enumerate(list):
 			g.add( ( us, RDFS.label, Literal(l,lang='en') ) )
 		else:
 			print('[WARN] Row ' + str(index + 2) + ' failed to generate a label.')
-	else:
-		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
-		
-#Create URIs for the persons in the sculptures:
-		pref_rs = 'http://data.open.ac.uk/context/erub/sculpture'
+
+		# Create URIs for the persons in the sculptures:
+		pref_rs = 'http://data.open.ac.uk/erub/depiction/'
 		has_person = 'Person1' in item and item['Person1']
 		has_person_id ='Person1ID' in item and item['Person1ID'] 
 		if has_person and has_person_id :
-			person = URIRef(pref_rs+ '/'+ has_person.lower() + has_person_id)
+			person = URIRef(pref_rs + has_person.lower().replace(' ','_') + '-' + has_person_id)
 			g.add( ( us, epi.hasPerson, person ) )
-			if l: g.add( ( person, RDFS.label, Literal('person of ' + l, lang='en') ) ) 
+			if l: g.add( ( person, RDFS.label, Literal(l + ' depicts a person', lang='en') ) ) 
 			if 'Gender_identity1' in item and item ['Gender_identity1'] :
 				g.add( ( person, CuCoO.hasGenderIdentity, Literal(item['Gender_identity1'].strip(), lang='en') ) )
 			if 'Clothes' in item and item ['Clothes']:
 				g.add( ( person, CuCoO.wears, Literal(item['Clothes'].strip(), lang='en') ) )
 			if 'Accesories' in item and item ['Accesories'] :
 				g.add( ( person, CuCoO.hasAccesories, Literal(item['Accesories'].strip(), lang='en') ) )
+
+	else:
+		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
+		
+
 					
 																			
 # Print the graph in Turtle format to screen (with nice prefixes)
