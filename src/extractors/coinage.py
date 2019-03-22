@@ -98,7 +98,7 @@ def make_uuid(item, graph, index = -1):
     # Do we want to create an entire URI or just the final part of the URI?
     # Some people call the final part of the URI 'the fragment' or 'the last alphanumerical string after the last slash'.
 	# All the URIs we create for Coin types will start like this: 
-	base_uri = "http://data.open.ac.uk/context/erub/coin_type/"
+	base_uri = "http://data.open.ac.uk/erub/coin_type/"
 	uuid = None
 	if 'ID' in item and item['ID'] and 'Series ' in item and item['Series '] :
 		locn = item['ID'].strip()
@@ -147,7 +147,7 @@ for i, item in enumerate(list):
 			g.add( ( subj, RDFS.label, Literal(label, lang='en') ) )
 			
 		if 'Metrology' in item and item['Metrology'] :
-			base_uri = "http://data.open.ac.uk/context/erub/metrology/"
+			base_uri = "http://data.open.ac.uk/erub/metrology/"
 			# Sanitise content
 			split = re.split("[,/\?]", item['Metrology'])
 			locs = []
@@ -171,7 +171,7 @@ for i, item in enumerate(list):
 			g.add( ( subj, nmo.hasEndDate, Literal(desc) ) )
 			
 		if 'Iconography' in item and item['Iconography'] :
-			base_uri = "http://data.open.ac.uk/context/erub/"
+			base_uri = "http://data.open.ac.uk/erub/"
 			# Sanitise content
 			split = re.split("[,/\?]", item['Iconography'])
 			locs = []
@@ -193,22 +193,22 @@ for i, item in enumerate(list):
 				
 		if 'Ethnicity_coinage_1' in item and item['Ethnicity_coinage_1'] :
 			desc = item['Ethnicity_coinage_1'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_coinage_2' in item and item['Ethnicity_coinage_2'] :
 			desc = item['Ethnicity_coinage_2'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Ethnicity_coinage_3' in item and item['Ethnicity_coinage_3'] :
 			desc = item['Ethnicity_coinage_3'].strip()
-			ethnicity_u= URIRef('http://data.open.ac.uk/context/erub/cultural_identity/' + desc)
+			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
 			g.add( (subj, CuCoO.isAssociatedWith, ethnicity_u ) )
 			
 		if 'Coin_Character' in item and item['Coin_Character'] :
 			desc = item['Coin_Character'].strip()
-			character_u= URIRef('http://data.open.ac.uk/context/erub/coin_character/' + desc)
+			character_u= URIRef('http://data.open.ac.uk/erub/coin_character/' + desc)
 			g.add( (subj, CuCoO.hasLingualCharacter, character_u ) )
 
 		# Deal with materials. Note: the URIs ending with #this are NOT mints!
@@ -345,7 +345,7 @@ for i, item in enumerate(list):
 		# Correct to assume "Region" is the find spot?
 		#It is not the find spot, it is the region where the mint is located. 
 		if 'Region' in item and item['Region']:
-			base_uri = "http://data.open.ac.uk/context/erub/"
+			base_uri = "http://data.open.ac.uk/erub/"
 			# Sanitise content
 			split = re.split("[,/\?]", item['Region'])
 			locs = []
