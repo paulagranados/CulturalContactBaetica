@@ -19,6 +19,8 @@ geo = Namespace('http://www.w3.org/2003/01/geo/wgs84_pos#')
 ple_place = Namespace('https://pleiades.stoa.org/places/')
 CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 epi= Namespace('http://edh-www.adw.uni-heidelberg.de/edh/ontology#')
+rs = Namespace ('http://www.researchspace.org/ontology/')
+nmo = Namespace ('http://nomisma.org/ontology#')
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
     'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf',
@@ -144,6 +146,12 @@ for index, item in enumerate(list):
 		    g.add( (us, CuCoO.hasDiameter,  Literal(item['Diameter'].strip(), datatype=XSD.int ) ))
 		if 'weight' in item and item ['weight']:
 		    g.add( (us, CuCoO.hasWeight,  Literal(item['weight'].strip(), datatype=XSD.int ) ))
+		if 'Iconography' in item and item['Iconography'] :
+		    g.add( (us, CuCoO.depicts,  Literal(item['Iconography'].strip(), lang='en') ))
+		if 'SD' in item and item['SD'] :
+		    g.add( (us, nmo.hasStartDate, Literal(item['SD'].strip(), datatype=XSD.int ) ))
+		if 'ED' in item and item['ED'] :
+			g.add( ( us, nmo.hasEndDate, Literal(item['ED'].strip(), datatype=XSD.int ) ))
 		if 'MuseumAtribution1' in item and item ['MuseumAtribution1']:
 			desc = item['MuseumAtribution1'].strip()
 			Museum_u1= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
@@ -196,12 +204,41 @@ for index, item in enumerate(list):
 				g.add( ( person, CuCoO.wears, Literal(item['Clothes'].strip(), lang='en') ) )
 			if 'Accesories' in item and item ['Accesories'] :
 				g.add( ( person, CuCoO.hasAccesories, Literal(item['Accesories'].strip(), lang='en') ) )
-
+			if 'Hair' in item and item ['Hair']:
+				g.add( ( person, CuCoO.hasHairStyle, Literal(item['Hair'].strip(), lang='en') ) ) 
+				
+		# Look for inscriptions, their languages etc.
+		pref_rs_thes= 'http://collection.britishmuseum.org/id/thesauri/'
+		has_inscr = 'Text' in item and item['Text'] \
+			or 'Language' in item and item['Language'] \
+			or 'Script' in item and item['Script'] \
+			or 'InscriptionComment' in item and item['InscriptionComment']
+		if has_inscr:
+			ins = URIRef(us + '/inscription')
+			g.add( ( us, CuCoO.hasInscription, ins ) ) 
+			g.add( ( ins, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+			g.add( ( ins, RDF.type, CuCoO.CulturalContactTrait ) )
+			if l: g.add( ( ins, RDFS.label, Literal('inscription of' + l, lang='en') ) )
+			if has_inscr:
+				if 'Text' in item and item['Text'] :
+					g.add( ( ins, crm.P128_carries, Literal(item['Text'].strip(), datatype=XSD.string) ) )
+				if 'Language' in item and item['Language'] :
+					lang = item['Language'].strip()
+					ulang = URIRef(pref_rs_thes+'language/' + lang.lower().replace(' ','_'))
+					g.add( ( ins, crm.P72_has_language, ulang ) )
+					g.add( ( ulang, RDFS.label, Literal(lang, lang='en') ) )
+				if 'Script' in item and item['Script'] :
+					scr = item['Script'].strip()
+					uscr = URIRef(pref_rs_thes+'Script/' + scr.lower().replace(' ','_'))
+					g.add( ( ins, rs.PX_inscription_script, uscr ) )
+					g.add( ( uscr, RDFS.label, Literal(scr, lang='en') ) )
+				if 'InscriptionComment' in item and item['InscriptionComment']:
+					scr = item['InscriptionComment'].strip()
+					g.add( ( ins, RDFS.comment, Literal(scr, lang='en') ) )
+					
 	else:
 		print('[WARN] Row ' + str(index + 2) + ' failed to generate a UUID.')
 		
-
-					
 																			
 # Print the graph in Turtle format to screen (with nice prefixes)
 g.namespace_manager.bind('crm', crm)
@@ -209,6 +246,8 @@ g.namespace_manager.bind('dct', DCTERMS)
 g.namespace_manager.bind('geo', geo)
 g.namespace_manager.bind('cucoo', CuCoO)
 g.namespace_manager.bind('epi', epi)
+g.namespace_manager.bind('rs', rs)
+g.namespace_manager.bind('nmo', nmo)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'
