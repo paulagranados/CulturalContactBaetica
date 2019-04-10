@@ -189,9 +189,10 @@ for i, item in enumerate(list):
 			prov2 = item['R-Province2'].strip()
 			prov2_u = URIRef('http://data.open.ac.uk/erub/post-Augustean_province/Hispania_' + prov2)
 			prov2_dbp = URIRef('http://dbpedia.org/resource/Hispania_'+ prov2)
-			g.add ( (subj, CuCoO.hasProvince, prov2_u) )
-			#if 'Lusitania' not in prov2_dbp : 
+			g.add ( (subj, CuCoO.hasProvince, prov2_u) ) 
 			g.add ( (prov2_u, SKOS.closeMatch, prov2_dbp) )
+			if 'Hispania_Baetica' in prov2_u :
+				g.add ( (prov2_u, SKOS.exactMatch, URIRef('http://edh-www.adw.uni-heidelberg.de/edh/geographie/900030') ) )
 			
 		#Different names for the settlements along time. 
 			

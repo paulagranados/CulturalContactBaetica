@@ -21,6 +21,7 @@ CuCoO = Namespace('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/')
 epi= Namespace('http://edh-www.adw.uni-heidelberg.de/edh/ontology#')
 rs = Namespace ('http://www.researchspace.org/ontology/')
 nmo = Namespace ('http://nomisma.org/ontology#')
+lawd = Namespace ('http://lawd.info/ontology/')
 vocabs = {
     'material': 'https://www.eagle-network.eu/voc/material.rdf', 
     'object_type': 'https://www.eagle-network.eu/voc/objtyp.rdf',
@@ -152,6 +153,9 @@ for index, item in enumerate(list):
 		    g.add( (us, nmo.hasStartDate, Literal(item['SD'].strip(), datatype=XSD.int ) ))
 		if 'ED' in item and item['ED'] :
 			g.add( ( us, nmo.hasEndDate, Literal(item['ED'].strip(), datatype=XSD.int ) ))
+		if 'foundAt' in item and item['foundAt'] :
+			desc = item['foundAt'].strip()
+			g.add( ( us, lawd.foundAt, URIRef(desc) ) ) 
 		if 'MuseumAtribution1' in item and item ['MuseumAtribution1']:
 			desc = item['MuseumAtribution1'].strip()
 			Museum_u1= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
@@ -216,7 +220,7 @@ for index, item in enumerate(list):
 		if has_inscr:
 			ins = URIRef(us + '/inscription')
 			g.add( ( us, CuCoO.hasInscription, ins ) ) 
-			g.add( ( ins, RDF.type, crm.E34_Inscription ) ) # E34_Inscription
+			g.add( ( ins, RDF.type, epi.inscription ) )
 			g.add( ( ins, RDF.type, CuCoO.CulturalContactTrait ) )
 			if l: g.add( ( ins, RDFS.label, Literal('inscription of' + l, lang='en') ) )
 			if has_inscr:
@@ -248,6 +252,7 @@ g.namespace_manager.bind('cucoo', CuCoO)
 g.namespace_manager.bind('epi', epi)
 g.namespace_manager.bind('rs', rs)
 g.namespace_manager.bind('nmo', nmo)
+g.namespace_manager.bind('lawd', lawd)
 
 # ... to a file 'out/sculpture.ttl' (will create the 'out' directory if missing)
 dir = 'out'

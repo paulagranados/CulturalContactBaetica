@@ -6,30 +6,27 @@
 
 If the object has carving type high_relief, then the Object has cultural influence Roman.
 
-	PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
-	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
-	CONSTRUCT {
-	    ?x cucoo:Has_Cultural_Influence cucoo-ext:Roman
-	} WHERE {
-		?x cucoo:Has_Carving cucoo-ext:high_relief
-	}
-	
+PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO/>
+CONSTRUCT {
+?x cucoo:isAssociatedWith <http://data.open.ac.uk/erub/cultural_identity/Roman>
+} WHERE {
+?x cucoo:hasCarving "high_relief"@en
+}
+
 			
 if the object has caring type low_relief, then the object has cultural influence Indigenous. 
 
-        PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
-	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
-	CONSTRUCT {
-	    ?x cucoo:Has_Cultural_Influence cucoo-ext:(everything but Roman)
-	} WHERE {
-		?x cucoo:Has_Carving cucoo-ext:low_relief
-	}
-	
+PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO/>
+CONSTRUCT {
+?x cucoo:isAssociatedWith <http://data.open.ac.uk/erub/cultural_identity/Non-Roman>
+} WHERE {
+?x cucoo:hasCarving "low_relief"@en
+}
 			
 if the object has caring type schematic_folds then the object has cultural influence Indigenous. 
 
-  PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
-	PREFIX cucoo-ext: <http://www.semanticweb.org/paulagranadosgarcia/CuCo-Ext/>
+ PREFIX cucoo: <http://www.semanticweb.org/paulagranadosgarcia/CuCoO.owl/>
+
 	CONSTRUCT {
 	    ?x cucoo:Has_Cultural_Influence cucoo-ext:(everything but Roman)
 	} WHERE {

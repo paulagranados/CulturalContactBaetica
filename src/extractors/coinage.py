@@ -181,10 +181,6 @@ for i, item in enumerate(list):
 				if locs:
 					locs = base_uri + 'Iconography/' + unidecode.unidecode(locs.lower().replace(' ','_'))	
 			g.add( ( subj, CuCoO.hasIconography, URIRef(locs) ) )
-
-		if 'Description' in item and item['Description'] :
-			desc = item['Description'].strip()
-			g.add( ( subj, RDFS.comment, Literal(desc, lang='en') ) )
 			
 		if 'Similarity1' in item and item['Similarity1'] : 
 			for ma in re.findall(r"\w+", item['Similarity1']) :
@@ -209,7 +205,7 @@ for i, item in enumerate(list):
 		if 'Coin_Character' in item and item['Coin_Character'] :
 			desc = item['Coin_Character'].strip()
 			character_u= URIRef('http://data.open.ac.uk/erub/coin_character/' + desc)
-			g.add( (subj, CuCoO.hasLingualCharacter, character_u ) )
+			g.add( (subj, CuCoO.hasLinguisticPhenomenon, character_u ) )
 
 		# Deal with materials. Note: the URIs ending with #this are NOT mints!
 		if 'Material' in item and item['Material'] :
@@ -218,10 +214,24 @@ for i, item in enumerate(list):
 				g.add( ( subj, nmo.hasMaterial, URIRef(material) ) )
 		
 		# Deal with mints. Note: the URIs ending with #this are NOT mints!
-		if 'Mint' in item and item['Mint'] :
+		has_mint ='Mint' in item and item['Mint']
+		has_settlement ='Settlement' in item and item['Settlement']
+		has_description ='Description' in item and item['Description']
+		has_mint_character = 'Mint_Character' in item and item['Mint_Character']
+		if has_mint :
 			mint = item['Mint'].strip()
 			p = rs.Thing_created_at_Place if mint.endswith('#this') else nmo.hasMint
 			g.add( ( subj, URIRef(p), URIRef(mint) ) )
+		if has_settlement :
+			desc = item['Settlement'].strip()
+			g.add( (URIRef(mint), CuCoO.inSettlement, URIRef(desc) ) )
+		if has_description: 
+			desc = item['Description'].strip()
+			g.add( (URIRef(mint), RDFS.comment, Literal(desc, lang='en') ) )
+		if has_mint_character:
+			desc = item['Mint_Character'].strip()
+			character_u= URIRef('http://data.open.ac.uk/erub/mint_character/' + desc)
+			g.add( (URIRef(mint), CuCoO.hasLinguisticPhenomenon, character_u ) )		
 			
 		# Check for British Museum ResearchSpace mappings and save them for later
 		if 'BM' in item and item['BM']:
@@ -483,4 +493,3 @@ print('DONE. ' + str(len(g)) + ' triples written to ' + path)
     
    
     
-
