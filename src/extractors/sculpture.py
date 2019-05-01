@@ -170,6 +170,9 @@ for index, item in enumerate(list):
 		if 'URI2' in item and item['URI2'] :
 			desc = item['URI2'].strip()
 			g.add( (us, RDFS.seeAlso, URIRef(desc) ) )
+		if 'foundAt' in item and item['foundAt'] :
+			desc = item['foundAt'].strip()
+			g.add( (us, lawd.foundAt, URIRef(desc) ) )
 		if 'Material ' in item and item['Material ']:
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: um = match

@@ -229,7 +229,7 @@ for i, item in enumerate(list):
 		#Alignment in order of compatibility: 
 		if 'Mint' in item and item ['Mint'] :
 			desc= item ['Mint'].strip()
-			g.add( (subj, nmo.hasMint, URIRef(desc) ) )
+			g.add( (subj, CuCoO.hasMint, URIRef(desc) ) )
 			
 		if 'IAPH' in item and item['IAPH'] :
 			desc = item['IAPH'].strip()

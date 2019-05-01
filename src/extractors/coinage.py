@@ -162,6 +162,18 @@ for i, item in enumerate(list):
 			desc = item['Denomination'].strip()
 			g.add( ( subj, nmo.hasDenomination, Literal(desc)) )
 			
+		if 'Series' in item and item['Series'] :
+			desc = item['Series'].strip()
+			g.add( ( subj, CuCoO.Series, Literal(desc)) )
+			
+		if 'Type' in item and item['Type'] :
+			desc = item['Type'].strip()
+			g.add( ( subj, CuCoO.Type, Literal(desc)) )
+			
+		if 'Variation' in item and item['Variation'] :
+			desc = item['Variation'].strip()
+			g.add( ( subj, CuCoO.typeVariation, Literal(desc)) )
+			
 		if 'FromDate' in item and item['FromDate'] :
 			desc = item['FromDate'].strip()
 			g.add( ( subj, nmo.hasStartDate, Literal(desc) ) )
@@ -182,11 +194,6 @@ for i, item in enumerate(list):
 					locs = base_uri + 'Iconography/' + unidecode.unidecode(locs.lower().replace(' ','_'))	
 			g.add( ( subj, CuCoO.hasIconography, URIRef(locs) ) )
 			
-		if 'Similarity1' in item and item['Similarity1'] : 
-			for ma in re.findall(r"\w+", item['Similarity1']) :
-				similarity = 'http://nomisma.org/id/' + ma.strip().lower()
-				g.add( ( subj, CuCoO.similarTo, URIRef(similarity) ) )
-				
 		if 'Ethnicity_coinage_1' in item and item['Ethnicity_coinage_1'] :
 			desc = item['Ethnicity_coinage_1'].strip()
 			ethnicity_u= URIRef('http://data.open.ac.uk/erub/cultural_identity/' + desc)
@@ -218,21 +225,38 @@ for i, item in enumerate(list):
 		has_settlement ='Settlement' in item and item['Settlement']
 		has_description ='Description' in item and item['Description']
 		has_mint_character = 'Mint_Character' in item and item['Mint_Character']
+		has_similarity = 'Similarity1' in item and item['Similarity1'] \
+			or 'Similarity2' in item and item['Similarity2'] \
+			or 'Similarity3' in item and item['Similarity3']
+		has_group = 'Group' in item and item['Group']
 		if has_mint :
 			mint = item['Mint'].strip()
 			p = rs.Thing_created_at_Place if mint.endswith('#this') else nmo.hasMint
 			g.add( ( subj, URIRef(p), URIRef(mint) ) )
 		if has_settlement :
-			desc = item['Settlement'].strip()
+			settlement = item['Settlement'].strip()
+			g.add( (URIRef(mint), CuCoO.inSettlement, URIRef(settlement) ) )
+		if has_description : 
+			description = item['Description'].strip()
+			g.add( (URIRef(mint), RDFS.comment, Literal(description, lang='en') ) )
+		if has_mint_character :
+			character = item['Mint_Character'].strip()
+			character_u= URIRef('http://data.open.ac.uk/erub/mint_character/' + character)
+			g.add( (URIRef(mint), CuCoO.hasLinguisticPhenomenon, character_u ) )
+		if has_similarity :
+			similarity = item['Similarity1'].strip()
+			similarity1 = URIRef('http://nomisma.org/id/' + similarity)
+			g.add( ( subj, CuCoO.similarTo, URIRef(similarity1) ) )
+			similarity = item['Similarity2'].strip()
+			similarity2 = URIRef('http://nomisma.org/id/' + similarity)
+			g.add( ( subj, CuCoO.similarTo, URIRef(similarity2) ) )
+			desc = item['Similarity3'].strip()
+			similarity3 = URIRef('http://nomisma.org/id/' + similarity)
+			g.add( ( subj, CuCoO.similarTo, URIRef(similarity3) ) )
+		if has_group :
+			desc = item['Group'].strip()
 			g.add( (URIRef(mint), CuCoO.inSettlement, URIRef(desc) ) )
-		if has_description: 
-			desc = item['Description'].strip()
-			g.add( (URIRef(mint), RDFS.comment, Literal(desc, lang='en') ) )
-		if has_mint_character:
-			desc = item['Mint_Character'].strip()
-			character_u= URIRef('http://data.open.ac.uk/erub/mint_character/' + desc)
-			g.add( (URIRef(mint), CuCoO.hasLinguisticPhenomenon, character_u ) )		
-			
+						
 		# Check for British Museum ResearchSpace mappings and save them for later
 		if 'BM' in item and item['BM']:
 			mappings_rs[subj] = item['BM'].strip()
