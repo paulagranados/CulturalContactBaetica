@@ -246,16 +246,16 @@ for i, item in enumerate(list):
 		if has_similarity :
 			similarity = item['Similarity1'].strip()
 			similarity1 = URIRef('http://nomisma.org/id/' + similarity)
-			g.add( ( subj, CuCoO.similarTo, URIRef(similarity1) ) )
+			g.add( (URIRef(mint), CuCoO.similarTo, URIRef(similarity1) ) )
 			similarity = item['Similarity2'].strip()
 			similarity2 = URIRef('http://nomisma.org/id/' + similarity)
-			g.add( ( subj, CuCoO.similarTo, URIRef(similarity2) ) )
+			g.add( (URIRef(mint), CuCoO.similarTo, URIRef(similarity2) ) )
 			desc = item['Similarity3'].strip()
 			similarity3 = URIRef('http://nomisma.org/id/' + similarity)
-			g.add( ( subj, CuCoO.similarTo, URIRef(similarity3) ) )
+			g.add( (URIRef(mint), CuCoO.similarTo, URIRef(similarity3) ) )
 		if has_group :
 			desc = item['Group'].strip()
-			g.add( (URIRef(mint), CuCoO.inSettlement, URIRef(desc) ) )
+			g.add( (URIRef(mint), CuCoO.inGroup, URIRef(desc) ) )
 						
 		# Check for British Museum ResearchSpace mappings and save them for later
 		if 'BM' in item and item['BM']:
