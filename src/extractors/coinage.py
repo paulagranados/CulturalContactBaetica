@@ -255,7 +255,8 @@ for i, item in enumerate(list):
 			g.add( (URIRef(mint), CuCoO.similarTo, URIRef(similarity3) ) )
 		if has_group :
 			desc = item['Group'].strip()
-			g.add( (URIRef(mint), CuCoO.inGroup, URIRef(desc) ) )
+			group_u = URIRef('http://data.open.ac.uk/erub/mint_group/' + desc)
+			g.add( (URIRef(mint), CuCoO.inGroup, URIRef(group_u) ) )
 						
 		# Check for British Museum ResearchSpace mappings and save them for later
 		if 'BM' in item and item['BM']:
