@@ -128,13 +128,13 @@ for index, item in enumerate(list):
 		us = URIRef(subj)
 		g.add( ( us, RDF.type, URIRef('http://www.semanticweb.org/paulagranadosgarcia/CuCoO/sculpture') ) )
 		if 'Description' in item and item['Description']:
-			g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
-		if 'Carving' in item and item ['Carving']:
-		    g.add( (us, CuCoO.hasCarving,  Literal(item['Carving'].strip(), lang='en') ) ) 
-		if 'Technique' in item and item ['Technique']:
+		    g.add( ( us, DCTERMS.description, Literal(item['Description'].strip(),lang='en') ) )
+		if 'Technique' in item and item ['Technique'] :
 		    g.add( (us, CuCoO.hasTechnique,  Literal(item['Technique'].strip(), lang='en') ) )		# Look for an exact match on the material (using the Eagle vocabulary)
 		if 'Shape' in item and item ['Shape']:
 		    g.add( (us, CuCoO.hasShape,  Literal(item['Shape'].strip(), lang='en') ) )
+		if 'Carving' in item and item ['Carving']:
+		    g.add( (us, CuCoO.hasCarving,  Literal(item['Carving'].strip(), lang='en') ) )		
 		if 'Height' in item and item ['Height']:
 		    g.add( (us, CuCoO.hasHeight,  Literal(item['Height'].strip(), datatype=XSD.int ) ))
 		if 'width' in item and item ['width']:
@@ -173,7 +173,13 @@ for index, item in enumerate(list):
 		if 'foundAt' in item and item['foundAt'] :
 			desc = item['foundAt'].strip()
 			g.add( (us, lawd.foundAt, URIRef(desc) ) )
-		if 'Material ' in item and item['Material ']:
+		if 'Museum' in item and item['Museum'] :
+			g.add( ( us, crm.P50_has_current_keeper, Literal(item['Museum'].strip(), lang='sp') ) ) 
+		if 'ID' in item and item['ID'] :
+			desc = item['ID'].strip()
+			ID_1 = URIRef('http://data.open.ac.uk/erub/sculpture/ID/' + desc)
+			g.add( ( us, crm.P1_is_identified_by, URIRef(ID_1) ) )
+		if 'Material ' in item and item['Material '] :
 			match = lookup_eagle(item['Material '].strip(), 'material', 'https://www.eagle-network.eu/voc/material/')
 			if match: um = match
 			else: um = crdf.make_basic_entity(t, g, crm.E57_Material)
